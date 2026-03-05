@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Коскина - Студия брейдинга</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                        display: ['Comfortaa', 'cursive', 'sans-serif'],
+                        iskra: ['Jost', 'sans-serif'],
+                    },
+                    colors: {
+                        'bg-primary': '#F5F5F3',
+                        'text-primary': '#1A1A1A',
+                        'text-secondary': '#555555',
+                        'accent-orange': '#FF7A59',
+                        'btn-dark': '#2D2C2A',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F5F5F3;
+            color: #1A1A1A;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .animate-draw-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawLine 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes drawLine {
+            0% { stroke-dashoffset: 1000; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-bg-primary">
+
+<div class="min-h-screen w-full relative flex flex-col bg-bg-primary">
+  
+  <!-- Header (Fixed) -->
+  <header 
+    id="main-header"
+    class="fixed top-0 left-0 w-full z-50 transition-all duration-300 px-4 md:px-6 py-4 md:py-6 text-white mix-blend-difference"
+  >
+    <div class="max-w-[1400px] mx-auto flex flex-row justify-between items-center">
+      <!-- Left: Logo Area -->
+      <div class="flex flex-col justify-between h-9 md:h-11 w-max select-none">
+        <div class="flex justify-between w-full text-[0.5rem] md:text-[0.65rem] leading-none uppercase tracking-wider">
+          <span>С</span><span>т</span><span>у</span><span>д</span><span>и</span><span>я</span>
+          <span class="w-1 md:w-2"></span>
+          <span>б</span><span>р</span><span>е</span><span>й</span><span>д</span><span>и</span><span>н</span><span>г</span><span>а</span>
+        </div>
+        <div class="flex justify-between w-full text-lg md:text-2xl leading-none font-bold uppercase font-iskra">
+          <span>К</span><span>о</span><span>с</span><span>к</span><span>и</span><span>н</span><span>а</span>
+        </div>
+      </div>
+
+      <!-- Right: Info & Action -->
+      <div class="flex flex-row items-center gap-6">
+        <div class="text-xs md:text-sm text-white/80 text-right leading-tight font-medium uppercase tracking-wider hidden lg:block">
+          <p>по предварительной записи</p>
+          <p>ул. красный путь 143</p>
+        </div>
+        <button class="h-9 md:h-11 px-6 rounded-full bg-white text-black text-xs md:text-sm font-medium hover:bg-gray-100 transition-colors border-none cursor-pointer flex items-center">
+          Записаться
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Top Image Container (Full Width & Top) -->
+  <div class="relative w-full h-[70vh] rounded-b-[40px] md:rounded-b-[80px] overflow-hidden shrink-0">
+    <img 
+      src="https://i.imgur.com/XzKKRDl.jpeg" 
+      alt="Braiding Studio Portrait" 
+      class="absolute inset-0 w-full h-full object-cover"
+      referrerpolicy="no-referrer"
+    />
+    <div class="absolute inset-0 bg-black/40"></div> <!-- Dark overlay for white text -->
+  </div>
+
+  <!-- Main Content -->
+  <main class="flex-grow w-full overflow-x-hidden mt-12 md:mt-20 mb-20">
+    <div class="flex flex-col items-center justify-center relative w-full max-w-[1400px] mx-auto px-4">
+    
+      <!-- Typography & Wavy Line Container -->
+      <div class="relative w-full flex flex-col items-center z-20">
+        
+        <!-- Headline Text -->
+        <div class="text-center font-display leading-none tracking-tight text-text-primary relative">
+          <div class="relative inline-block">
+            <h2 class="text-4xl sm:text-5xl md:text-8xl lg:text-[7rem] mb-2 md:mb-4">Новый образ</h2>
+            <!-- Right Line (from "образ" to right) -->
+            <div class="absolute left-full top-1/2 -translate-y-1/2 ml-2 md:ml-4">
+              <svg viewBox="0 0 300 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-[100px] md:w-[200px] lg:w-[300px]">
+                <path class="animate-draw-line" d="M0 50 C 50 50, 100 80, 150 80 C 200 80, 250 20, 300 20" stroke="black" stroke-width="6" stroke-linecap="round" fill="none"/>
+              </svg>
+            </div>
+          </div>
+          
+          <div class="block"></div>
+
+          <div class="relative inline-block">
+            <h2 class="text-4xl sm:text-5xl md:text-8xl lg:text-[7rem]">новый опыт</h2>
+            <!-- Left Line (coming to "новый" from left) -->
+            <div class="absolute right-full top-1/2 -translate-y-1/2 mr-2 md:mr-4">
+               <svg viewBox="0 0 300 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-[100px] md:w-[200px] lg:w-[300px]">
+                <path class="animate-draw-line" d="M300 50 C 250 50, 200 20, 150 20 C 100 20, 50 80, 0 80" stroke="black" stroke-width="6" stroke-linecap="round" fill="none"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="mt-8 md:mt-12 max-w-2xl text-center px-4">
+        <p class="text-text-secondary text-sm md:text-base leading-relaxed">
+          Делаем потрясающие прически с 2014 года. Восемь лет работы и бесчисленное количество заплетенных голов. Уютная студия, работаем в четыре руки. Индивидуальный подход.
+        </p>
+      </div>
+
+      <!-- CTA Button -->
+      <div class="mt-10 md:mt-16">
+        <button 
+          onclick="document.getElementById('services').scrollIntoView({ behavior: 'smooth' })"
+          class="animate-float bg-accent-orange text-white text-lg md:text-xl px-12 py-4 rounded-full shadow-lg hover:shadow-xl hover:bg-[#ff6a45] transition-all cursor-pointer font-display flex items-center gap-3 group">
+          Подробнее
+          <!-- Down Arrow -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="group-hover:translate-y-1 transition-transform">
+            <path d="M12 5V19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M19 12L12 19L5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Services Section (Horizontal Scroll) -->
+  <section id="services" class="relative w-full bg-btn-dark text-white">
+    <div class="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden">
+      
+      <div class="max-w-[1400px] mx-auto px-4 md:px-8 w-full mb-8 shrink-0 text-center">
+        <h3 class="text-4xl md:text-6xl font-display mb-4">Наши услуги</h3>
+        <p class="text-white/70 text-sm md:text-base leading-relaxed max-w-xl mx-auto">
+          Мы предлагаем широкий спектр услуг по плетению и уходу за волосами. 
+          Каждая работа выполняется с любовью и вниманием к деталям.
+        </p>
+      </div>
+
+      <!-- The Track -->
+      <div class="w-full">
+        <div id="servicesTrack" class="flex gap-4 md:gap-6 px-4 md:px-8 w-max will-change-transform transition-transform duration-75 ease-out">
+          <!-- Service 1 -->
+          <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer">
+            <div class="text-left pl-4 md:pl-6">
+              <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">Дреды</h4>
+            </div>
+            <div class="w-full aspect-[3/4] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg hover:shadow-2xl transition-all duration-500">
+              <img src="https://picsum.photos/seed/dreadlocks/600/800" alt="Дреды" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
+              <div class="absolute bottom-6 right-6 font-bold text-white drop-shadow-md z-10">от 1000р</div>
+            </div>
+          </div>
+          <!-- Service 2 -->
+          <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer">
+            <div class="text-left pl-4 md:pl-6">
+              <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">ДЕ косы</h4>
+            </div>
+            <div class="w-full aspect-[3/4] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg hover:shadow-2xl transition-all duration-500">
+              <img src="https://picsum.photos/seed/braids/600/800" alt="ДЕ косы" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
+              <div class="absolute bottom-6 right-6 font-bold text-white drop-shadow-md z-10">от 1000р</div>
+            </div>
+          </div>
+          <!-- Service 3 -->
+          <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer">
+            <div class="text-left pl-4 md:pl-6">
+              <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">Локоны</h4>
+            </div>
+            <div class="w-full aspect-[3/4] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg hover:shadow-2xl transition-all duration-500">
+              <img src="https://picsum.photos/seed/curls/600/800" alt="Локоны" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
+              <div class="absolute bottom-6 right-6 font-bold text-white drop-shadow-md z-10">от 1000р</div>
+            </div>
+          </div>
+          <!-- Service 4 -->
+          <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer">
+            <div class="text-left pl-4 md:pl-6">
+              <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">Брейды</h4>
+            </div>
+            <div class="w-full aspect-[3/4] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg hover:shadow-2xl transition-all duration-500">
+              <img src="https://picsum.photos/seed/hair-braiding/600/800" alt="Брейды" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
+              <div class="absolute bottom-6 right-6 font-bold text-white drop-shadow-md z-10">от 1000р</div>
+            </div>
+          </div>
+          <!-- Service 5 -->
+          <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer">
+            <div class="text-left pl-4 md:pl-6">
+              <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">Наращивание волос</h4>
+            </div>
+            <div class="w-full aspect-[3/4] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg hover:shadow-2xl transition-all duration-500">
+              <img src="https://picsum.photos/seed/hair-extension/600/800" alt="Наращивание волос" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
+              <div class="absolute bottom-6 right-6 font-bold text-white drop-shadow-md z-10">от 1000р</div>
+            </div>
+          </div>
+          <!-- Service 6 -->
+          <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer">
+            <div class="text-left pl-4 md:pl-6">
+              <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">Другие прически</h4>
+            </div>
+            <div class="w-full aspect-[3/4] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg hover:shadow-2xl transition-all duration-500">
+              <img src="https://picsum.photos/seed/hairstyles/600/800" alt="Другие прически" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
+              <div class="absolute bottom-6 right-6 font-bold text-white drop-shadow-md z-10">от 1000р</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ready Sets Section -->
+  <section class="w-full bg-bg-primary py-16 md:py-24 relative group/section">
+    <div class="max-w-[1400px] mx-auto relative">
+      <div class="text-center mb-8 px-4">
+        <h3 class="text-4xl md:text-6xl font-display mb-4 tracking-tight text-text-primary">Готовые комплекты</h3>
+        <p class="text-text-secondary text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
+          Помимо этого, мы изготавливаем великолепные и самые разнообразные комплекты. В наличии более 30 отборных солдат
+        </p>
+      </div>
+      
+      <div class="relative group/carousel">
+        <!-- Navigation Buttons -->
+        <button id="readySetsLeftBtn" onclick="document.getElementById('readySetsTrack').scrollBy({left: -320, behavior: 'smooth'})" class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-black hover:bg-gray-50 transition-colors cursor-pointer border-none hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <button id="readySetsRightBtn" onclick="document.getElementById('readySetsTrack').scrollBy({left: 320, behavior: 'smooth'})" class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-black hover:bg-gray-50 transition-colors cursor-pointer border-none">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+
+        <!-- Carousel -->
+        <div id="readySetsTrack" class="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 px-4 md:px-16 pb-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth">
+          
+          <!-- Card 1 -->
+          <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center">
+            <div class="text-left pl-4 md:pl-6">
+              <h4 class="text-lg font-sans font-medium text-text-primary group-hover:text-accent-orange transition-colors">такие вот</h4>
+            </div>
+            <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5 shadow-lg">
+              <img src="https://picsum.photos/seed/set1/600/600" alt="Комплект 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center">
+            <div class="text-left pl-4 md:pl-6">
+              <h4 class="text-lg font-sans font-medium text-text-primary group-hover:text-accent-orange transition-colors">секие вот</h4>
+            </div>
+            <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5 shadow-lg">
+              <img src="https://picsum.photos/seed/set2/600/600" alt="Комплект 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center">
+            <div class="text-left pl-4 md:pl-6">
+              <h4 class="text-lg font-sans font-medium text-text-primary group-hover:text-accent-orange transition-colors">вот такие вот</h4>
+            </div>
+            <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5 shadow-lg">
+              <img src="https://picsum.photos/seed/set3/600/600" alt="Комплект 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
+            </div>
+          </div>
+
+          <!-- Card 4 (Accent) -->
+          <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 snap-center">
+             <!-- Spacer for title alignment to match other cards -->
+             <div class="h-[28px]"></div>
+             <div class="w-full aspect-square rounded-[32px] bg-[#ff7752] p-8 md:p-10 flex flex-col text-white shadow-lg relative overflow-hidden">
+                <!-- Decorative circle -->
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+                
+                <p class="text-base leading-relaxed z-10 mb-auto">
+                  У нас множество самых разнообразных готовых комплектов, готовых к заплетению. Также мы произведем комплект на любой вкус и любой сложности.
+                </p>
+                
+                <div class="w-full flex justify-center z-10 mt-4">
+                  <a href="https://vk.com/audios92798092" target="_blank" class="inline-flex items-center justify-center bg-white text-[#ff7752] px-8 py-3 rounded-full font-bold uppercase tracking-wide hover:bg-white/90 transition-colors no-underline">
+                    Посмотреть все
+                  </a>
+                </div>
+             </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section -->
+  <section class="w-full bg-bg-primary pt-6 pb-16 md:pt-12 md:pb-24">
+    <div class="max-w-[1400px] mx-auto px-4">
+      <h3 class="text-4xl md:text-6xl font-display mb-4 text-center tracking-tight">Почему нас выбирают</h3>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-black/5 border border-black/5 rounded-[32px] overflow-hidden shadow-sm">
+        <!-- Feature 1 -->
+        <div class="bg-bg-primary p-6 md:p-10 flex flex-col gap-4 group hover:bg-white transition-colors duration-500">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 rounded-full bg-[#ff7752] flex items-center justify-center shrink-0">
+               <span class="material-icons text-white">history</span>
+            </div>
+            <h4 class="text-lg md:text-xl font-display font-bold text-text-primary">ОПЫТ 9 ЛЕТ</h4>
+          </div>
+          <p class="text-text-secondary text-sm md:text-base leading-relaxed">
+            Мы многое повидали за это время) Знаем, как надо и как не надо делать. С интересом решаем нетипичные задачи.
+          </p>
+        </div>
+        <!-- Feature 2 -->
+        <div class="bg-bg-primary p-6 md:p-10 flex flex-col gap-4 group hover:bg-white transition-colors duration-500">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 rounded-full bg-[#ff7752] flex items-center justify-center shrink-0">
+               <span class="material-icons text-white">weekend</span>
+            </div>
+            <h4 class="text-lg md:text-xl font-display font-bold text-text-primary">УЮТНАЯ СТУДИЯ</h4>
+          </div>
+          <p class="text-text-secondary text-sm md:text-base leading-relaxed">
+            Большая огороженая парковка, хорошая транспортная доступность, удобные кресла, возможность помыть и уложить волосы после расплетения, чай/кофе и печеньки, wi-fi, тёплые пледы и тапочки. У нас можно как отдохнуть, наслаждаясь процессом, так и поработать свою удаленную работу, чтобы не терять время.
+          </p>
+        </div>
+        <!-- Feature 3 -->
+        <div class="bg-bg-primary p-6 md:p-10 flex flex-col gap-4 group hover:bg-white transition-colors duration-500">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 rounded-full bg-[#ff7752] flex items-center justify-center shrink-0">
+               <span class="material-icons text-white">speed</span>
+            </div>
+            <h4 class="text-lg md:text-xl font-display font-bold text-text-primary">СКОРОСТЬ ПЛЕТЕНИЯ</h4>
+          </div>
+          <p class="text-text-secondary text-sm md:text-base leading-relaxed">
+            Мы работаем в 4 руки, что позволяет вплетать комплекты от 2х часов, расплетать причёски за 1 час, а также быстро изготавливать комплекты. Да, больше не придётся ждать своей записи 3−5 недель, как это было раньше)
+          </p>
+        </div>
+        <!-- Feature 4 -->
+        <div class="bg-bg-primary p-6 md:p-10 flex flex-col gap-4 group hover:bg-white transition-colors duration-500">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 rounded-full bg-[#ff7752] flex items-center justify-center shrink-0">
+               <span class="material-icons text-white">favorite</span>
+            </div>
+            <h4 class="text-lg md:text-xl font-display font-bold text-text-primary">ИНДИВИДУАЛЬНЫЙ ПОДХОД</h4>
+          </div>
+          <p class="text-text-secondary text-sm md:text-base leading-relaxed">
+            При подборе и создании причёски мы всегда отталкиваемся от Ваших предпочтений, образа жизни и цели заплетения. Для нас важно понять, какого именно эффекта Вам хочется достичь, чтобы прическа приносила только положительные эмоции на протяжении всего срока носки.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="w-full py-12 px-4 border-t border-black/5 text-center bg-bg-primary">
+    <p class="text-text-secondary text-sm font-iskra uppercase tracking-widest">
+      © 2014 - 2026 Коскина Брейдинг Студия. Все права защищены.
+    </p>
+  </footer>
+</div>
+
+<script>
+    const servicesSection = document.getElementById('services');
+    const servicesTrack = document.getElementById('servicesTrack');
+    const header = document.getElementById('main-header');
+
+    function updateSectionHeight() {
+        if (!servicesSection || !servicesTrack) return;
+        const trackWidth = servicesTrack.scrollWidth;
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        
+        const horizontalScrollDistance = Math.max(0, trackWidth - windowWidth + (windowWidth > 768 ? 128 : 32));
+        servicesSection.style.height = `${windowHeight + horizontalScrollDistance}px`;
+    }
+
+    function onScroll() {
+        // Header scroll logic
+        if (header) {
+            if (window.scrollY > 50) {
+                header.classList.add('py-3', 'md:py-4');
+                header.classList.remove('py-4', 'md:py-6');
+            } else {
+                header.classList.remove('py-3', 'md:py-4');
+                header.classList.add('py-4', 'md:py-6');
+            }
+        }
+
+        if (!servicesSection || !servicesTrack) return;
+
+        const rect = servicesSection.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        const windowWidth = window.innerWidth;
+
+        const scrollableDistance = servicesSection.offsetHeight - windowHeight;
+
+        if (scrollableDistance <= 0) {
+            servicesTrack.style.transform = 'translate3d(0px, 0, 0)';
+            return;
+        }
+
+        let progress = -rect.top / scrollableDistance;
+        progress = Math.max(0, Math.min(1, progress));
+
+        const maxTranslate = Math.max(0, servicesTrack.scrollWidth - windowWidth + (windowWidth > 768 ? 64 : 16));
+        const translateX = -(progress * maxTranslate);
+
+        servicesTrack.style.transform = `translate3d(${translateX}px, 0, 0)`;
+    }
+
+    window.addEventListener('resize', updateSectionHeight);
+    window.addEventListener('scroll', onScroll);
+    
+    // Horizontal scroll support (Wheel + Touch)
+    if (servicesSection) {
+        // Wheel
+        servicesSection.addEventListener('wheel', (e) => {
+            const rect = servicesSection.getBoundingClientRect();
+            // Allow scrolling if the section is visible in the viewport
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+                    e.preventDefault();
+                    window.scrollBy(0, e.deltaX);
+                }
+            }
+        }, { passive: false });
+
+        // Touch
+        let lastTouchX = 0;
+        let lastTouchY = 0;
+
+        servicesSection.addEventListener('touchstart', (e) => {
+            lastTouchX = e.touches[0].clientX;
+            lastTouchY = e.touches[0].clientY;
+        }, { passive: false });
+
+        servicesSection.addEventListener('touchmove', (e) => {
+            const touchX = e.touches[0].clientX;
+            const touchY = e.touches[0].clientY;
+            const deltaX = lastTouchX - touchX;
+            const deltaY = lastTouchY - touchY;
+
+            const rect = servicesSection.getBoundingClientRect();
+            // Allow scrolling if the section is visible in the viewport
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                    if (e.cancelable) e.preventDefault();
+                    // Apply a multiplier (e.g. 2) to make the scroll feel faster/more natural
+                    window.scrollBy(0, deltaX * 2);
+                }
+            }
+            
+            lastTouchX = touchX;
+            lastTouchY = touchY;
+        }, { passive: false });
+    }
+
+    // Initial calculation
+    updateSectionHeight();
+    // Re-calculate after images load
+    window.addEventListener('load', updateSectionHeight);
+
+    // Ready Sets Scroll Logic
+    const readySetsTrack = document.getElementById('readySetsTrack');
+    const leftBtn = document.getElementById('readySetsLeftBtn');
+    const rightBtn = document.getElementById('readySetsRightBtn');
+
+    function updateReadySetsButtons() {
+        if (!readySetsTrack || !leftBtn || !rightBtn) return;
+        
+        const scrollLeft = readySetsTrack.scrollLeft;
+        const maxScroll = readySetsTrack.scrollWidth - readySetsTrack.clientWidth;
+        
+        // Show/Hide Left Button
+        if (scrollLeft > 10) {
+            leftBtn.classList.remove('hidden');
+            leftBtn.classList.add('flex');
+        } else {
+            leftBtn.classList.add('hidden');
+            leftBtn.classList.remove('flex');
+        }
+        
+        // Show/Hide Right Button
+        if (scrollLeft < maxScroll - 10) {
+            rightBtn.classList.remove('hidden');
+            rightBtn.classList.add('flex');
+        } else {
+            rightBtn.classList.add('hidden');
+            rightBtn.classList.remove('flex');
+        }
+    }
+
+    if (readySetsTrack) {
+        readySetsTrack.addEventListener('scroll', updateReadySetsButtons);
+        window.addEventListener('resize', updateReadySetsButtons);
+        // Initial check
+        updateReadySetsButtons();
+    }
+</script>
+
+</body>
+</html>
