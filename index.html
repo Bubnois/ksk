@@ -1,72 +1,92 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Коскина - Студия брейдинга</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-                        display: ['Comfortaa', 'cursive', 'sans-serif'],
-                        iskra: ['Jost', 'sans-serif'],
-                    },
-                    colors: {
-                        'bg-primary': '#F5F5F3',
-                        'text-primary': '#1A1A1A',
-                        'text-secondary': '#555555',
-                        'accent-orange': '#FF7A59',
-                        'btn-dark': '#2D2C2A',
-                    }
-                }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Коскина</title>
+  
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Custom Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            display: ['Comfortaa', 'cursive', 'sans-serif'],
+            iskra: ['Iskra', 'Jost', 'sans-serif'],
+          },
+          colors: {
+            'bg-primary': '#F5F5F3',
+            'text-primary': '#1A1A1A',
+            'text-secondary': '#555555',
+            'accent-orange': '#FF7A59',
+            'btn-dark': '#2D2C2A',
+          },
+          animation: {
+            'draw-line': 'drawLine 3s ease-in-out infinite alternate',
+            'float': 'float 3s ease-in-out infinite',
+            'modal': 'modalFadeIn 0.3s ease-out forwards',
+          },
+          keyframes: {
+            drawLine: {
+              '0%': { strokeDashoffset: '1000' },
+              '100%': { strokeDashoffset: '0' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            modalFadeIn: {
+              '0%': { opacity: '0', transform: 'scale(0.95)' },
+              '100%': { opacity: '1', transform: 'scale(1)' },
             }
+          }
         }
-    </script>
-    <style>
-        body {
-            background-color: #F5F5F3;
-            color: #1A1A1A;
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            overflow-x: hidden;
-        }
+      }
+    }
+  </script>
 
-        .animate-draw-line {
-            stroke-dasharray: 1000;
-            stroke-dashoffset: 1000;
-            animation: drawLine 3s ease-in-out infinite alternate;
-        }
+  <style>
+    /* Custom Styles */
+    body {
+      background-color: #F5F5F3;
+      color: #1A1A1A;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      overflow-x: hidden;
+    }
+    
+    .animate-draw-line {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+    }
 
-        @keyframes drawLine {
-            0% { stroke-dashoffset: 1000; }
-            100% { stroke-dashoffset: 0; }
-        }
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
-        }
-    </style>
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .hide-scrollbar {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+  </style>
 </head>
 <body class="bg-bg-primary">
 
-<div class="min-h-screen w-full relative flex flex-col bg-bg-primary">
-  
   <!-- Header (Fixed) -->
-  <header 
-    id="main-header"
-    class="fixed top-0 left-0 w-full z-50 transition-all duration-300 px-4 md:px-6 py-4 md:py-6 text-white mix-blend-difference"
-  >
-    <div class="max-w-[1400px] mx-auto flex flex-row justify-between items-center">
+  <header id="main-header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 px-4 md:px-6 py-4 md:py-6 mix-blend-difference">
+    <div class="max-w-[1400px] mx-auto flex flex-row justify-between items-center text-white">
       <!-- Left: Logo Area -->
       <div class="flex flex-col justify-between h-9 md:h-11 w-max select-none">
         <div class="flex justify-between w-full text-[0.5rem] md:text-[0.65rem] leading-none uppercase tracking-wider">
@@ -92,7 +112,7 @@
     </div>
   </header>
 
-  <!-- Top Image Container (Full Width & Top) -->
+  <!-- Top Image Container -->
   <div class="relative w-full h-[70vh] rounded-b-[40px] md:rounded-b-[80px] overflow-hidden shrink-0">
     <img 
       src="img/head.jpg" 
@@ -100,7 +120,7 @@
       class="absolute inset-0 w-full h-full object-cover"
       referrerpolicy="no-referrer"
     />
-    <div class="absolute inset-0 bg-black/40"></div> <!-- Dark overlay for white text -->
+    <div class="absolute inset-0 bg-black/40"></div>
   </div>
 
   <!-- Main Content -->
@@ -114,7 +134,7 @@
         <div class="text-center font-display leading-none tracking-tight text-text-primary relative">
           <div class="relative inline-block">
             <h2 class="text-4xl sm:text-5xl md:text-8xl lg:text-[7rem] mb-2 md:mb-4">Новый образ</h2>
-            <!-- Right Line (from "образ" to right) -->
+            <!-- Right Line -->
             <div class="absolute left-full top-1/2 -translate-y-1/2 ml-2 md:ml-4">
               <svg viewBox="0 0 300 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-[100px] md:w-[200px] lg:w-[300px]">
                 <path class="animate-draw-line" d="M0 50 C 50 50, 100 80, 150 80 C 200 80, 250 20, 300 20" stroke="black" stroke-width="6" stroke-linecap="round" fill="none"/>
@@ -126,7 +146,7 @@
 
           <div class="relative inline-block">
             <h2 class="text-4xl sm:text-5xl md:text-8xl lg:text-[7rem]">новый опыт</h2>
-            <!-- Left Line (coming to "новый" from left) -->
+            <!-- Left Line -->
             <div class="absolute right-full top-1/2 -translate-y-1/2 mr-2 md:mr-4">
                <svg viewBox="0 0 300 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-[100px] md:w-[200px] lg:w-[300px]">
                 <path class="animate-draw-line" d="M300 50 C 250 50, 200 20, 150 20 C 100 20, 50 80, 0 80" stroke="black" stroke-width="6" stroke-linecap="round" fill="none"/>
@@ -146,10 +166,9 @@
       <!-- CTA Button -->
       <div class="mt-10 md:mt-16">
         <button 
-          onclick="document.getElementById('services').scrollIntoView({ behavior: 'smooth' })"
+          onclick="scrollToServices()"
           class="animate-float bg-accent-orange text-white text-lg md:text-xl px-12 py-4 rounded-full shadow-lg hover:shadow-xl hover:bg-[#ff6a45] transition-all cursor-pointer font-display flex items-center gap-3 group">
           Подробнее
-          <!-- Down Arrow -->
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="group-hover:translate-y-1 transition-transform">
             <path d="M12 5V19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M19 12L12 19L5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -174,67 +193,8 @@
 
       <!-- The Track -->
       <div class="w-full max-w-[1400px] mx-auto overflow-hidden">
-        <div id="servicesTrack" class="flex gap-4 md:gap-6 px-4 md:px-8 w-max will-change-transform transition-transform duration-75 ease-out">
-          <!-- Service 1 -->
-          <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer">
-            <div class="text-left pl-4 md:pl-6">
-              <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">Дреды</h4>
-            </div>
-            <div class="w-full aspect-[3/4] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg hover:shadow-2xl transition-all duration-500">
-              <img src="img/1.jpg" alt="Дреды" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
-              <div class="absolute bottom-6 right-6 font-bold text-white drop-shadow-md z-10">от 1000р</div>
-            </div>
-          </div>
-          <!-- Service 2 -->
-          <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer">
-            <div class="text-left pl-4 md:pl-6">
-              <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">ДЕ косы</h4>
-            </div>
-            <div class="w-full aspect-[3/4] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg hover:shadow-2xl transition-all duration-500">
-              <img src="img/2.jpg" alt="ДЕ косы" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
-              <div class="absolute bottom-6 right-6 font-bold text-white drop-shadow-md z-10">от 1000р</div>
-            </div>
-          </div>
-          <!-- Service 3 -->
-          <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer">
-            <div class="text-left pl-4 md:pl-6">
-              <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">Локоны</h4>
-            </div>
-            <div class="w-full aspect-[3/4] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg hover:shadow-2xl transition-all duration-500">
-              <img src="img/3.jpg" alt="Локоны" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
-              <div class="absolute bottom-6 right-6 font-bold text-white drop-shadow-md z-10">от 1000р</div>
-            </div>
-          </div>
-          <!-- Service 4 -->
-          <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer">
-            <div class="text-left pl-4 md:pl-6">
-              <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">Брейды</h4>
-            </div>
-            <div class="w-full aspect-[3/4] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg hover:shadow-2xl transition-all duration-500">
-              <img src="img/4.jpg" alt="Брейды" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
-              <div class="absolute bottom-6 right-6 font-bold text-white drop-shadow-md z-10">от 1000р</div>
-            </div>
-          </div>
-          <!-- Service 5 -->
-          <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer">
-            <div class="text-left pl-4 md:pl-6">
-              <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">Наращивание волос</h4>
-            </div>
-            <div class="w-full aspect-[3/4] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg hover:shadow-2xl transition-all duration-500">
-              <img src="img/5.jpg" alt="Наращивание волос" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
-              <div class="absolute bottom-6 right-6 font-bold text-white drop-shadow-md z-10">от 1000р</div>
-            </div>
-          </div>
-          <!-- Service 6 -->
-          <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer">
-            <div class="text-left pl-4 md:pl-6">
-              <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">Другие прически</h4>
-            </div>
-            <div class="w-full aspect-[3/4] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg hover:shadow-2xl transition-all duration-500">
-              <img src="img/6.jpg" alt="Другие прически" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
-              <div class="absolute bottom-6 right-6 font-bold text-white drop-shadow-md z-10">от 1000р</div>
-            </div>
-          </div>
+        <div id="services-track" class="flex gap-4 md:gap-6 px-4 md:px-8 w-max will-change-transform">
+          <!-- Services injected by JS -->
         </div>
       </div>
     </div>
@@ -252,15 +212,15 @@
       
       <div class="relative group/carousel">
         <!-- Navigation Buttons -->
-        <button id="readySetsLeftBtn" onclick="document.getElementById('readySetsTrack').scrollBy({left: -320, behavior: 'smooth'})" class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-black hover:bg-gray-50 transition-colors cursor-pointer border-none hidden">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        <button id="ready-left-btn" onclick="scrollReadySets('left')" class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-black hover:bg-gray-50 transition-colors cursor-pointer border-none hidden">
+          <span class="material-icons">chevron_left</span>
         </button>
-        <button id="readySetsRightBtn" onclick="document.getElementById('readySetsTrack').scrollBy({left: 320, behavior: 'smooth'})" class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-black hover:bg-gray-50 transition-colors cursor-pointer border-none">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        <button id="ready-right-btn" onclick="scrollReadySets('right')" class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-black hover:bg-gray-50 transition-colors cursor-pointer border-none">
+          <span class="material-icons">chevron_right</span>
         </button>
 
         <!-- Carousel -->
-        <div id="readySetsTrack" class="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 px-4 md:px-16 pb-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth">
+        <div id="ready-sets-track" class="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 px-4 md:px-16 pb-8 hide-scrollbar scroll-smooth">
           
           <!-- Card 1 -->
           <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center">
@@ -268,7 +228,7 @@
               <h4 class="text-lg font-sans font-medium text-text-primary group-hover:text-accent-orange transition-colors">такие вот</h4>
             </div>
             <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5 shadow-lg">
-              <img src="img/7.jpg" alt="Комплект 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
+              <img src="img/kits/1.svg" alt="Комплект 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
             </div>
           </div>
 
@@ -278,7 +238,7 @@
               <h4 class="text-lg font-sans font-medium text-text-primary group-hover:text-accent-orange transition-colors">секие вот</h4>
             </div>
             <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5 shadow-lg">
-              <img src="img/8.jpg" alt="Комплект 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
+              <img src="img/kits/2.svg" alt="Комплект 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
             </div>
           </div>
 
@@ -288,16 +248,14 @@
               <h4 class="text-lg font-sans font-medium text-text-primary group-hover:text-accent-orange transition-colors">вот такие вот</h4>
             </div>
             <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5 shadow-lg">
-              <img src="img/9.jpg" alt="Комплект 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
+              <img src="img/kits/3.svg" alt="Комплект 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
             </div>
           </div>
 
           <!-- Card 4 (Accent) -->
           <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 snap-center">
-             <!-- Spacer for title alignment to match other cards -->
              <div class="h-[28px]"></div>
              <div class="w-full aspect-square rounded-[32px] bg-[#ff7752] p-8 md:p-10 flex flex-col text-white shadow-lg relative overflow-hidden">
-                <!-- Decorative circle -->
                 <div class="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
                 
                 <p class="text-base leading-relaxed z-10 mb-auto">
@@ -322,55 +280,8 @@
     <div class="max-w-[1400px] mx-auto px-4">
       <h3 class="text-4xl md:text-6xl font-display mb-4 text-center tracking-tight">Почему нас выбирают</h3>
       
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-black/5 border border-black/5 rounded-[32px] overflow-hidden shadow-sm">
-        <!-- Feature 1 -->
-        <div class="bg-bg-primary p-6 md:p-10 flex flex-col gap-4 group hover:bg-white transition-colors duration-500">
-          <div class="flex items-center gap-4">
-            <div class="w-10 h-10 rounded-full bg-[#ff7752] flex items-center justify-center shrink-0">
-               <span class="material-icons text-white">history</span>
-            </div>
-            <h4 class="text-lg md:text-xl font-display font-bold text-text-primary">ОПЫТ 9 ЛЕТ</h4>
-          </div>
-          <p class="text-text-secondary text-sm md:text-base leading-relaxed">
-            Мы многое повидали за это время) Знаем, как надо и как не надо делать. С интересом решаем нетипичные задачи.
-          </p>
-        </div>
-        <!-- Feature 2 -->
-        <div class="bg-bg-primary p-6 md:p-10 flex flex-col gap-4 group hover:bg-white transition-colors duration-500">
-          <div class="flex items-center gap-4">
-            <div class="w-10 h-10 rounded-full bg-[#ff7752] flex items-center justify-center shrink-0">
-               <span class="material-icons text-white">weekend</span>
-            </div>
-            <h4 class="text-lg md:text-xl font-display font-bold text-text-primary">УЮТНАЯ СТУДИЯ</h4>
-          </div>
-          <p class="text-text-secondary text-sm md:text-base leading-relaxed">
-            Большая огороженая парковка, хорошая транспортная доступность, удобные кресла, возможность помыть и уложить волосы после расплетения, чай/кофе и печеньки, wi-fi, тёплые пледы и тапочки. У нас можно как отдохнуть, наслаждаясь процессом, так и поработать свою удаленную работу, чтобы не терять время.
-          </p>
-        </div>
-        <!-- Feature 3 -->
-        <div class="bg-bg-primary p-6 md:p-10 flex flex-col gap-4 group hover:bg-white transition-colors duration-500">
-          <div class="flex items-center gap-4">
-            <div class="w-10 h-10 rounded-full bg-[#ff7752] flex items-center justify-center shrink-0">
-               <span class="material-icons text-white">speed</span>
-            </div>
-            <h4 class="text-lg md:text-xl font-display font-bold text-text-primary">СКОРОСТЬ ПЛЕТЕНИЯ</h4>
-          </div>
-          <p class="text-text-secondary text-sm md:text-base leading-relaxed">
-            Мы работаем в 4 руки, что позволяет вплетать комплекты от 2х часов, расплетать причёски за 1 час, а также быстро изготавливать комплекты. Да, больше не придётся ждать своей записи 3−5 недель, как это было раньше)
-          </p>
-        </div>
-        <!-- Feature 4 -->
-        <div class="bg-bg-primary p-6 md:p-10 flex flex-col gap-4 group hover:bg-white transition-colors duration-500">
-          <div class="flex items-center gap-4">
-            <div class="w-10 h-10 rounded-full bg-[#ff7752] flex items-center justify-center shrink-0">
-               <span class="material-icons text-white">favorite</span>
-            </div>
-            <h4 class="text-lg md:text-xl font-display font-bold text-text-primary">ИНДИВИДУАЛЬНЫЙ ПОДХОД</h4>
-          </div>
-          <p class="text-text-secondary text-sm md:text-base leading-relaxed">
-            При подборе и создании причёски мы всегда отталкиваемся от Ваших предпочтений, образа жизни и цели заплетения. Для нас важно понять, какого именно эффекта Вам хочется достичь, чтобы прическа приносила только положительные эмоции на протяжении всего срока носки.
-          </p>
-        </div>
+      <div id="features-grid" class="grid grid-cols-1 md:grid-cols-2 gap-px bg-black/5 border border-black/5 rounded-[32px] overflow-hidden shadow-sm">
+        <!-- Features injected by JS -->
       </div>
     </div>
   </section>
@@ -381,157 +292,456 @@
       © 2014 - 2026 Коскина Брейдинг Студия. Все права защищены.
     </p>
   </footer>
-</div>
 
-<script>
-    const servicesSection = document.getElementById('services');
-    const servicesTrack = document.getElementById('servicesTrack');
-    const header = document.getElementById('main-header');
-
-    function updateSectionHeight() {
-        if (!servicesSection || !servicesTrack) return;
-        const trackWidth = servicesTrack.scrollWidth;
-        const viewportWidth = servicesTrack.parentElement.clientWidth;
-        const windowHeight = window.innerHeight;
-        
-        const horizontalScrollDistance = Math.max(0, trackWidth - viewportWidth + (window.innerWidth > 768 ? 128 : 32));
-        
-        // Add buffer for start/end pause (50% of viewport height each)
-        const buffer = horizontalScrollDistance > 0 ? windowHeight * 1.0 : 0;
-        
-        servicesSection.style.height = `${windowHeight + horizontalScrollDistance + buffer}px`;
-    }
-
-    function onScroll() {
-        // Header scroll logic
-        if (header) {
-            if (window.scrollY > 50) {
-                header.classList.add('py-3', 'md:py-4');
-                header.classList.remove('py-4', 'md:py-6');
-            } else {
-                header.classList.remove('py-3', 'md:py-4');
-                header.classList.add('py-4', 'md:py-6');
-            }
-        }
-
-        if (!servicesSection || !servicesTrack) return;
-
-        const rect = servicesSection.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        const viewportWidth = servicesTrack.parentElement.clientWidth;
-
-        const scrollableDistance = servicesSection.offsetHeight - windowHeight;
-
-        if (scrollableDistance <= 0) {
-            servicesTrack.style.transform = 'translate3d(0px, 0, 0)';
-            return;
-        }
-
-        const maxTranslate = Math.max(0, servicesTrack.scrollWidth - viewportWidth + (window.innerWidth > 768 ? 64 : 16));
-        const buffer = maxTranslate > 0 ? windowHeight * 0.5 : 0;
-        const effectiveDistance = scrollableDistance - (buffer * 2);
-
-        let progress = 0;
-        if (effectiveDistance > 0) {
-            progress = (-rect.top - buffer) / effectiveDistance;
-        }
-        
-        progress = Math.max(0, Math.min(1, progress));
-
-        const translateX = -(progress * maxTranslate);
-
-        servicesTrack.style.transform = `translate3d(${translateX}px, 0, 0)`;
-    }
-
-    window.addEventListener('resize', updateSectionHeight);
-    window.addEventListener('scroll', onScroll);
+  <!-- Service Modal -->
+  <div id="service-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 hidden">
+    <!-- Backdrop -->
+    <div 
+      class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity cursor-pointer" 
+      onclick="closeServiceModal()"
+    ></div>
     
-    // Horizontal scroll support (Wheel + Touch)
-    if (servicesSection) {
-        // Wheel
-        servicesSection.addEventListener('wheel', (e) => {
-            const rect = servicesSection.getBoundingClientRect();
-            // Allow scrolling if the section is visible in the viewport
-            if (rect.top < window.innerHeight && rect.bottom > 0) {
-                if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-                    e.preventDefault();
-                    window.scrollBy(0, e.deltaX);
-                }
-            }
-        }, { passive: false });
+    <!-- Modal Content -->
+    <div class="relative w-full max-w-2xl bg-bg-primary rounded-[40px] overflow-hidden shadow-2xl flex flex-col max-h-[90vh] animate-modal">
+      
+      <!-- Close Button -->
+      <button onclick="closeServiceModal()" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/40 transition-colors cursor-pointer border-none">
+        <span class="material-icons">close</span>
+      </button>
 
-        // Touch
-        let lastTouchX = 0;
-        let lastTouchY = 0;
+      <!-- Scrollable Container -->
+      <div class="flex flex-col overflow-y-auto hide-scrollbar">
+        
+        <!-- Image Carousel (Top) -->
+        <div 
+          id="modal-carousel-container"
+          class="w-full aspect-square relative bg-black group shrink-0"
+        >
+          <img 
+            id="modal-image"
+            src="" 
+            alt="" 
+            class="w-full h-full object-cover transition-opacity duration-300"
+            referrerpolicy="no-referrer"
+          />
+          
+          <!-- Navigation Arrows -->
+          <button onclick="prevImage()" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/40 transition-colors cursor-pointer border-none opacity-0 group-hover:opacity-100">
+            <span class="material-icons">chevron_left</span>
+          </button>
+          <button onclick="nextImage()" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/40 transition-colors cursor-pointer border-none opacity-0 group-hover:opacity-100">
+            <span class="material-icons">chevron_right</span>
+          </button>
 
-        servicesSection.addEventListener('touchstart', (e) => {
-            lastTouchX = e.touches[0].clientX;
-            lastTouchY = e.touches[0].clientY;
-        }, { passive: false });
+          <!-- Dots Indicator -->
+          <div id="modal-dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+            <!-- Dots injected by JS -->
+          </div>
+        </div>
 
-        servicesSection.addEventListener('touchmove', (e) => {
-            const touchX = e.touches[0].clientX;
-            const touchY = e.touches[0].clientY;
-            const deltaX = lastTouchX - touchX;
-            const deltaY = lastTouchY - touchY;
+        <!-- Details (Bottom) -->
+        <div class="w-full p-6 md:p-10 flex flex-col bg-bg-primary">
+          <h3 id="modal-title" class="text-3xl md:text-4xl font-display mb-4 text-accent-orange"></h3>
+          
+          <p id="modal-description" class="text-lg font-medium text-text-primary mb-4"></p>
+          
+          <div class="prose prose-lg text-text-secondary mb-8 leading-relaxed whitespace-pre-wrap">
+            <p id="modal-details"></p>
+          </div>
 
-            const rect = servicesSection.getBoundingClientRect();
-            // Allow scrolling if the section is visible in the viewport
-            if (rect.top < window.innerHeight && rect.bottom > 0) {
-                if (Math.abs(deltaX) > Math.abs(deltaY)) {
-                    if (e.cancelable) e.preventDefault();
-                    // Apply a multiplier (e.g. 2) to make the scroll feel faster/more natural
-                    window.scrollBy(0, deltaX * 2);
-                }
-            }
+          <div class="mt-auto pt-6 border-t border-black/5 flex flex-col gap-4">
+            <div class="flex items-center justify-between">
+              <span class="text-sm uppercase tracking-wider text-text-secondary font-bold">Стоимость</span>
+              <span class="text-2xl font-display text-text-primary">от 1000₽</span>
+            </div>
             
-            lastTouchX = touchX;
-            lastTouchY = touchY;
-        }, { passive: false });
+            <button class="w-full py-4 rounded-full bg-black text-white font-medium hover:bg-accent-orange transition-colors cursor-pointer text-lg">
+              Записаться на услугу
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Data
+    const services = [
+      {
+        title: 'Дреды',
+        description: 'Безопасные и натуральные дреды любой сложности.',
+        folder: 'dread',
+        details: 'Многоразовый комплект кудрей. В основании сформирован дред небольшой длины (5-15 см), необходимый для заплетения Ваших волос.\n\nОчень лёгкие (до 350 грамм) и мягкие по длине кудри.\n\nВозможно исполнение в разных техниках, в зависимости от индивидуального запроса и желаемого эффекта от причёски.\nПричёска требует ежедневного ухода в первые 2 недели нóски.\nРекомендуемый срок одной нóски 4-6 недель.'
+      },
+      {
+        title: 'ДЕ косы',
+        description: 'Двухконцевые косы — стильный и практичный выбор.',
+        folder: 'kosy',
+        details: 'В стоимость включено всё (материал + изготовление комплекта + первое вплетение). Ручная работа.\nКомплект можно будет вплетать повторно неоднократно.\nРекомендуемый срок одной нóски 4-6 недель.\n\nДЕ - от англ. double ended - с двумя концами.\nКаждая коса имеет 2 кончика, в стандартном комплекте из 60 кос получается 120 концов.\nЦвет, длина и толщина могут быть любыми, оттенки смешиваем вручную.\nНе требует ежедневного ухода.'
+      },
+      {
+        title: 'Локоны',
+        description: 'Объемные и нежные локоны для вашего образа.',
+        folder: 'lock',
+        details: 'Многоразовый комплект кудрей. В основании сформирован дред небольшой длины (5-15 см), необходимый для заплетения Ваших волос.\n\nОчень лёгкие (до 350 грамм) и мягкие по длине кудри.\n\nВозможно исполнение в разных техниках, в зависимости от индивидуального запроса и желаемого эффекта от причёски.\n\nПричёска требует ежедневного ухода в первые 2 недели нóски.\nРекомендуемый срок одной нóски 4-6 недель. Цена за кудри длиной 25-75 см.'
+      },
+      {
+        title: 'Брейды',
+        description: 'Тугое плетение по голове, узоры любой сложности.',
+        folder: 'braids',
+        details: 'Косы на висок, в пробор или по всей голове - от небольшого декоративного элемента до полной смены образа.\nВремя плетения, стоимость и рекомендуемый срок нóски зависят от количества кос и сложности рисунка.'
+      },
+      {
+        title: 'Наращивание волос',
+        description: 'Профессиональное наращивание для длины и объема.',
+        folder: 'grown',
+        details: 'Мы предлагаем безопасное точечное афронаращивание. Без клея, капсул и горячих щипцов. Только нитки и канекалон (или натуральные волосы). Это самый щадящий способ наращивания.'
+      },
+      {
+        title: 'Другие прически',
+        description: 'Прически с канекалоном, расплетение и мытье. Не стесняйтесь спрашивать!',
+        folder: 'other',
+        details: 'хуи на голове'
+      }
+    ];
+
+    const features = [
+      {
+        title: 'ОПЫТ 9 ЛЕТ',
+        description: 'Мы многое повидали за это время) Знаем, как надо и как не надо делать. С интересом решаем нетипичные задачи.',
+        icon: 'history'
+      },
+      {
+        title: 'УЮТНАЯ СТУДИЯ',
+        description: 'Большая огороженая парковка, хорошая транспортная доступность, удобные кресла, возможность помыть и уложить волосы после расплетения, чай/кофе и печеньки, wi-fi, тёплые пледы и тапочки. У нас можно как отдохнуть, наслаждаясь процессом, так и поработать свою удаленную работу, чтобы не терять время.',
+        icon: 'weekend'
+      },
+      {
+        title: 'СКОРОСТЬ ПЛЕТЕНИЯ',
+        description: 'Мы работаем в 4 руки, что позволяет вплетать комплекты от 2х часов, расплетать причёски за 1 час, а также быстро изготавливать комплекты. Да, больше не придётся ждать своей записи 3−5 недель, как это было раньше)',
+        icon: 'speed'
+      },
+      {
+        title: 'ИНДИВИДУАЛЬНЫЙ ПОДХОД',
+        description: 'При подборе и создании причёски мы всегда отталкиваемся от Ваших предпочтений, образа жизни и цели заплетения. Для нас важно понять, какого именно эффекта Вам хочется достичь, чтобы прическа приносила только положительные эмоции на протяжении всего срока носки.',
+        icon: 'favorite'
+      }
+    ];
+
+    // Initialization
+    document.addEventListener('DOMContentLoaded', () => {
+      renderServices();
+      renderFeatures();
+      setupScrollListeners();
+      setupReadySetsScroll();
+      setupModalSwipe();
+    });
+
+    // Helper to check image existence
+    async function checkImageExists(url) {
+      return new Promise(resolve => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = url;
+      });
     }
 
-    // Initial calculation
-    updateSectionHeight();
-    // Re-calculate after images load
-    window.addEventListener('load', updateSectionHeight);
-
-    // Ready Sets Scroll Logic
-    const readySetsTrack = document.getElementById('readySetsTrack');
-    const leftBtn = document.getElementById('readySetsLeftBtn');
-    const rightBtn = document.getElementById('readySetsRightBtn');
-
-    function updateReadySetsButtons() {
-        if (!readySetsTrack || !leftBtn || !rightBtn) return;
+    // Load images for a service dynamically
+    async function loadServiceImages(folder) {
+      const images = [];
+      let index = 0;
+      // Try loading images sequentially until one fails or we hit a reasonable limit (e.g. 20)
+      while (index < 20) {
+        // Try svg first (as per current placeholders), then jpg/png if needed.
+        // For simplicity, let's assume one extension type per folder or try multiple.
+        // Given the placeholders are SVG, let's prioritize SVG.
+        // But real photos are likely JPG.
+        // Let's try both common extensions.
         
-        const scrollLeft = readySetsTrack.scrollLeft;
-        const maxScroll = readySetsTrack.scrollWidth - readySetsTrack.clientWidth;
+        let found = false;
+        const extensions = ['svg', 'jpg', 'jpeg', 'png'];
         
-        // Show/Hide Left Button
-        if (scrollLeft > 10) {
-            leftBtn.classList.remove('hidden');
-            leftBtn.classList.add('flex');
-        } else {
-            leftBtn.classList.add('hidden');
-            leftBtn.classList.remove('flex');
+        for (const ext of extensions) {
+          const url = `img/${folder}/${index}.${ext}`;
+          if (await checkImageExists(url)) {
+            images.push(url);
+            found = true;
+            break; // Found the image for this index
+          }
         }
         
-        // Show/Hide Right Button
-        if (scrollLeft < maxScroll - 10) {
-            rightBtn.classList.remove('hidden');
-            rightBtn.classList.add('flex');
-        } else {
-            rightBtn.classList.add('hidden');
-            rightBtn.classList.remove('flex');
+        if (!found) break; // Stop if no image found for this index
+        index++;
+      }
+      return images;
+    }
+
+    // Render Services
+    async function renderServices() {
+      const track = document.getElementById('services-track');
+      
+      // We need to load the first image for each service to display the card
+      // This might be slow if we wait for all. Let's render placeholders or load progressively.
+      // For simplicity, let's just try to load the '0' image for the card.
+      
+      let html = '';
+      for (let i = 0; i < services.length; i++) {
+        const service = services[i];
+        // Try to find the main image (index 0)
+        let mainImage = `img/${service.folder}/0.svg`; // Default fallback
+        const extensions = ['svg', 'jpg', 'jpeg', 'png'];
+        for (const ext of extensions) {
+          const url = `img/${service.folder}/0.${ext}`;
+          if (await checkImageExists(url)) {
+            mainImage = url;
+            break;
+          }
         }
+        
+        // Store the main image in the service object for later use
+        service.mainImage = mainImage;
+
+        html += `
+        <div 
+          class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-accent-orange rounded-[32px]" 
+          onclick="openServiceModal(${i})"
+          tabindex="0"
+          role="button"
+        >
+          <div class="text-left pl-4 md:pl-6">
+            <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">${service.title}</h4>
+          </div>
+          <div class="w-full aspect-[3/4] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg hover:shadow-2xl transition-all duration-500">
+            <img 
+              src="${mainImage}" 
+              alt="${service.title}" 
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              referrerpolicy="no-referrer"
+            />
+            <div class="absolute bottom-6 right-6 font-medium text-white/90 drop-shadow-md z-10 text-xs lowercase">подробнее</div>
+          </div>
+        </div>
+        `;
+      }
+      track.innerHTML = html;
     }
 
-    if (readySetsTrack) {
-        readySetsTrack.addEventListener('scroll', updateReadySetsButtons);
-        window.addEventListener('resize', updateReadySetsButtons);
-        // Initial check
-        updateReadySetsButtons();
+    // Render Features
+    function renderFeatures() {
+      const grid = document.getElementById('features-grid');
+      grid.innerHTML = features.map(feature => `
+        <div class="bg-bg-primary p-6 md:p-10 flex flex-col gap-4 group hover:bg-white transition-colors duration-500">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 rounded-full bg-[#ff7752] flex items-center justify-center shrink-0">
+               <span class="material-icons text-white">${feature.icon}</span>
+            </div>
+            <h4 class="text-lg md:text-xl font-display font-bold text-text-primary">${feature.title}</h4>
+          </div>
+          <p class="text-text-secondary text-sm md:text-base leading-relaxed">
+            ${feature.description}
+          </p>
+        </div>
+      `).join('');
     }
-</script>
 
+    // Modal Logic
+    let currentServiceIndex = null;
+    let currentCarouselIndex = 0;
+    let currentServiceImages = [];
+
+    async function openServiceModal(index) {
+      currentServiceIndex = index;
+      currentCarouselIndex = 0;
+      const service = services[index];
+      
+      document.getElementById('modal-title').textContent = service.title;
+      document.getElementById('modal-description').textContent = service.description;
+      document.getElementById('modal-details').textContent = service.details;
+      
+      // Load images dynamically
+      currentServiceImages = await loadServiceImages(service.folder);
+      
+      // If no images found, use placeholder or main image
+      if (currentServiceImages.length === 0 && service.mainImage) {
+        currentServiceImages = [service.mainImage];
+      }
+      
+      updateModalImage();
+      renderModalDots();
+      
+      const modal = document.getElementById('service-modal');
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeServiceModal() {
+      const modal = document.getElementById('service-modal');
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+      currentServiceIndex = null;
+      currentServiceImages = [];
+    }
+
+    function updateModalImage() {
+      if (currentServiceImages.length === 0) return;
+      const imgEl = document.getElementById('modal-image');
+      imgEl.src = currentServiceImages[currentCarouselIndex];
+      
+      // Update dots
+      const dots = document.getElementById('modal-dots').children;
+      for (let i = 0; i < dots.length; i++) {
+        if (i === currentCarouselIndex) {
+          dots[i].classList.remove('bg-white/40', 'w-2');
+          dots[i].classList.add('bg-white', 'w-4');
+        } else {
+          dots[i].classList.remove('bg-white', 'w-4');
+          dots[i].classList.add('bg-white/40', 'w-2');
+        }
+      }
+    }
+
+    function renderModalDots() {
+      const dotsContainer = document.getElementById('modal-dots');
+      dotsContainer.innerHTML = currentServiceImages.map((_, i) => `
+        <button 
+          class="w-2 h-2 rounded-full transition-all duration-300 cursor-pointer border-none p-0 ${i === 0 ? 'bg-white w-4' : 'bg-white/40'}"
+          onclick="setCarouselIndex(${i})"
+        ></button>
+      `).join('');
+    }
+
+    function setCarouselIndex(index) {
+      currentCarouselIndex = index;
+      updateModalImage();
+    }
+
+    function nextImage() {
+      if (currentServiceImages.length === 0) return;
+      currentCarouselIndex = (currentCarouselIndex + 1) % currentServiceImages.length;
+      updateModalImage();
+    }
+
+    function prevImage() {
+      if (currentServiceImages.length === 0) return;
+      currentCarouselIndex = (currentCarouselIndex - 1 + currentServiceImages.length) % currentServiceImages.length;
+      updateModalImage();
+    }
+
+    // Modal Swipe Logic
+    let modalTouchStartX = 0;
+    let modalTouchEndX = 0;
+
+    function setupModalSwipe() {
+      const container = document.getElementById('modal-carousel-container');
+      container.addEventListener('touchstart', e => {
+        modalTouchStartX = e.changedTouches[0].screenX;
+      }, {passive: true});
+      
+      container.addEventListener('touchend', e => {
+        modalTouchEndX = e.changedTouches[0].screenX;
+        handleModalSwipe();
+      }, {passive: true});
+    }
+
+    function handleModalSwipe() {
+      const threshold = 50;
+      const diff = modalTouchStartX - modalTouchEndX;
+      if (Math.abs(diff) > threshold) {
+        if (diff > 0) nextImage();
+        else prevImage();
+      }
+    }
+
+    // Scroll Logic
+    function scrollToServices() {
+      document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function setupScrollListeners() {
+      const header = document.getElementById('main-header');
+      const servicesSection = document.getElementById('services');
+      const servicesTrack = document.getElementById('services-track');
+      
+      window.addEventListener('scroll', () => {
+        // Header
+        if (window.scrollY > 50) {
+          header.classList.add('py-3', 'md:py-4');
+          header.classList.remove('py-4', 'md:py-6');
+        } else {
+          header.classList.remove('py-3', 'md:py-4');
+          header.classList.add('py-4', 'md:py-6');
+        }
+
+        // Horizontal Scroll
+        updateHorizontalScroll(servicesSection, servicesTrack);
+      });
+
+      window.addEventListener('resize', () => {
+        updateSectionHeight(servicesSection, servicesTrack);
+      });
+      
+      // Initial sizing
+      setTimeout(() => updateSectionHeight(servicesSection, servicesTrack), 100);
+    }
+
+    function updateSectionHeight(section, track) {
+      if (!section || !track) return;
+      const trackWidth = track.scrollWidth;
+      const viewportWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+      
+      const horizontalScrollDistance = Math.max(0, trackWidth - viewportWidth + (window.innerWidth > 768 ? 128 : 32));
+      const buffer = horizontalScrollDistance > 0 ? windowHeight * 1.0 : 0;
+      
+      section.style.height = `${windowHeight + horizontalScrollDistance + buffer}px`;
+    }
+
+    function updateHorizontalScroll(section, track) {
+      if (!section || !track) return;
+      
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const viewportWidth = window.innerWidth;
+      
+      const scrollableDistance = section.offsetHeight - windowHeight;
+      
+      if (scrollableDistance <= 0) {
+        track.style.transform = `translate3d(0, 0, 0)`;
+        return;
+      }
+
+      const maxTranslate = Math.max(0, track.scrollWidth - viewportWidth + (window.innerWidth > 768 ? 64 : 16));
+      const buffer = maxTranslate > 0 ? windowHeight * 0.5 : 0;
+      const effectiveDistance = scrollableDistance - (buffer * 2);
+
+      let progress = 0;
+      if (effectiveDistance > 0) {
+        progress = (-rect.top - buffer) / effectiveDistance;
+      }
+      
+      progress = Math.max(0, Math.min(1, progress));
+      track.style.transform = `translate3d(${-progress * maxTranslate}px, 0, 0)`;
+    }
+
+    // Ready Sets Logic
+    function setupReadySetsScroll() {
+      const track = document.getElementById('ready-sets-track');
+      const leftBtn = document.getElementById('ready-left-btn');
+      const rightBtn = document.getElementById('ready-right-btn');
+
+      track.addEventListener('scroll', () => {
+        leftBtn.classList.toggle('hidden', track.scrollLeft <= 0);
+        rightBtn.classList.toggle('hidden', track.scrollLeft + track.clientWidth >= track.scrollWidth - 1);
+      });
+    }
+
+    function scrollReadySets(direction) {
+      const track = document.getElementById('ready-sets-track');
+      const amount = direction === 'left' ? -320 : 320;
+      track.scrollBy({ left: amount, behavior: 'smooth' });
+    }
+
+  </script>
 </body>
 </html>
