@@ -429,13 +429,71 @@
     ];
 
     // Initialization
-    document.addEventListener('DOMContentLoaded', () => {
-      renderServices();
+    document.addEventListener('DOMContentLoaded', async () => {
+      await renderServices();
       renderFeatures();
+      
+      // Setup logic that depends on content being rendered
       setupScrollListeners();
+      setupHorizontalInteraction();
       setupReadySetsScroll();
       setupModalSwipe();
+      
+      // Force an update after a short delay to ensure layout is stable
+      setTimeout(() => {
+        const servicesSection = document.getElementById('services');
+        const servicesTrack = document.getElementById('services-track');
+        updateSectionHeight(servicesSection, servicesTrack);
+      }, 100);
     });
+
+    // Horizontal Swipe/Wheel Logic for Services Section
+    let lastTouchX = 0;
+    let lastTouchY = 0;
+
+    function setupHorizontalInteraction() {
+      const section = document.getElementById('services');
+      if (!section) return;
+
+      // Wheel support (Trackpad/Mouse)
+      section.addEventListener('wheel', (e) => {
+        const rect = section.getBoundingClientRect();
+        // Allow scrolling if the section is visible in the viewport
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+            e.preventDefault();
+            window.scrollBy(0, e.deltaX);
+          }
+        }
+      }, { passive: false });
+
+      // Touch support (Mobile/Tablet)
+      section.addEventListener('touchstart', (e) => {
+        lastTouchX = e.touches[0].clientX;
+        lastTouchY = e.touches[0].clientY;
+      }, { passive: false });
+
+      section.addEventListener('touchmove', (e) => {
+        const touchX = e.touches[0].clientX;
+        const touchY = e.touches[0].clientY;
+        const deltaX = lastTouchX - touchX;
+        const deltaY = lastTouchY - touchY;
+
+        const rect = section.getBoundingClientRect();
+        // Allow scrolling if the section is visible in the viewport
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          // If horizontal swipe is dominant
+          if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            if (e.cancelable) e.preventDefault();
+            // Apply a multiplier (e.g. 2) to make the scroll feel faster/more natural
+            window.scrollBy(0, deltaX * 2);
+          }
+        }
+
+        lastTouchX = touchX;
+        lastTouchY = touchY;
+      }, { passive: false });
+    }
 
     // Helper to check image existence
     async function checkImageExists(url) {
