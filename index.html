@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Коскина</title>
+  <title>Коскина Брейдинг Студия</title>
   
   <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -429,8 +429,8 @@
     ];
 
     // Initialization
-    document.addEventListener('DOMContentLoaded', async () => {
-      await renderServices();
+    document.addEventListener('DOMContentLoaded', () => {
+      renderServices();
       renderFeatures();
       
       // Setup logic that depends on content being rendered
@@ -505,60 +505,57 @@
       });
     }
 
-    // Load images for a service dynamically
-    async function loadServiceImages(folder) {
-      const images = [];
-      let index = 0;
-      // Try loading images sequentially until one fails or we hit a reasonable limit (e.g. 20)
-      while (index < 20) {
-        // Try svg first (as per current placeholders), then jpg/png if needed.
-        // For simplicity, let's assume one extension type per folder or try multiple.
-        // Given the placeholders are SVG, let's prioritize SVG.
-        // But real photos are likely JPG.
-        // Let's try both common extensions.
-        
+    // Load images for a service dynamically (Background Process)
+    async function discoverServiceImages(folder) {
+      // 1. Always try to add the main image (0) first
+      const extensions = ['svg', 'jpg', 'jpeg', 'png'];
+      
+      // Helper to add image if unique
+      const addImage = (url) => {
+        if (!currentServiceImages.includes(url)) {
+          currentServiceImages.push(url);
+          // If this is the first image, update the view immediately
+          if (currentServiceImages.length === 1) {
+            updateModalImage();
+          }
+          renderModalDots();
+        }
+      };
+
+      // Check index 0 first
+      for (const ext of extensions) {
+        const url = `img/${folder}/0.${ext}`;
+        if (await checkImageExists(url)) {
+          addImage(url);
+          break;
+        }
+      }
+
+      // Check indices 1 to 10
+      for (let i = 1; i <= 10; i++) {
         let found = false;
-        const extensions = ['svg', 'jpg', 'jpeg', 'png'];
-        
         for (const ext of extensions) {
-          const url = `img/${folder}/${index}.${ext}`;
+          const url = `img/${folder}/${i}.${ext}`;
           if (await checkImageExists(url)) {
-            images.push(url);
+            addImage(url);
             found = true;
-            break; // Found the image for this index
+            break; // Found this index, move to next index
           }
         }
-        
-        if (!found) break; // Stop if no image found for this index
-        index++;
+        // If we didn't find an image for index i, we assume the sequence ends
+        if (!found) break;
       }
-      return images;
     }
 
-    // Render Services
-    async function renderServices() {
+    // Render Services (Synchronous & Fast)
+    function renderServices() {
       const track = document.getElementById('services-track');
-      
-      // We need to load the first image for each service to display the card
-      // This might be slow if we wait for all. Let's render placeholders or load progressively.
-      // For simplicity, let's just try to load the '0' image for the card.
       
       let html = '';
       for (let i = 0; i < services.length; i++) {
         const service = services[i];
-        // Try to find the main image (index 0)
-        let mainImage = `img/${service.folder}/0.svg`; // Default fallback
-        const extensions = ['svg', 'jpg', 'jpeg', 'png'];
-        for (const ext of extensions) {
-          const url = `img/${service.folder}/0.${ext}`;
-          if (await checkImageExists(url)) {
-            mainImage = url;
-            break;
-          }
-        }
-        
-        // Store the main image in the service object for later use
-        service.mainImage = mainImage;
+        // Default to SVG, fallback to JPG handled by onerror in HTML
+        const mainImage = `img/${service.folder}/0.svg`;
 
         html += `
         <div 
@@ -576,6 +573,7 @@
               alt="${service.title}" 
               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               referrerpolicy="no-referrer"
+              onerror="this.onerror=null; this.src='img/${service.folder}/0.jpg';"
             />
             <div class="absolute bottom-6 right-6 font-medium text-white/90 drop-shadow-md z-10 text-xs lowercase">подробнее</div>
           </div>
@@ -608,7 +606,7 @@
     let currentCarouselIndex = 0;
     let currentServiceImages = [];
 
-    async function openServiceModal(index) {
+    function openServiceModal(index) {
       currentServiceIndex = index;
       currentCarouselIndex = 0;
       const service = services[index];
@@ -617,20 +615,16 @@
       document.getElementById('modal-description').textContent = service.description;
       document.getElementById('modal-details').textContent = service.details;
       
-      // Load images dynamically
-      currentServiceImages = await loadServiceImages(service.folder);
+      // Reset images
+      currentServiceImages = [];
       
-      // If no images found, use placeholder or main image
-      if (currentServiceImages.length === 0 && service.mainImage) {
-        currentServiceImages = [service.mainImage];
-      }
-      
-      updateModalImage();
-      renderModalDots();
-      
+      // Show modal immediately with placeholder or first guess
       const modal = document.getElementById('service-modal');
       modal.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
+
+      // Start discovery process
+      discoverServiceImages(service.folder);
     }
 
     function closeServiceModal() {
