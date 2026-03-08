@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Коскина Брейдинг Студия</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   
   <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -228,7 +229,7 @@
               <h4 class="text-lg font-sans font-medium text-text-primary group-hover:text-accent-orange transition-colors">такие вот</h4>
             </div>
             <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5 shadow-lg">
-              <img src="img/kits/1.svg" alt="Комплект 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
+              <img src="img/kits/1.jpg" alt="Комплект 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
             </div>
           </div>
 
@@ -238,7 +239,7 @@
               <h4 class="text-lg font-sans font-medium text-text-primary group-hover:text-accent-orange transition-colors">секие вот</h4>
             </div>
             <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5 shadow-lg">
-              <img src="img/kits/2.svg" alt="Комплект 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
+              <img src="img/kits/2.jpg" alt="Комплект 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
             </div>
           </div>
 
@@ -248,7 +249,7 @@
               <h4 class="text-lg font-sans font-medium text-text-primary group-hover:text-accent-orange transition-colors">вот такие вот</h4>
             </div>
             <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5 shadow-lg">
-              <img src="img/kits/3.svg" alt="Комплект 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
+              <img src="img/kits/3.jpg" alt="Комплект 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
             </div>
           </div>
 
@@ -305,7 +306,7 @@
     <div class="relative w-full max-w-2xl bg-bg-primary rounded-[40px] overflow-hidden shadow-2xl flex flex-col max-h-[90vh] animate-modal">
       
       <!-- Close Button -->
-      <button onclick="closeServiceModal()" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/40 transition-colors cursor-pointer border-none">
+      <button onclick="closeServiceModal()" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-accent-orange flex items-center justify-center text-white hover:bg-accent-orange/80 transition-colors cursor-pointer border-none shadow-lg">
         <span class="material-icons">close</span>
       </button>
 
@@ -527,23 +528,23 @@
         const url = `img/${folder}/0.${ext}`;
         if (await checkImageExists(url)) {
           addImage(url);
+          // Don't break here, we might want to support multiple formats or just pick the first one.
+          // For simplicity, let's pick the first valid one per index.
           break;
         }
       }
 
-      // Check indices 1 to 10
-      for (let i = 1; i <= 10; i++) {
-        let found = false;
+      // Check indices 1 to 20 (increased limit)
+      // We will check ALL indices up to 20, even if some are missing in between.
+      // This is safer if files are named 1.jpg, 3.jpg, etc.
+      for (let i = 1; i <= 20; i++) {
         for (const ext of extensions) {
           const url = `img/${folder}/${i}.${ext}`;
           if (await checkImageExists(url)) {
             addImage(url);
-            found = true;
-            break; // Found this index, move to next index
+            break; // Found an image for this index, move to next index
           }
         }
-        // If we didn't find an image for index i, we assume the sequence ends
-        if (!found) break;
       }
     }
 
@@ -575,7 +576,7 @@
               referrerpolicy="no-referrer"
               onerror="this.onerror=null; this.src='img/${service.folder}/0.jpg';"
             />
-            <div class="absolute bottom-6 right-6 font-medium text-white/90 drop-shadow-md z-10 text-xs lowercase">подробнее</div>
+            <button class="absolute bottom-6 right-6 bg-accent-orange text-white px-5 py-2 rounded-full text-xs font-medium shadow-md transition-transform hover:scale-105 z-10 border-none cursor-pointer">подробнее</button>
           </div>
         </div>
         `;
