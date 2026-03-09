@@ -2,8 +2,9 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Коскина</title>
+  <meta name="viewport" content="width=device-widt
+    h, initial-scale=1.0">
+  <title>Коскина - Студия Брейдинга</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   
   <!-- Fonts & Icons -->
@@ -193,7 +194,7 @@
       </div>
 
       <!-- The Track -->
-      <div class="w-full max-w-[1400px] mx-auto overflow-hidden">
+      <div class="w-full overflow-hidden">
         <div id="services-track" class="flex gap-4 md:gap-6 px-4 md:px-8 w-max will-change-transform">
           <!-- Services injected by JS -->
         </div>
@@ -303,63 +304,59 @@
     ></div>
     
     <!-- Modal Content -->
-    <div class="relative w-full max-w-2xl bg-bg-primary rounded-[40px] overflow-hidden shadow-2xl flex flex-col max-h-[90vh] animate-modal">
+    <div class="relative w-full max-w-2xl md:max-w-5xl bg-bg-primary rounded-[40px] overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh] animate-modal">
       
       <!-- Close Button -->
       <button onclick="closeServiceModal()" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-accent-orange flex items-center justify-center text-white hover:bg-accent-orange/80 transition-colors cursor-pointer border-none shadow-lg">
         <span class="material-icons">close</span>
       </button>
 
-      <!-- Scrollable Container -->
-      <div class="flex flex-col overflow-y-auto hide-scrollbar">
+      <!-- Image Carousel (Left on desktop, Top on mobile) -->
+      <div 
+        id="modal-carousel-container"
+        class="w-full md:w-1/2 aspect-square md:aspect-auto md:min-h-[500px] relative bg-black group shrink-0"
+      >
+        <img 
+          id="modal-image"
+          src="" 
+          alt="" 
+          class="w-full h-full object-cover transition-opacity duration-300 absolute inset-0"
+          referrerpolicy="no-referrer"
+        />
         
-        <!-- Image Carousel (Top) -->
-        <div 
-          id="modal-carousel-container"
-          class="w-full aspect-square relative bg-black group shrink-0"
-        >
-          <img 
-            id="modal-image"
-            src="" 
-            alt="" 
-            class="w-full h-full object-cover transition-opacity duration-300"
-            referrerpolicy="no-referrer"
-          />
-          
-          <!-- Navigation Arrows -->
-          <button onclick="prevImage()" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/40 transition-colors cursor-pointer border-none opacity-0 group-hover:opacity-100">
-            <span class="material-icons">chevron_left</span>
-          </button>
-          <button onclick="nextImage()" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/40 transition-colors cursor-pointer border-none opacity-0 group-hover:opacity-100">
-            <span class="material-icons">chevron_right</span>
-          </button>
+        <!-- Navigation Arrows -->
+        <button onclick="prevImage()" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/40 transition-colors cursor-pointer border-none opacity-0 group-hover:opacity-100">
+          <span class="material-icons">chevron_left</span>
+        </button>
+        <button onclick="nextImage()" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/40 transition-colors cursor-pointer border-none opacity-0 group-hover:opacity-100">
+          <span class="material-icons">chevron_right</span>
+        </button>
 
-          <!-- Dots Indicator -->
-          <div id="modal-dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-            <!-- Dots injected by JS -->
-          </div>
+        <!-- Dots Indicator -->
+        <div id="modal-dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+          <!-- Dots injected by JS -->
+        </div>
+      </div>
+
+      <!-- Details (Right on desktop, Bottom on mobile) -->
+      <div class="w-full md:w-1/2 p-6 md:p-10 flex flex-col bg-bg-primary overflow-y-auto hide-scrollbar">
+        <h3 id="modal-title" class="text-3xl md:text-4xl font-display mb-4 text-accent-orange"></h3>
+        
+        <p id="modal-description" class="text-lg font-medium text-text-primary mb-4"></p>
+        
+        <div class="prose prose-lg text-text-secondary mb-8 leading-relaxed whitespace-pre-wrap">
+          <p id="modal-details"></p>
         </div>
 
-        <!-- Details (Bottom) -->
-        <div class="w-full p-6 md:p-10 flex flex-col bg-bg-primary">
-          <h3 id="modal-title" class="text-3xl md:text-4xl font-display mb-4 text-accent-orange"></h3>
-          
-          <p id="modal-description" class="text-lg font-medium text-text-primary mb-4"></p>
-          
-          <div class="prose prose-lg text-text-secondary mb-8 leading-relaxed whitespace-pre-wrap">
-            <p id="modal-details"></p>
+        <div class="mt-auto pt-6 border-t border-black/5 flex flex-col gap-4">
+          <div class="flex items-center justify-between">
+            <span class="text-sm uppercase tracking-wider text-text-secondary font-bold">Стоимость</span>
+            <span class="text-sm uppercase tracking-wider text-text-primary font-bold">от 1000₽</span>
           </div>
-
-          <div class="mt-auto pt-6 border-t border-black/5 flex flex-col gap-4">
-            <div class="flex items-center justify-between">
-              <span class="text-sm uppercase tracking-wider text-text-secondary font-bold">Стоимость</span>
-              <span class="text-2xl font-display text-text-primary">от 1000₽</span>
-            </div>
-            
-            <button class="w-full py-4 rounded-full bg-black text-white font-medium hover:bg-accent-orange transition-colors cursor-pointer text-lg">
-              Записаться на услугу
-            </button>
-          </div>
+          
+          <button class="w-full py-4 rounded-full bg-black text-white font-medium hover:bg-accent-orange transition-colors cursor-pointer text-lg">
+            Записаться
+          </button>
         </div>
       </div>
     </div>
