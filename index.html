@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Коскина</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="description" content="Новый образ - новый опыт. Студия брейдинга &quot;Коскина&quot;. Город Омск, ул. Красный Путь, 143 к3. Предварительная запись">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   
   <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -291,7 +292,7 @@
   <section class="w-full bg-bg-primary pb-16 md:pb-24 relative">
     <div class="max-w-[1000px] mx-auto px-4">
       <div class="text-center mb-12">
-        <h3 class="text-4xl md:text-6xl font-display mb-4 tracking-tight text-text-primary uppercase">Вопросы и ответы</h3>
+        <h3 class="text-4xl md:text-6xl font-display mb-4 tracking-tight text-text-primary">Вопросы и ответы</h3>
       </div>
       
       <div class="flex flex-col gap-4">
@@ -649,6 +650,10 @@
           addedIndices.add(img.index);
         }
       }
+      
+      // Force a final render to ensure all dots are shown
+      renderModalDots();
+      updateModalImage();
     }
 
     // Render Services (Synchronous & Fast)
