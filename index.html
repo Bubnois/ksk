@@ -107,7 +107,7 @@
           <p>по предварительной записи</p>
           <p>ул. красный путь 143</p>
         </div>
-        <button class="h-9 md:h-11 px-6 rounded-full bg-white text-black text-xs md:text-sm font-medium hover:bg-gray-100 transition-colors border-none cursor-pointer flex items-center">
+        <button onclick="scrollToContacts()" class="h-9 md:h-11 px-6 rounded-full bg-white text-black text-xs md:text-sm font-medium hover:bg-gray-100 transition-colors border-none cursor-pointer flex items-center">
           Записаться
         </button>
       </div>
@@ -375,12 +375,56 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="w-full py-12 px-4 border-t border-black/5 text-center bg-bg-primary">
-    <p class="text-text-secondary text-sm font-iskra uppercase tracking-widest">
-      © 2014 - 2026 Коскина Брейдинг Студия. Все права защищены.
-    </p>
-  </footer>
+  <!-- Contact Section -->
+  <section id="contacts" class="w-full bg-bg-primary pb-16 md:pb-24 relative">
+    <div class="max-w-[1200px] mx-auto px-4">
+      <div class="bg-white rounded-[32px] border border-black/5 shadow-sm overflow-hidden flex flex-col md:flex-row">
+        <!-- Image Left -->
+        <div class="w-full md:w-1/2 h-[300px] md:h-auto relative shrink-0">
+          <img src="img/logo.jpg" alt="Студия Коскина" class="w-full h-full object-cover" referrerpolicy="no-referrer" />
+        </div>
+        <!-- Content Right -->
+        <div class="w-full md:w-1/2 p-8 md:p-12 lg:p-16 flex flex-col justify-center">
+          <h3 class="text-4xl md:text-5xl font-display mb-8 tracking-tight text-text-primary">Контакты</h3>
+          
+          <div class="space-y-6 mb-10">
+            <div class="flex items-start gap-4">
+              <span class="material-icons text-accent-orange mt-1">location_on</span>
+              <div>
+                <h4 class="font-bold text-text-primary text-lg">Адрес</h4>
+                <p class="text-text-secondary">г. Омск, ул. Красный Путь, 143 к3</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start gap-4">
+              <span class="material-icons text-accent-orange mt-1">schedule</span>
+              <div>
+                <p class="text-text-primary font-bold">По предварительной записи</p>
+              </div>
+            </div>
+          </div>
+
+          <h4 class="font-bold text-text-primary text-lg mb-4">Связаться с нами</h4>
+          <div class="flex flex-wrap gap-3">
+            <a href="tel:+79006725456" class="flex items-center gap-2 px-6 py-3 rounded-full bg-black/5 hover:bg-black/10 transition-colors text-text-primary font-medium no-underline">
+              +7 900 672 54 56
+            </a>
+            <a href="https://www.instagram.com/koski_na" target="_blank" class="flex items-center gap-2 px-6 py-3 rounded-full bg-black/5 hover:bg-black/10 transition-colors text-text-primary font-medium no-underline">
+              Instagram
+            </a>
+            <a href="https://vk.com/koski_na" target="_blank" class="flex items-center gap-2 px-6 py-3 rounded-full bg-black/5 hover:bg-black/10 transition-colors text-text-primary font-medium no-underline">
+              ВКонтакте
+            </a>
+            <a href="https://t.me/koski_na" target="_blank" class="flex items-center gap-2 px-6 py-3 rounded-full bg-black/5 hover:bg-black/10 transition-colors text-text-primary font-medium no-underline">
+              Telegram
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
 
   <!-- Service Modal -->
   <div id="service-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 hidden">
@@ -444,7 +488,7 @@
               <span class="text-sm uppercase tracking-wider text-text-primary font-bold">от 1000₽</span>
             </div>
             
-            <button class="w-full py-4 rounded-full bg-black text-white font-medium hover:bg-accent-orange transition-colors cursor-pointer text-lg">
+            <button onclick="scrollToContacts()" class="w-full py-4 rounded-full bg-black text-white font-medium hover:bg-accent-orange transition-colors cursor-pointer text-lg">
               Записаться
             </button>
           </div>
@@ -817,6 +861,21 @@
     // Scroll Logic
     function scrollToServices() {
       document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function scrollToContacts() {
+      const modal = document.getElementById('service-modal');
+      if (modal && !modal.classList.contains('hidden')) {
+        closeServiceModal();
+      }
+      
+      const section = document.getElementById('contacts');
+      if (section) {
+        // Small delay to allow modal to close before scrolling
+        setTimeout(() => {
+          section.scrollIntoView({ behavior: 'smooth' });
+        }, 50);
+      }
     }
 
     function setupScrollListeners() {
