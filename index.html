@@ -297,7 +297,7 @@
       
       <div class="flex flex-col gap-4">
         <!-- FAQ Item -->
-        <details class="group bg-white rounded-[24px] border border-black/5 shadow-sm overflow-hidden [&_summary::-webkit-details-marker]:hidden">
+        <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
           <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer font-sans text-base md:text-lg font-medium text-text-primary select-none">
             С ними удобно?
             <span class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
@@ -309,7 +309,7 @@
         </details>
 
         <!-- FAQ Item -->
-        <details class="group bg-white rounded-[24px] border border-black/5 shadow-sm overflow-hidden [&_summary::-webkit-details-marker]:hidden">
+        <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
           <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer font-sans text-base md:text-lg font-medium text-text-primary select-none">
             Как мыть?
             <span class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
@@ -320,7 +320,7 @@
         </details>
 
         <!-- FAQ Item -->
-        <details class="group bg-white rounded-[24px] border border-black/5 shadow-sm overflow-hidden [&_summary::-webkit-details-marker]:hidden">
+        <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
           <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer font-sans text-base md:text-lg font-medium text-text-primary select-none">
             Вши будут?
             <span class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
@@ -331,7 +331,7 @@
         </details>
 
         <!-- FAQ Item -->
-        <details class="group bg-white rounded-[24px] border border-black/5 shadow-sm overflow-hidden [&_summary::-webkit-details-marker]:hidden">
+        <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
           <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer font-sans text-base md:text-lg font-medium text-text-primary select-none">
             Хочу себе что-нибудь заплести, но не знаю, что именно. Как выбрать?
             <span class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
@@ -342,7 +342,7 @@
         </details>
 
         <!-- FAQ Item -->
-        <details class="group bg-white rounded-[24px] border border-black/5 shadow-sm overflow-hidden [&_summary::-webkit-details-marker]:hidden">
+        <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
           <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer font-sans text-base md:text-lg font-medium text-text-primary select-none">
             Как записаться?
             <span class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
@@ -361,7 +361,7 @@
         </details>
 
         <!-- FAQ Item -->
-        <details class="group bg-white rounded-[24px] border border-black/5 shadow-sm overflow-hidden [&_summary::-webkit-details-marker]:hidden">
+        <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
           <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer font-sans text-base md:text-lg font-medium text-text-primary select-none">
             Что взять с собой на процедуру?
             <span class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
@@ -380,15 +380,31 @@
     <div class="max-w-[1200px] mx-auto px-4">
       <h3 class="text-4xl md:text-6xl font-display mb-8 md:mb-12 tracking-tight text-text-primary">Контакты</h3>
       
-      <div class="flex flex-row gap-6 md:gap-16 items-start">
-        <!-- Logo Column -->
-        <div class="w-1/3 md:w-1/2 shrink-0">
-          <img src="img/logo.png" alt="Студия Коскина" class="w-full aspect-square md:aspect-auto md:h-full rounded-2xl md:rounded-[40px] object-cover shadow-md" referrerpolicy="no-referrer" />
+      <div class="flex flex-col md:flex-row gap-8 md:gap-16 items-start">
+        <!-- Row 1 (Mobile): Logo & Contact Buttons -->
+        <div class="w-full md:w-1/2 flex flex-row md:flex-col gap-4 md:gap-6 items-center md:items-start">
+          <!-- Logo -->
+          <div class="w-20 h-20 md:w-full md:h-auto shrink-0">
+            <img src="img/logo.png" alt="Студия Коскина" class="w-full h-full md:aspect-auto rounded-2xl md:rounded-[40px] object-cover" referrerpolicy="no-referrer" />
+          </div>
+          
+          <!-- Contact Buttons (Mobile Only) -->
+          <div class="flex flex-wrap gap-2 md:hidden flex-grow">
+            <a href="https://t.me/koski_na" target="_blank" class="px-4 py-2 rounded-full bg-black/5 text-text-primary text-xs font-medium no-underline">
+              Telegram
+            </a>
+            <a href="https://vk.com/koski_na" target="_blank" class="px-4 py-2 rounded-full bg-black/5 text-text-primary text-xs font-medium no-underline">
+              ВКонтакте
+            </a>
+            <a href="tel:+79006725456" class="px-4 py-2 rounded-full bg-black/5 text-text-primary text-xs font-medium no-underline">
+              +7 900 672 54 56
+            </a>
+          </div>
         </div>
         
         <!-- Info Column -->
         <div class="flex-grow flex flex-col justify-center py-2 md:py-8">
-          <div class="space-y-6 md:space-y-10 mb-8 md:mb-12">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 mb-8 md:mb-12">
             <div class="flex items-start gap-3 md:gap-5">
               <span class="material-icons text-accent-orange mt-1 text-xl md:text-3xl">location_on</span>
               <div>
@@ -400,25 +416,28 @@
             <div class="flex items-start gap-3 md:gap-5">
               <span class="material-icons text-accent-orange mt-1 text-xl md:text-3xl">schedule</span>
               <div>
+                <h4 class="font-bold text-text-primary text-base md:text-xl mb-1 hidden md:block">Запись</h4>
                 <p class="text-text-primary font-bold text-sm md:text-lg">По предварительной записи</p>
               </div>
             </div>
           </div>
 
-          <h4 class="font-bold text-text-primary text-base md:text-xl mb-4 md:mb-6">Связаться с нами</h4>
-          <div class="flex flex-wrap gap-2 md:gap-4">
-            <a href="tel:+79006725456" class="flex items-center gap-2 px-4 md:px-8 py-2 md:py-4 rounded-full bg-black/5 hover:bg-black/10 transition-colors text-text-primary text-sm md:text-lg font-medium no-underline">
-              +7 900 672 54 56
-            </a>
-            <a href="https://www.instagram.com/koski_na" target="_blank" class="flex items-center gap-2 px-4 md:px-8 py-2 md:py-4 rounded-full bg-black/5 hover:bg-black/10 transition-colors text-text-primary text-sm md:text-lg font-medium no-underline">
-              Instagram
-            </a>
-            <a href="https://vk.com/koski_na" target="_blank" class="flex items-center gap-2 px-4 md:px-8 py-2 md:py-4 rounded-full bg-black/5 hover:bg-black/10 transition-colors text-text-primary text-sm md:text-lg font-medium no-underline">
-              ВКонтакте
-            </a>
-            <a href="https://t.me/koski_na" target="_blank" class="flex items-center gap-2 px-4 md:px-8 py-2 md:py-4 rounded-full bg-black/5 hover:bg-black/10 transition-colors text-text-primary text-sm md:text-lg font-medium no-underline">
-              Telegram
-            </a>
+          <div class="hidden md:block">
+            <h4 class="font-bold text-text-primary text-base md:text-xl mb-4 md:mb-6">Связаться с нами</h4>
+            <div class="flex flex-wrap gap-2 md:gap-4">
+              <a href="tel:+79006725456" class="flex items-center gap-2 px-4 md:px-8 py-2 md:py-4 rounded-full bg-black/5 hover:bg-black/10 transition-colors text-text-primary text-sm md:text-lg font-medium no-underline">
+                +7 900 672 54 56
+              </a>
+              <a href="https://www.instagram.com/koski_na" target="_blank" class="flex items-center gap-2 px-4 md:px-8 py-2 md:py-4 rounded-full bg-black/5 hover:bg-black/10 transition-colors text-text-primary text-sm md:text-lg font-medium no-underline">
+                Instagram
+              </a>
+              <a href="https://vk.com/koski_na" target="_blank" class="flex items-center gap-2 px-4 md:px-8 py-2 md:py-4 rounded-full bg-black/5 hover:bg-black/10 transition-colors text-text-primary text-sm md:text-lg font-medium no-underline">
+                ВКонтакте
+              </a>
+              <a href="https://t.me/koski_na" target="_blank" class="flex items-center gap-2 px-4 md:px-8 py-2 md:py-4 rounded-full bg-black/5 hover:bg-black/10 transition-colors text-text-primary text-sm md:text-lg font-medium no-underline">
+                Telegram
+              </a>
+            </div>
           </div>
         </div>
       </div>
