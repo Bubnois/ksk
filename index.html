@@ -297,7 +297,7 @@
       
       <div class="flex flex-col gap-4">
         <!-- FAQ Item -->
-        <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
+        <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden" open>
           <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer font-sans text-base md:text-lg font-medium text-text-primary select-none">
             С ними удобно?
             <span class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
@@ -507,13 +507,13 @@
             <p id="modal-details"></p>
           </div>
 
-          <div class="mt-auto pt-6 border-t border-black/5 flex flex-col gap-4">
-            <div class="flex items-center justify-between">
-              <span class="text-sm uppercase tracking-wider text-text-secondary font-bold">Стоимость</span>
-              <span class="text-sm uppercase tracking-wider text-text-primary font-bold">от 1000₽</span>
+          <div class="mt-auto pt-6 border-t border-black/5 flex items-center justify-between gap-4">
+            <div class="flex flex-col">
+              <span class="text-xs uppercase tracking-wider text-text-secondary font-bold">Стоимость</span>
+              <span class="text-xs uppercase tracking-wider text-text-primary font-bold">от 1000₽</span>
             </div>
             
-            <button onclick="scrollToContacts()" class="w-full py-4 rounded-full bg-black text-white font-medium hover:bg-accent-orange transition-colors cursor-pointer text-lg">
+            <button onclick="scrollToContacts()" class="px-6 md:px-8 py-3 rounded-full bg-black text-white font-medium hover:bg-accent-orange transition-colors cursor-pointer text-sm md:text-base whitespace-nowrap">
               Записаться
             </button>
           </div>
@@ -596,6 +596,7 @@
       setupHorizontalInteraction();
       setupReadySetsScroll();
       setupModalSwipe();
+      setupFeatureObserver();
       
       // Force an update after a short delay to ensure layout is stable
       setTimeout(() => {
@@ -765,7 +766,7 @@
     function renderFeatures() {
       const grid = document.getElementById('features-grid');
       grid.innerHTML = features.map(feature => `
-        <div class="bg-bg-primary p-6 md:p-10 flex flex-col gap-4 group hover:bg-white transition-colors duration-500">
+        <div class="feature-card bg-bg-primary p-6 md:p-10 flex flex-col gap-4 transition-colors duration-500">
           <div class="flex items-center gap-4">
             <div class="w-10 h-10 rounded-full bg-[#ff7752] flex items-center justify-center shrink-0">
                <span class="material-icons text-white">${feature.icon}</span>
@@ -777,6 +778,41 @@
           </p>
         </div>
       `).join('');
+    }
+
+    function setupFeatureObserver() {
+      const observer = new IntersectionObserver((entries) => {
+        // Find the most visible entry
+        let mostVisible = null;
+        let maxRatio = 0;
+        
+        entries.forEach(entry => {
+          if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
+            maxRatio = entry.intersectionRatio;
+            mostVisible = entry.target;
+          }
+        });
+
+        // Reset all cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+          card.classList.remove('bg-white');
+          card.classList.add('bg-bg-primary');
+        });
+
+        // Highlight the most visible one if it crosses the threshold
+        if (mostVisible && maxRatio > 0.5) {
+          mostVisible.classList.remove('bg-bg-primary');
+          mostVisible.classList.add('bg-white');
+        }
+      }, { 
+        // Use a root margin to effectively check the middle of the viewport
+        rootMargin: '-25% 0px -25% 0px',
+        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1] 
+      });
+
+      document.querySelectorAll('.feature-card').forEach(card => {
+        observer.observe(card);
+      });
     }
 
     // Modal Logic
