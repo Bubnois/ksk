@@ -228,34 +228,34 @@
         <div id="ready-sets-track" class="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 px-4 md:px-16 pb-8 hide-scrollbar scroll-smooth">
           
           <!-- Card 1 -->
-          <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center">
+          <a href="https://vk.com/market-211294353" target="_blank" class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center no-underline">
             <div class="text-left pl-4 md:pl-6">
               <h4 class="text-lg font-sans font-medium text-text-primary group-hover:text-accent-orange transition-colors">ДЕ Дреды</h4>
             </div>
             <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5 shadow-lg">
               <img src="img/kits/1.jpg" alt="Комплект 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
             </div>
-          </div>
+          </a>
 
           <!-- Card 2 -->
-          <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center">
+          <a href="https://vk.com/market-211294353" target="_blank" class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center no-underline">
             <div class="text-left pl-4 md:pl-6">
               <h4 class="text-lg font-sans font-medium text-text-primary group-hover:text-accent-orange transition-colors">Гофродреды</h4>
             </div>
             <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5 shadow-lg">
               <img src="img/kits/2.jpg" alt="Комплект 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
             </div>
-          </div>
+          </a>
 
           <!-- Card 3 -->
-          <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center">
+          <a href="https://vk.com/market-211294353" target="_blank" class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center no-underline">
             <div class="text-left pl-4 md:pl-6">
               <h4 class="text-lg font-sans font-medium text-text-primary group-hover:text-accent-orange transition-colors">Локоны ариэль долли</h4>
             </div>
             <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5 shadow-lg">
               <img src="img/kits/3.jpg" alt="Комплект 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
             </div>
-          </div>
+          </a>
 
           <!-- Card 4 (Accent) -->
           <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 snap-center">
@@ -748,31 +748,58 @@
       let html = '';
       for (let i = 0; i < services.length; i++) {
         const service = services[i];
-        // Default to JPG, fallback handled by onerror in HTML
+        const isLast = i === services.length - 1;
         const mainImage = `img/${service.folder}/1.jpg`;
 
-        html += `
-        <div 
-          class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-accent-orange rounded-[32px]" 
-          onclick="openServiceModal(${i})"
-          tabindex="0"
-          role="button"
-        >
-          <div class="text-left pl-4 md:pl-6">
-            <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">${service.title}</h4>
+        if (isLast) {
+          html += `
+          <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group rounded-[32px]">
+            <div class="text-left pl-4 md:pl-6">
+              <h4 class="text-lg font-sans font-medium text-transparent select-none">&nbsp;</h4>
+            </div>
+            <div class="w-full aspect-[3/4] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg transition-all duration-500">
+              <video 
+                autoplay 
+                loop 
+                muted 
+                playsinline 
+                poster="${mainImage}"
+                class="w-full h-full object-cover"
+              >
+                <source src="img/${service.folder}/1.mp4" type="video/mp4">
+              </video>
+              <div class="absolute inset-0 bg-black/60 flex items-center justify-center p-6 text-center">
+                <p class="text-white text-sm md:text-base leading-relaxed">
+                  Любые другие виды плетений с использованием канекалона. Мы всегда открыты к экспериментам и новым идеям!
+                </p>
+              </div>
+            </div>
           </div>
-          <div class="w-full aspect-[3/4] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg hover:shadow-2xl transition-all duration-500">
-            <img 
-              src="${mainImage}" 
-              alt="${service.title}" 
-              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              referrerpolicy="no-referrer"
-              onerror="this.onerror=null; this.src='img/${service.folder}/1.png';"
-            />
-            <button class="absolute bottom-6 right-6 bg-accent-orange text-white px-5 py-2 rounded-full text-xs font-medium shadow-md transition-transform hover:scale-105 z-10 border-none cursor-pointer">подробнее</button>
+          `;
+        } else {
+          html += `
+          <div 
+            class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-accent-orange rounded-[32px]" 
+            onclick="openServiceModal(${i})"
+            tabindex="0"
+            role="button"
+          >
+            <div class="text-left pl-4 md:pl-6">
+              <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">${service.title}</h4>
+            </div>
+            <div class="w-full aspect-[3/4] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg hover:shadow-2xl transition-all duration-500">
+              <img 
+                src="${mainImage}" 
+                alt="${service.title}" 
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                referrerpolicy="no-referrer"
+                onerror="this.onerror=null; this.src='img/${service.folder}/1.png';"
+              />
+              <button class="absolute bottom-6 right-6 bg-accent-orange text-white px-5 py-2 rounded-full text-xs font-medium shadow-md transition-transform hover:scale-105 z-10 border-none cursor-pointer">подробнее</button>
+            </div>
           </div>
-        </div>
-        `;
+          `;
+        }
       }
       track.innerHTML = html;
     }
