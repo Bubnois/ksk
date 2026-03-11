@@ -471,8 +471,10 @@
         <!-- Image Carousel (Left on desktop, Top on mobile) -->
         <div 
           id="modal-carousel-container"
-          class="w-full md:w-1/2 aspect-square md:aspect-auto md:min-h-[500px] relative bg-black group shrink-0"
+          class="w-full md:w-1/2 aspect-[3/4] relative bg-black group shrink-0"
         >
+          <!-- Preloader Container -->
+          <div id="modal-preloader" class="hidden"></div>
           <img 
             id="modal-image"
             src="" 
@@ -548,7 +550,7 @@
         details: 'Безопасные дреды (ДЕ или СЕ) вплетаются в Ваши волосы и полностью их закрывают. Это позволяет сменить цвет и длину без окрашивания. Комплекты многоразовые. Срок носки 1.5-2 месяца.'
       },
       {
-        title: 'Косы с распущенными концами',
+        title: 'С распущенными концами',
         description: 'Нежный и объемный образ с эффектом распущенных волос.',
         folder: 'lostkos',
         details: 'Это плетение, где коса переходит в мягкий локон. Создает очень женственный и легкий образ. Требует чуть большего ухода за кончиками, чем обычные косы.'
@@ -560,7 +562,7 @@
         details: 'Мы предлагаем безопасное точечное афронаращивание. Без клея, капсул и горячих щипцов. Только нитки и канекалон (или натуральные волосы). Это самый щадящий способ наращивания.'
       },
       {
-        title: 'Другие прически с канекалоном',
+        title: 'Другие прически',
         description: 'Афрохвосты, водопады, боксерские косы и многое другое.',
         folder: 'others',
         details: 'Любые другие виды плетений с использованием канекалона. Мы всегда открыты к экспериментам и новым идеям!'
@@ -670,13 +672,23 @@
 
     // Load images for a service dynamically (Background Process)
     async function discoverServiceImages(folder) {
-      // 1. Always try to add the main image (0) first
-      const extensions = ['svg', 'jpg', 'jpeg', 'png'];
+      const extensions = ['jpg', 'png', 'jpeg', 'svg'];
+      const preloader = document.getElementById('modal-preloader');
+      if (preloader) preloader.innerHTML = '';
       
       // Helper to add image if unique
       const addImage = (url) => {
         if (!currentServiceImages.includes(url)) {
           currentServiceImages.push(url);
+          
+          // Add to preloader to force browser fetch
+          if (preloader) {
+            const pImg = new Image();
+            pImg.src = url;
+            pImg.referrerPolicy = 'no-referrer';
+            preloader.appendChild(pImg);
+          }
+
           // If this is the first image, update the view immediately
           if (currentServiceImages.length === 1) {
             updateModalImage();
@@ -685,47 +697,43 @@
         }
       };
 
-      // Check index 1 first
-      for (const ext of extensions) {
-        const url = `img/${folder}/1.${ext}`;
-        if (await checkImageExists(url)) {
-          addImage(url);
-          break;
-        }
-      }
-
-      // Check indices 2 to 20 in parallel for faster loading
+      // Check index 1 to 10 immediately (most likely range)
+      // We use a more aggressive approach: try all extensions for each index
       const checkPromises = [];
-      for (let i = 2; i <= 20; i++) {
+      for (let i = 1; i <= 10; i++) {
         for (const ext of extensions) {
           const url = `img/${folder}/${i}.${ext}`;
           checkPromises.push(
             checkImageExists(url).then(exists => {
-              if (exists) return { index: i, url };
-              return null;
+              if (exists) addImage(url);
             })
           );
         }
       }
 
-      const results = await Promise.all(checkPromises);
+      // After first batch, check 11 to 20
+      await Promise.all(checkPromises);
       
-      // Filter out nulls, group by index, and pick the first valid extension per index
-      const validImages = results.filter(r => r !== null);
-      
-      // Sort by index to maintain order
-      validImages.sort((a, b) => a.index - b.index);
-      
-      // Deduplicate by index (if multiple extensions exist for the same index, pick the first one found)
-      const addedIndices = new Set();
-      for (const img of validImages) {
-        if (!addedIndices.has(img.index)) {
-          addImage(img.url);
-          addedIndices.add(img.index);
+      const secondBatch = [];
+      for (let i = 11; i <= 20; i++) {
+        for (const ext of extensions) {
+          const url = `img/${folder}/${i}.${ext}`;
+          secondBatch.push(
+            checkImageExists(url).then(exists => {
+              if (exists) addImage(url);
+            })
+          );
         }
       }
       
-      // Force a final render to ensure all dots are shown
+      await Promise.all(secondBatch);
+      
+      // Sort to ensure order 1, 2, 3...
+      currentServiceImages.sort((a, b) => {
+        const getNum = (s) => parseInt(s.match(/\/(\d+)\./)?.[1] || '0');
+        return getNum(a) - getNum(b);
+      });
+
       renderModalDots();
       updateModalImage();
     }
