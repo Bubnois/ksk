@@ -502,13 +502,11 @@
 
         <!-- Details (Right on desktop, Bottom on mobile) -->
         <div class="w-full md:w-1/2 p-6 md:p-10 flex flex-col bg-bg-primary overflow-visible md:overflow-y-auto hide-scrollbar">
-          <h3 id="modal-title" class="text-3xl md:text-4xl font-display mb-4 text-accent-orange"></h3>
+          <h3 id="modal-title" class="text-3xl md:text-4xl font-display mb-2 text-accent-orange"></h3>
           
           <p id="modal-description" class="text-lg font-medium text-text-primary mb-4"></p>
           
-          <div class="prose prose-lg text-text-secondary mb-8 leading-relaxed whitespace-pre-wrap">
-            <p id="modal-details"></p>
-          </div>
+          <div id="modal-details" class="text-lg text-text-secondary mb-8 leading-relaxed whitespace-pre-wrap"></div>
 
           <div class="mt-auto pt-6 border-t border-black/5 flex items-center justify-between gap-4">
             <div class="flex flex-col">
@@ -768,8 +766,8 @@
               >
                 <source src="img/${service.folder}/1.mp4" type="video/mp4">
               </video>
-              <div class="absolute inset-0 bg-black/60 flex items-center justify-center p-6 text-center">
-                <p class="text-white text-sm md:text-base leading-relaxed">
+              <div class="absolute inset-0 bg-black/60 flex flex-col justify-center p-8 md:p-10 text-left">
+                <p class="text-white text-base leading-relaxed">
                   Мы делаем любые другие виды плетений с использованием канекалона.<br><br>Мы всегда открыты к экспериментам и новым идеям, не стесняйтесь спрашивать!
                 </p>
               </div>
