@@ -563,6 +563,12 @@
         details: 'Мы предлагаем безопасное точечное афронаращивание. Без клея, капсул и горячих щипцов. Только нитки и канекалон (или натуральные волосы). Это самый щадящий способ наращивания.'
       },
       {
+        title: 'Локоны',
+        description: 'Мягкие и объемные кудри на любой вкус.',
+        folder: 'lock',
+        details: 'Многоразовый комплект кудрей. В основании сформирован дред небольшой длины (5-15 см), необходимый для заплетения Ваших волос.\n\nОчень лёгкие (до 350 грамм) и мягкие по длине кудри.\n\nВозможно исполнение в разных техниках, в зависимости от индивидуального запроса и желаемого эффекта от причёски.\n\nПричёска требует ежедневного ухода в первые 2 недели нóски.\nРекомендуемый срок одной нóски 4-6 недель. Цена за кудри длиной 25-75 см.'
+      },
+      {
         title: 'Другие прически',
         description: 'Афрохвосты, водопады, боксерские косы и многое другое.',
         folder: 'others',
@@ -1012,8 +1018,8 @@
       const viewportWidth = window.innerWidth;
       const windowHeight = window.innerHeight;
       
-      const horizontalScrollDistance = Math.max(0, trackWidth - viewportWidth + (window.innerWidth > 768 ? 128 : 32));
-      const buffer = horizontalScrollDistance > 0 ? windowHeight * 1.0 : 0;
+      const horizontalScrollDistance = Math.max(0, trackWidth - viewportWidth + (window.innerWidth > 768 ? 64 : 16));
+      const buffer = horizontalScrollDistance > 0 ? windowHeight * 0.4 : 0;
       
       section.style.height = `${windowHeight + horizontalScrollDistance + buffer}px`;
     }
@@ -1033,7 +1039,7 @@
       }
 
       const maxTranslate = Math.max(0, track.scrollWidth - viewportWidth + (window.innerWidth > 768 ? 64 : 16));
-      const buffer = maxTranslate > 0 ? windowHeight * 0.5 : 0;
+      const buffer = maxTranslate > 0 ? windowHeight * 0.2 : 0;
       const effectiveDistance = scrollableDistance - (buffer * 2);
 
       let progress = 0;
