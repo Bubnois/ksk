@@ -7,16 +7,16 @@
   <meta name="description" content="Новый образ - новый опыт. Студия брейдинга &quot;Коскина&quot;. Город Омск, ул. Красный Путь, 143 к3. Предварительная запись">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   
-  <!-- Fonts & Icons -->
+  <!-- подтягиваем шрифты и иконки, база -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Tailwind CSS -->
+  <!-- тейлвинд, чтобы не возиться с цсс -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Custom Config -->
+  <!-- конфиг темы, накидываем кастомные токены -->
   <script>
     tailwind.config = {
       theme: {
@@ -58,7 +58,7 @@
   </script>
 
   <style>
-    /* Custom Styles */
+    /* костыли и фиксы, когда тейлвинда не хватило */
     body {
       background-color: #F5F5F3;
       color: #1A1A1A;
@@ -72,12 +72,12 @@
       stroke-dashoffset: 1000;
     }
 
-    /* Hide scrollbar for Chrome, Safari and Opera */
+    /* гасим скроллбар в вебките */
     .hide-scrollbar::-webkit-scrollbar {
       display: none;
     }
 
-    /* Hide scrollbar for IE, Edge and Firefox */
+    /* гасим скроллбар везде остальном */
     .hide-scrollbar {
       -ms-overflow-style: none;  /* IE and Edge */
       scrollbar-width: none;  /* Firefox */
@@ -86,10 +86,10 @@
 </head>
 <body class="bg-bg-primary">
 
-  <!-- Header (Fixed) -->
+  <!-- липкая шапка с инверсией, чисто для стиля -->
   <header id="main-header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 px-4 md:px-6 py-4 md:py-6 mix-blend-difference">
     <div class="max-w-[1400px] mx-auto flex flex-row justify-between items-center text-white">
-      <!-- Left: Logo Area -->
+      <!-- брендинг: лого и нейминг -->
       <div class="flex flex-col justify-between h-9 md:h-11 w-max select-none">
         <div class="flex justify-between w-full text-[0.5rem] md:text-[0.65rem] leading-none uppercase tracking-wider">
           <span>С</span><span>т</span><span>у</span><span>д</span><span>и</span><span>я</span>
@@ -101,7 +101,7 @@
         </div>
       </div>
 
-      <!-- Right: Info & Action -->
+      <!-- контакты и колл-ту-экшн -->
       <div class="flex flex-row items-center gap-6">
         <div class="text-xs md:text-sm text-white/80 text-right leading-tight font-medium uppercase tracking-wider hidden lg:block">
           <p>по предварительной записи</p>
@@ -128,18 +128,18 @@
     <div class="absolute inset-0 bg-black/40"></div>
   </div>
 
-  <!-- Main Content -->
+  <!-- погнали основной контент -->
   <main class="flex-grow w-full overflow-x-hidden mt-12 md:mt-20 mb-20">
     <div class="flex flex-col items-center justify-center relative w-full max-w-[1400px] mx-auto px-4">
     
-      <!-- Typography & Wavy Line Container -->
+      <!-- хиро-блок: заголовок и кривые -->
       <div class="relative w-full flex flex-col items-center z-20">
         
-        <!-- Headline Text -->
+        <!-- сам заголовок -->
         <div class="text-center font-display leading-none tracking-tight text-text-primary relative">
           <div class="relative inline-block">
             <h2 class="text-4xl sm:text-5xl md:text-8xl lg:text-[7rem] mb-2 md:mb-4">Новый образ</h2>
-            <!-- Right Line -->
+            <!-- декоративная кривая справа -->
             <div class="absolute left-full top-1/2 -translate-y-1/2 ml-2 md:ml-4">
               <svg viewBox="0 0 300 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-[100px] md:w-[200px] lg:w-[300px]">
                 <path class="animate-draw-line" d="M0 50 C 50 50, 100 80, 150 80 C 200 80, 250 20, 300 20" stroke="black" stroke-width="6" stroke-linecap="round" fill="none"/>
@@ -151,7 +151,7 @@
 
           <div class="relative inline-block">
             <h2 class="text-4xl sm:text-5xl md:text-8xl lg:text-[7rem]">новый опыт</h2>
-            <!-- Left Line -->
+            <!-- декоративная кривая слева -->
             <div class="absolute right-full top-1/2 -translate-y-1/2 mr-2 md:mr-4">
                <svg viewBox="0 0 300 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-[100px] md:w-[200px] lg:w-[300px]">
                 <path class="animate-draw-line" d="M300 50 C 250 50, 200 20, 150 20 C 100 20, 50 80, 0 80" stroke="black" stroke-width="6" stroke-linecap="round" fill="none"/>
@@ -161,14 +161,14 @@
         </div>
       </div>
 
-      <!-- Description -->
+      <!-- интро про студию -->
       <div class="mt-8 md:mt-12 max-w-2xl text-center px-4">
         <p class="text-text-secondary text-sm md:text-base leading-relaxed">
-          Делаем потрясающие прически с 2017 года. Девять лет работы и бесчисленное количество заплетенных голов. Уютная студия, работаем в четыре руки. По-настоящему индивидуальный подход.
+          Делаем потрясающие прически с 2017 года. Девять лет работы и бесчисленное количество заплетенных голов. Уютная студия, работаем в четыре руки. По-настоящему индивидуальный подход
         </p>
       </div>
 
-      <!-- CTA Button -->
+      <!-- главная кнопка, ведем в услуги -->
       <div class="mt-10 md:mt-16">
         <button 
           onclick="scrollToServices()"
@@ -184,7 +184,7 @@
     </div>
   </main>
 
-  <!-- Services Section (Horizontal Scroll) -->
+  <!-- услуги, тут будет горизонтальный скролл -->
   <section id="services" class="relative w-full bg-btn-dark text-white">
     <div class="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden">
       
@@ -192,35 +192,35 @@
         <h3 class="text-4xl md:text-6xl font-display mb-4">Услуги</h3>
         <p class="text-white/70 text-sm md:text-base leading-relaxed max-w-xl mx-auto">
           Мы предлагаем широкий спектр услуг по плетению и уходу за заплетенными волосами. 
-          Каждая работа выполняется с любовью и вниманием к деталям.
+          Каждая работа выполняется с любовью и вниманием к деталям
         </p>
       </div>
 
-      <!-- The Track -->
+      <!-- контейнер для карточек услуг -->
       <div class="w-full overflow-hidden">
         <div id="services-track" class="flex gap-4 md:gap-6 px-4 md:px-8 w-max will-change-transform">
-          <!-- Services injected by JS -->
+          <!-- сюда js нарендерит карточки -->
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Who is it for Section -->
+  <!-- блок про ЦА -->
   <section class="w-full bg-bg-primary pb-16 md:pb-24 relative z-10 text-text-primary">
     <div class="max-w-[1400px] mx-auto px-4 md:px-8 pt-16 md:pt-24">
       <div class="flex flex-col max-w-4xl mx-auto">
         
-        <!-- Centered Heading -->
+        <!-- центрируем заголовок -->
         <div class="text-center mb-4 md:mb-6">
           <h3 class="text-4xl md:text-6xl font-display tracking-tight">Кому подойдет?</h3>
         </div>
 
-        <!-- Content Blocks (Stacking Cards) -->
+        <!-- сетка с карточками преимуществ -->
         <div class="w-full flex flex-col gap-4 md:gap-6 relative">
           
-          <!-- Card 1 -->
+          <!-- карточка 1 -->
           <div class="relative w-full bg-white rounded-[32px] p-6 md:p-8 border border-black/5 overflow-hidden group transition-colors duration-500">
-            <!-- Background pattern -->
+            <!-- фоновый паттерн -->
             <div class="absolute inset-0 overflow-hidden pointer-events-none">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="absolute right-[-2%] top-[-10%] w-40 h-40 md:w-56 md:h-56 text-black/5 transition-transform duration-500 group-hover:scale-110 group-hover:text-accent-orange/10"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="absolute right-[25%] bottom-[-15%] w-24 h-24 md:w-32 md:h-32 text-black/5 transition-transform duration-500 group-hover:-translate-y-4 group-hover:text-accent-orange/10"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -238,9 +238,9 @@
             </div>
           </div>
 
-          <!-- Card 2 -->
+          <!-- карточка 2 -->
           <div class="relative w-full bg-white rounded-[32px] p-6 md:p-8 border border-black/5 overflow-hidden group transition-colors duration-500">
-            <!-- Background pattern -->
+            <!-- фоновый паттерн -->
             <div class="absolute inset-0 overflow-hidden pointer-events-none">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="absolute right-[-5%] top-[10%] w-32 h-32 md:w-48 md:h-48 text-black/5 transition-transform duration-500 group-hover:scale-110 group-hover:text-accent-orange/10"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="absolute right-[30%] top-[-10%] w-20 h-20 md:w-28 md:h-28 text-black/5 transition-transform duration-500 group-hover:rotate-45 group-hover:text-accent-orange/10"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
@@ -253,14 +253,14 @@
                 <h4 class="text-lg md:text-xl font-display font-bold text-text-primary">Тем, кто выбирает красоту и удобство</h4>
               </div>
               <p class="text-text-secondary text-sm md:text-base leading-relaxed max-w-2xl">
-                100% уверенности в своей причёске, так как её не испортят дождь, ветер или физическая активность. Да, выглядеть великолепно в любой ситуации — это реально.
+                100% уверенности в своей причёске, так как её не испортят дождь, ветер или физическая активность. Да, выглядеть великолепно в любой ситуации — это реально
               </p>
             </div>
           </div>
 
-          <!-- Card 3 -->
+          <!-- карточка 3 -->
           <div class="relative w-full bg-white rounded-[32px] p-6 md:p-8 border border-black/5 overflow-hidden group transition-colors duration-500">
-            <!-- Background pattern -->
+            <!-- фоновый паттерн -->
             <div class="absolute inset-0 overflow-hidden pointer-events-none">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="absolute right-[5%] bottom-[-10%] w-36 h-36 md:w-52 md:h-52 text-black/5 transition-transform duration-500 group-hover:scale-110 group-hover:text-accent-orange/10"><circle cx="12" cy="12" r="3" /><path d="M12 16.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 1 1 12 7.5a4.5 4.5 0 1 1 4.5 4.5 4.5 4.5 0 1 1-4.5 4.5" /></svg>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="absolute right-[40%] top-[10%] w-16 h-16 md:w-24 md:h-24 text-black/5 transition-transform duration-500 group-hover:-translate-y-3 group-hover:text-accent-orange/10"><circle cx="12" cy="12" r="3" /><path d="M12 16.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 1 1 12 7.5a4.5 4.5 0 1 1 4.5 4.5 4.5 4.5 0 1 1-4.5 4.5" /></svg>
@@ -273,7 +273,7 @@
                 <h4 class="text-lg md:text-xl font-display font-bold text-text-primary">Тем, кому важно проявляться</h4>
               </div>
               <p class="text-text-secondary text-sm md:text-base leading-relaxed max-w-2xl">
-                Заплести дреды или косы — это отличный способ заявить о себе, своих принципах и желаниях. Они дополнят уже созданный образ, а также помогут сделать шаг к изменению имиджа.
+                Заплести дреды или косы — это отличный способ заявить о себе, своих принципах и желаниях. Они дополнят уже созданный образ, а также помогут сделать шаг к изменению имиджа
               </p>
             </div>
           </div>
@@ -283,18 +283,18 @@
     </div>
   </section>
 
-  <!-- Ready Sets Section -->
+  <!-- витрина готовых комплектов -->
   <section class="w-full bg-btn-dark py-16 md:py-24 relative group/section text-white">
     <div class="max-w-[1400px] mx-auto relative">
       <div class="text-center mb-8 px-4">
         <h3 class="text-4xl md:text-6xl font-display mb-4 tracking-tight text-white">Готовые комплекты</h3>
         <p class="text-white/70 text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
-          Помимо заплетения, мы изготавливаем великолепные и самые разнообразные комплекты. В наличии более 30 вариантов на любой вкус и стиль.
+          Помимо заплетения, мы изготавливаем великолепные и самые разнообразные комплекты. В наличии более 30 вариантов на любой вкус и стиль
         </p>
       </div>
       
       <div class="relative group/carousel">
-        <!-- Navigation Buttons -->
+        <!-- контролы для карусели -->
         <button id="ready-left-btn" onclick="scrollReadySets('left')" class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-black hover:bg-gray-50 transition-colors cursor-pointer border-none hidden">
           <span class="material-icons">chevron_left</span>
         </button>
@@ -302,10 +302,10 @@
           <span class="material-icons">chevron_right</span>
         </button>
 
-        <!-- Carousel -->
+        <!-- сама карусель с наборами -->
         <div id="ready-sets-track" class="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 px-4 md:px-16 pb-8 hide-scrollbar scroll-smooth">
           
-          <!-- Card 1 -->
+          <!-- карточка 1 -->
           <a href="https://vk.com/market-211294353" target="_blank" class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center no-underline">
             <div class="text-left pl-4 md:pl-6">
               <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">ДЕ Дреды</h4>
@@ -315,7 +315,7 @@
             </div>
           </a>
 
-          <!-- Card 2 -->
+          <!-- карточка 2 -->
           <a href="https://vk.com/market-211294353" target="_blank" class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center no-underline">
             <div class="text-left pl-4 md:pl-6">
               <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">Гофродреды</h4>
@@ -325,7 +325,7 @@
             </div>
           </a>
 
-          <!-- Card 3 -->
+          <!-- карточка 3 -->
           <a href="https://vk.com/market-211294353" target="_blank" class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center no-underline">
             <div class="text-left pl-4 md:pl-6">
               <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">Локоны ариэль долли</h4>
@@ -335,7 +335,7 @@
             </div>
           </a>
 
-          <!-- Card 4 (Accent) -->
+          <!-- акцентная карточка с призывом -->
           <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 snap-center">
              <div class="h-[28px]"></div>
              <div class="w-full aspect-square rounded-[32px] bg-[#ff7752] p-8 md:p-10 flex flex-col text-white relative overflow-hidden">
@@ -358,18 +358,18 @@
     </div>
   </section>
 
-  <!-- Why Choose Us Section -->
+  <!-- блок с фичами студии -->
   <section class="w-full bg-bg-primary py-16 md:py-24">
     <div class="max-w-[1400px] mx-auto px-4">
       <h3 class="text-4xl md:text-6xl font-display mb-4 text-center tracking-tight">Почему нас выбирают</h3>
       
       <div id="features-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-        <!-- Features injected by JS -->
+        <!-- сюда js нарендерит фичи -->
       </div>
     </div>
   </section>
 
-  <!-- FAQ Section -->
+  <!-- блок факап... ой, фака -->
   <section class="w-full bg-bg-primary pb-16 md:pb-24 relative">
     <div class="max-w-[1000px] mx-auto px-4">
       <div class="text-center mb-6 md:mb-8">
@@ -377,7 +377,7 @@
       </div>
       
       <div class="flex flex-col gap-4">
-        <!-- FAQ Item -->
+        <!-- элемент аккордеона -->
         <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden" open>
           <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer font-sans text-base md:text-lg font-medium text-text-primary select-none">
             С ними удобно?
@@ -389,66 +389,66 @@
           </div>
         </details>
 
-        <!-- FAQ Item -->
+        <!-- элемент аккордеона -->
         <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
           <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer font-sans text-base md:text-lg font-medium text-text-primary select-none">
             Как мыть?
             <span class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
           </summary>
           <div class="px-6 md:px-8 pb-6 md:pb-8 text-text-secondary text-sm md:text-base leading-relaxed">
-            <p>Моем 1 раз в 7−10 дней специальной пенкой для мытья заплетенных волос или разбавленным шампунем. Подробную инструкцию по уходу расскажем дважды — при консультации и во время плетения.</p>
+            <p>Моем 1 раз в 7−10 дней специальной пенкой для мытья заплетенных волос или разбавленным шампунем. Подробную инструкцию по уходу расскажем дважды — при консультации и во время плетения</p>
           </div>
         </details>
 
-        <!-- FAQ Item -->
+        <!-- элемент аккордеона -->
         <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
           <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer font-sans text-base md:text-lg font-medium text-text-primary select-none">
             Вши будут?
             <span class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
           </summary>
           <div class="px-6 md:px-8 pb-6 md:pb-8 text-text-secondary text-sm md:text-base leading-relaxed">
-            <p>К сожалению, в комплекте с косами их не будет. Если серьезно, то педикулёз — это контактное заболевание. Насекомые могут только переселиться с зараженной головы, но никак не могут «завестись» самостоятельно. И да, они с намного большим удовольствием живут на волосах, которые часто моют и носят распущенными, чем на косах и дредах из искусственного материала, так как они не могут эффективно размножаться в неестественных условиях.</p>
+            <p>К сожалению, в комплекте с косами их не будет. Если серьезно, то педикулёз — это контактное заболевание. Насекомые могут только переселиться с зараженной головы, но никак не могут «завестись» самостоятельно. И да, они с намного большим удовольствием живут на волосах, которые часто моют и носят распущенными, чем на косах и дредах из искусственного материала, так как они не могут эффективно размножаться в неестественных условиях</p>
           </div>
         </details>
 
-        <!-- FAQ Item -->
+        <!-- элемент аккордеона -->
         <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
           <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer font-sans text-base md:text-lg font-medium text-text-primary select-none">
             Хочу себе что-нибудь заплести, но не знаю, что именно. Как выбрать?
             <span class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
           </summary>
           <div class="px-6 md:px-8 pb-6 md:pb-8 text-text-secondary text-sm md:text-base leading-relaxed">
-            <p>Если хочется посмотреть и потрогать вживую разные фактуры, можно прийти к нам в студию на личную консультацию. Всё покажем и расскажем, поможем сориентироваться в этом бесконечном многообразии.</p>
+            <p>Если хочется посмотреть и потрогать вживую разные фактуры, можно прийти к нам в студию на личную консультацию. Всё покажем и расскажем, поможем сориентироваться в этом бесконечном многообразии</p>
           </div>
         </details>
 
-        <!-- FAQ Item -->
+        <!-- элемент аккордеона -->
         <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
           <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer font-sans text-base md:text-lg font-medium text-text-primary select-none">
             Как записаться?
             <span class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
           </summary>
           <div class="px-6 md:px-8 pb-6 md:pb-8 text-text-secondary text-sm md:text-base leading-relaxed">
-            <p>Для записи достаточно написать нам любым удобным для Вас способом.</p>
+            <p>Для записи достаточно написать нам любым удобным для Вас способом</p>
             <p class="mt-4">Для получения быстрой консультации присылайте:</p>
             <ol class="list-decimal list-inside mt-2 space-y-2">
               <li>Фото желаемого результата (можно несколько фото — где-то понравилась длина, где-то цвет, фактура, общий объём прически, сочетания, детали)</li>
               <li>Фото Ваших волос в распущенном виде со спины</li>
-              <li>Желаемые даты для заплетения.</li>
+              <li>Желаемые даты для заплетения</li>
             </ol>
-            <p class="mt-4">Исходя из этого мы сможем максимально быстро и точно сориентировать Вас по цене и срокам изготовления комплекта.</p>
-            <p class="mt-4 font-medium text-text-primary">Бронь даты и материала осуществляется по предоплате.</p>
+            <p class="mt-4">Исходя из этого мы сможем максимально быстро и точно сориентировать Вас по цене и срокам изготовления комплекта</p>
+            <p class="mt-4 font-medium text-text-primary">Бронь даты и материала осуществляется по предоплате</p>
           </div>
         </details>
 
-        <!-- FAQ Item -->
+        <!-- элемент аккордеона -->
         <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
           <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer font-sans text-base md:text-lg font-medium text-text-primary select-none">
             Что взять с собой на процедуру?
             <span class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
           </summary>
           <div class="px-6 md:px-8 pb-6 md:pb-8 text-text-secondary text-sm md:text-base leading-relaxed">
-            <p>Плетение занимает в среднем 3 часа, возьмите с собой всё, что может потребоваться Вам в это время — перекус и что-нибудь занятное, чтобы не скучно было сидеть. Если принимаете лекарства по часам, не забудьте и о них.</p>
+            <p>Плетение занимает в среднем 3 часа, возьмите с собой всё, что может потребоваться Вам в это время — перекус и что-нибудь занятное, чтобы не скучно было сидеть. Если принимаете лекарства по часам, не забудьте и о них</p>
             <p class="mt-2">Приходить лучше в удобной тянущейся одежде)</p>
           </div>
         </details>
@@ -456,7 +456,7 @@
     </div>
   </section>
 
-  <!-- Contact Section -->
+  <!-- футер с контактами -->
   <section id="contacts" class="w-full bg-btn-dark py-16 md:py-24 relative text-white rounded-t-[32px] md:rounded-t-[48px]">
     <div class="max-w-[1200px] mx-auto px-4">
       <h3 class="text-4xl md:text-6xl font-display mb-4 tracking-tight text-white text-center">Контакты</h3>
@@ -465,14 +465,14 @@
       </p>
       
       <div class="flex flex-col md:flex-row gap-8 md:gap-16 items-start">
-        <!-- Row 1 (Mobile): Logo & Contact Buttons -->
+        <!-- лого и кнопки для мобилы -->
         <div class="w-full md:w-1/2 flex flex-row md:flex-col gap-4 md:gap-6 items-start">
-          <!-- Logo -->
+          <!-- лого студии -->
           <div class="w-20 h-20 md:w-full md:h-auto shrink-0">
             <img src="img/logo.png" alt="Студия Коскина" class="w-full h-full md:aspect-auto rounded-xl md:rounded-[40px] object-contain" referrerpolicy="no-referrer" />
           </div>
           
-          <!-- Contact Buttons (Mobile Only) -->
+          <!-- кнопки связи для узких экранов -->
           <div class="flex flex-wrap gap-2 md:hidden flex-grow pt-1">
             <a href="https://t.me/koski_na" target="_blank" class="px-4 py-2 rounded-full bg-white/10 text-white text-sm font-medium no-underline whitespace-nowrap hover:bg-accent-orange active:bg-accent-orange transition-colors">
               Telegram
@@ -489,7 +489,7 @@
           </div>
         </div>
         
-        <!-- Info Column -->
+        <!-- основная инфа по контактам -->
         <div class="flex-grow flex flex-col justify-center py-2 md:py-8">
           <div class="hidden md:block mb-8 md:mb-12">
             <h4 class="font-bold text-white text-base md:text-xl mb-4 md:mb-6">Связаться с нами</h4>
@@ -530,31 +530,31 @@
     </div>
   </section>
 
-  <!-- Service Modal -->
+  <!-- модалка с деталями услуги -->
   <div id="service-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 hidden">
-    <!-- Backdrop -->
+    <!-- оверлей с блюром -->
     <div 
       class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity cursor-pointer" 
       onclick="closeServiceModal()"
     ></div>
     
-    <!-- Modal Content -->
+    <!-- тело модалки -->
     <div class="relative w-full max-w-2xl md:max-w-7xl bg-bg-primary rounded-[40px] overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh] animate-modal">
       
-      <!-- Close Button -->
+      <!-- крестик -->
       <button onclick="closeServiceModal()" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-accent-orange flex items-center justify-center text-white hover:bg-accent-orange/80 transition-colors cursor-pointer border-none shadow-lg">
         <span class="material-icons">close</span>
       </button>
 
-      <!-- Scroll Wrapper -->
+      <!-- контейнер со скроллом -->
       <div class="flex flex-col md:flex-row w-full h-full overflow-y-auto hide-scrollbar">
         
-        <!-- Image Carousel (Left on desktop, Top on mobile) -->
+        <!-- галерея картинок -->
         <div 
           id="modal-carousel-container"
           class="w-full md:w-1/2 aspect-[3/4] relative bg-black group shrink-0"
         >
-          <!-- Preloader Container -->
+          <!-- скрытый прелоадер для кеша -->
           <div id="modal-preloader" class="hidden"></div>
           <img 
             id="modal-image"
@@ -564,7 +564,7 @@
             referrerpolicy="no-referrer"
           />
           
-          <!-- Navigation Arrows -->
+          <!-- стрелки в галерее -->
           <button onclick="prevImage()" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/40 transition-colors cursor-pointer border-none opacity-0 group-hover:opacity-100">
             <span class="material-icons">chevron_left</span>
           </button>
@@ -572,13 +572,13 @@
             <span class="material-icons">chevron_right</span>
           </button>
 
-          <!-- Dots Indicator -->
+          <!-- пагинация точками -->
           <div id="modal-dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-            <!-- Dots injected by JS -->
+            <!-- точки прилетят из js -->
           </div>
         </div>
 
-        <!-- Details (Right on desktop, Bottom on mobile) -->
+        <!-- описание и цена -->
         <div class="w-full md:w-1/2 p-6 md:p-10 flex flex-col bg-bg-primary overflow-visible md:overflow-y-auto hide-scrollbar">
           <h3 id="modal-title" class="text-3xl md:text-4xl font-display mb-4 text-accent-orange"></h3>
           
@@ -600,60 +600,60 @@
   </div>
 
   <script>
-    // Data
+    // мокаем данные, стейт — наше всё
     const services = [
       {
         title: 'Безопасные дреды',
-        description: 'ДЕ дреды и СЕ дреды, которые не портят волосы.',
+        description: 'ДЕ дреды и СЕ дреды, которые не портят волосы',
         folder: 'sdre',
         price: 'от 9000 ₽',
         details: '<b>ДЕ</b> - от англ. double ended - с двумя концами.\nКаждый дред имеет 2 кончика, в стандартном комплекте из 60 дредов получается 120 концов.\n\nПредлагаем разные фактуры: гладкие (скрученные), крючковые, софты, runo дреды.\n\nЦвет, длина и толщина могут быть любыми, оттенки смешиваем вручную.\nКомплект можно будет вплетать повторно неоднократно.\nРекомендуемый срок одной нóски 4-6 недель.\n\nНе требует ежедневного ухода.\nСтоимость прически зависит от желаемой фактуры и длины дредов'
       },
       {
         title: 'Натуральные дреды',
-        description: 'Натуральные дреды из своих волос или с удлинением.',
+        description: 'Натуральные дреды из своих волос или с удлинением',
         folder: 'ndre',
         price: 'от 8000 ₽',
         details: 'Плетутся из своих волос, и их не нужно потом срезать - тоже можно расплести.\n\nТакую причёску стоит делать, если уверены, что отношения с ними - надолго.\nДреды из своих волос формируются со временем, к привычному для всех виду они приходят только спустя 6-12 месяцев после заплетения - дреды становятся толще, их поверхность - однороднее, а структура - плотнее.\nИ чтобы формирование проходило хорошо, за дредами нужно ухаживать самостоятельно и своевременно посещать коррекции (первая - обязательна, вторая - желательна, дальше - на усмотрение владельца).\n\nСтоимость зависит от желаемого количества и длины дредов, необходимости их удлинения и выбранного материала (канекалон, натуральные волосы, шерсть козы)'
       },
       {
         title: 'Локоны',
-        description: 'Мягкие и объемные кудри на любой вкус.',
+        description: 'Мягкие и объемные кудри на любой вкус',
         folder: 'lock',
         price: 'от 11000 ₽',
         details: 'Выполняем в разных техниках, в зависимости от того, какого эффекта хочется достичь. От наших локонов не чешется голова.\n\n<b>Локоны а-ля каркас</b> - распущенные локоны сразу от корня. Создают объемную прическу, полностью перекрывают свои волосы при том, что плетутся точечно.\n\n<b>Локоны долли/пуш-ап</b> - в основании сформирована пышная мягкая серединка, которая похожа на фактуру кудрей. Создают средний объем.\n\n<b>Дредолоконы</b> - в основании сформирован дред небольшой длины (5-15 см), который отличается от фактуры кудрей. Создают небольшой объем.\n\nКомплект можно будет вплетать повторно неоднократно.\nРекомендуемый срок одной нóски 4-6 недель.\n\n<b>Уход:</b> 15 минут в день для предотвращения спутывания\n\nСтоимость зависит от выбранной техники и не зависит от желаемой длины кудрей'
       },
       {
         title: 'ДЕ Косы',
-        description: 'Двухконцевые косы — стильный и практичный выбор.',
+        description: 'Двухконцевые косы — стильный и практичный выбор',
         folder: 'dekos',
         price: 'от 9000 ₽',
         details: '<b>ДЕ</b> - от англ. double ended - с двумя концами.\nКаждая коса имеет 2 кончика, в стандартном комплекте из 60 кос получается 120 концов.\n\nЦвет, длина и толщина могут быть любыми, оттенки смешиваем вручную.\nКомплект можно будет вплетать повторно неоднократно.\nРекомендуемый срок одной нóски 4-6 недель.\n\nНе требует ежедневного ухода.\nСтоимость прически зависит от желаемой длины кос'
       },
       {
         title: 'С распущенными концами',
-        description: 'Нежный и объемный образ с эффектом распущенных волос.',
+        description: 'Нежный и объемный образ с эффектом распущенных волос',
         folder: 'lostkos',
         price: 'от 11000 ₽',
         details: '<b>ДЕ</b> - от англ. double ended - с двумя концами.\nКаждый дред имеет 2 кончика, в стандартном комплекте из 60 дредов получается 120 концов.\n\nВ прикорневой зоне, в зависимости от ваших пожеланий, могут быть как косы, так и дреды. А концы могут быть прямыми или завитыми.\n\nЦвет, длина и толщина могут быть любыми, оттенки смешиваем вручную. Комплект можно будет вплетать повторно неоднократно.\nРекомендуемый срок одной нóски 4-6 недель.\n\n<b>Ежедневный уход:</b> 5 минут в день'
       },
       {
         title: 'Брейды',
-        description: 'Тугое плетение по голове, узоры любой сложности.',
+        description: 'Тугое плетение по голове, узоры любой сложности',
         folder: 'braids',
         price: 'от 1000 ₽',
-        details: 'Косы на висок, в пробор или по всей голове - от небольшого декоративного элемента до полной смены образа.\n\nМожно плести как из своих волос, так и с добавлением материала. Канекалон в косах позволяет увеличивать объем прически и, при желании, полностью перекрывать цвет ваших волос, а также дольше сохранять опрятный вид прически.\n\nВремя плетения, стоимость и рекомендуемый срок нóски зависят от количества кос и сложности рисунка.\nНе требуют ежедневного ухода.'
+        details: 'Косы на висок, в пробор или по всей голове - от небольшого декоративного элемента до полной смены образа.\n\nМожно плести как из своих волос, так и с добавлением материала. Канекалон в косах позволяет увеличивать объем прически и, при желании, полностью перекрывать цвет ваших волос, а также дольше сохранять опрятный вид прически.\n\nВремя плетения, стоимость и рекомендуемый срок нóски зависят от количества кос и сложности рисунка.\nНе требуют ежедневного ухода'
       },
       {
         title: 'Наращивание волос',
-        description: 'Профессиональное афронаращивание для длины и объема.',
+        description: 'Профессиональное афронаращивание для длины и объема',
         folder: 'grown',
         price: 'от 2500 ₽',
-        details: 'Позволяет увеличить длину волос, не влияет на прикорневой объем.\n\nТакже можно нарастить один ряд, чтобы создать эффект скрытого окрашивания и/или загущения концов.\n\nНаращивание выполняется искусственным материалом, по внешнему виду и физическим свойствам максимально приближенным к натуральным волосам.\n\nРекомендуемый срок одной нóски 4-6 недель.\nВ отличие от других причесок материал не получится использовать повторно.\n\n<b>Уход:</b> Расчесывать 3-5 раз в день, после каждого мытья выпрямлять утюжком (концы можно выпрямлять каждый день).'
+        details: 'Позволяет увеличить длину волос, не влияет на прикорневой объем.\n\nТакже можно нарастить один ряд, чтобы создать эффект скрытого окрашивания и/или загущения концов.\n\nНаращивание выполняется искусственным материалом, по внешнему виду и физическим свойствам максимально приближенным к натуральным волосам.\n\nРекомендуемый срок одной нóски 4-6 недель.\nВ отличие от других причесок материал не получится использовать повторно.\n\n<b>Уход:</b> Расчесывать 3-5 раз в день, после каждого мытья выпрямлять утюжком (концы можно выпрямлять каждый день)'
       },
       {
         title: 'Другие прически',
-        description: 'Афрохвосты, водопады, боксерские косы и многое другое.',
+        description: 'Афрохвосты, водопады, боксерские косы и многое другое',
         folder: 'others',
         price: 'индивидуально',
         details: 'Любые другие виды плетений с использованием канекалона. Мы всегда открыты к экспериментам и новым идеям!'
@@ -663,40 +663,40 @@
     const features = [
       {
         title: 'Опыт 9 лет',
-        description: 'Мы многое повидали за это время. Знаем, как надо и как не надо делать. С интересом решаем нетипичные задачи.',
+        description: 'Мы многое повидали за это время. Знаем, как надо и как не надо делать. С интересом решаем нетипичные задачи',
         icon: 'history'
       },
       {
         title: 'Уютная студия',
-        description: 'Большая огороженая парковка, хорошая транспортная доступность, удобные кресла, возможность помыть и уложить волосы после расплетения, чай/кофе и печеньки, wi-fi, тёплые пледы и тапочки. У нас можно как отдохнуть, наслаждаясь процессом, так и поработать свою удаленную работу, чтобы не терять время.',
+        description: 'Большая огороженая парковка, хорошая транспортная доступность, удобные кресла, возможность помыть и уложить волосы после расплетения, чай/кофе и печеньки, wi-fi, тёплые пледы и тапочки. У нас можно как отдохнуть, наслаждаясь процессом, так и поработать свою удаленную работу, чтобы не терять время',
         icon: 'weekend',
         svg: '<path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.27 1 2.61 1 4 0 5.52-4.48 10-10 10S2 19.52 2 14c0-1.39.43-2.73 1-4 0 0-1.82-6.42-.42-7 1.39-.58 4.64.26 6.42 2.26.65-.17 1.33-.26 2-.26Z" /><path d="M8 14h.01" /><path d="M16 14h.01" /><path d="M12 17l-1-1h2l-1 1Z" />'
       },
       {
         title: 'Скорость плетения',
-        description: 'Мы работаем в 4 руки, что позволяет вплетать комплекты от 2х часов, расплетать причёски за 1 час, а также быстро изготавливать комплекты. Да, больше не придётся ждать своей записи 3−5 недель, как это было раньше.',
+        description: 'Мы работаем в 4 руки, что позволяет вплетать комплекты от 2х часов, расплетать причёски за 1 час, а также быстро изготавливать комплекты. Да, больше не придётся ждать своей записи 3−5 недель, как это было раньше',
         icon: 'speed'
       },
       {
         title: 'Индивидуальный подход',
-        description: 'При подборе и создании причёски мы всегда отталкиваемся от Ваших предпочтений, образа жизни и цели заплетения. Для нас важно понять, какого именно эффекта Вам хочется достичь, чтобы прическа приносила только положительные эмоции на протяжении всего срока носки.',
+        description: 'При подборе и создании причёски мы всегда отталкиваемся от Ваших предпочтений, образа жизни и цели заплетения. Для нас важно понять, какого именно эффекта Вам хочется достичь, чтобы прическа приносила только положительные эмоции на протяжении всего срока носки',
         icon: 'favorite'
       }
     ];
 
-    // Initialization
+    // стартуем инициализацию по дом-реди
     document.addEventListener('DOMContentLoaded', () => {
       renderServices();
       renderFeatures();
       
-      // Setup logic that depends on content being rendered
+      // вешаем листенеры на то, что уже в доме
       setupScrollListeners();
       setupHorizontalInteraction();
       setupReadySetsScroll();
       setupModalSwipe();
       setupFeatureObserver();
       
-      // Force an update after a short delay to ensure layout is stable
+      // форсим апдейт высоты, чтобы верстка не поехала
       setTimeout(() => {
         const servicesSection = document.getElementById('services');
         const servicesTrack = document.getElementById('services-track');
@@ -704,7 +704,7 @@
       }, 100);
     });
 
-    // Horizontal Swipe/Wheel Logic for Services Section
+    // хендлим свайпы и колесо для горизонтального скролла
     let lastTouchX = 0;
     let lastTouchY = 0;
 
@@ -712,10 +712,10 @@
       const section = document.getElementById('services');
       if (!section) return;
 
-      // Wheel support (Trackpad/Mouse)
+      // поддержка скролла мышкой
       section.addEventListener('wheel', (e) => {
         const rect = section.getBoundingClientRect();
-        // Allow scrolling if the section is visible in the viewport
+        // скроллим, только если секция во вьюпорте
         if (rect.top < window.innerHeight && rect.bottom > 0) {
           if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
             e.preventDefault();
@@ -724,7 +724,7 @@
         }
       }, { passive: false });
 
-      // Touch support (Mobile/Tablet)
+      // поддержка тач-событий
       section.addEventListener('touchstart', (e) => {
         lastTouchX = e.touches[0].clientX;
         lastTouchY = e.touches[0].clientY;
@@ -737,12 +737,12 @@
         const deltaY = lastTouchY - touchY;
 
         const rect = section.getBoundingClientRect();
-        // Allow scrolling if the section is visible in the viewport
+        // скроллим, только если секция во вьюпорте
         if (rect.top < window.innerHeight && rect.bottom > 0) {
-          // If horizontal swipe is dominant
+          // проверяем, что свайп именно горизонтальный
           if (Math.abs(deltaX) > Math.abs(deltaY)) {
             if (e.cancelable) e.preventDefault();
-            // Apply a multiplier (e.g. 2) to make the scroll feel faster/more natural
+            // ускоряем скролл для плавности
             window.scrollBy(0, deltaX * 2);
           }
         }
@@ -752,7 +752,7 @@
       }, { passive: false });
     }
 
-    // Helper to check image existence
+    // чекаем, жива ли картинка по урлу
     async function checkImageExists(url) {
       return new Promise(resolve => {
         const img = new Image();
@@ -762,18 +762,18 @@
       });
     }
 
-    // Load images for a service dynamically (Background Process)
+    // фоновая загрузка ассетов сервиса
     async function discoverServiceImages(folder) {
       const extensions = ['jpg', 'png', 'jpeg', 'svg'];
       const preloader = document.getElementById('modal-preloader');
       if (preloader) preloader.innerHTML = '';
       
-      // Helper to add image if unique
+      // хелпер для уникальных картинок
       const addImage = (url) => {
         if (!currentServiceImages.includes(url)) {
           currentServiceImages.push(url);
           
-          // Add to preloader to force browser fetch
+          // прелоадим в дом для кеширования браузером
           if (preloader) {
             const pImg = new Image();
             pImg.src = url;
@@ -781,7 +781,7 @@
             preloader.appendChild(pImg);
           }
 
-          // If this is the first image, update the view immediately
+          // сразу показываем первую найденную
           if (currentServiceImages.length === 1) {
             updateModalImage();
           }
@@ -789,8 +789,8 @@
         }
       };
 
-      // Check index 1 to 10 immediately (most likely range)
-      // We use a more aggressive approach: try all extensions for each index
+      // брутфорсим первые 10 индексов
+      // пробуем все расширения для каждого индекса
       const checkPromises = [];
       for (let i = 1; i <= 10; i++) {
         for (const ext of extensions) {
@@ -803,7 +803,7 @@
         }
       }
 
-      // After first batch, check 11 to 20
+      // догружаем остальное, если есть
       await Promise.all(checkPromises);
       
       const secondBatch = [];
@@ -820,7 +820,7 @@
       
       await Promise.all(secondBatch);
       
-      // Sort to ensure order 1, 2, 3...
+      // сортируем по индексу в названии
       currentServiceImages.sort((a, b) => {
         const getNum = (s) => parseInt(s.match(/\/(\d+)\./)?.[1] || '0');
         return getNum(a) - getNum(b);
@@ -830,7 +830,7 @@
       updateModalImage();
     }
 
-    // Render Services (Synchronous & Fast)
+    // отрисовка услуг в дом
     function renderServices() {
       const track = document.getElementById('services-track');
       
@@ -893,7 +893,7 @@
       track.innerHTML = html;
     }
 
-    // Render Features
+    // отрисовка преимуществ
     function renderFeatures() {
       const grid = document.getElementById('features-grid');
       grid.innerHTML = features.map(feature => {
@@ -906,9 +906,9 @@
 
         return `
         <div class="feature-card relative w-full bg-bg-primary rounded-[32px] p-6 md:p-8 border border-black/5 overflow-hidden group transition-colors duration-500" data-bg-default="bg-bg-primary" data-bg-highlight="bg-white">
-          <!-- Background pattern -->
-          <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            ${renderIcon('right-[-2%] top-[-10%]', 'text-[10rem] md:text-[14rem] w-40 h-40 md:w-56 md:h-56', 'group-hover:scale-110')}
+        <!-- фоновый паттерн -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+          ${renderIcon('right-[-2%] top-[-10%]', 'text-[10rem] md:text-[14rem] w-40 h-40 md:w-56 md:h-56', 'group-hover:scale-110')}
             ${renderIcon('right-[25%] bottom-[-15%]', 'text-[6rem] md:text-[8rem] w-24 h-24 md:w-32 md:h-32', 'group-hover:-translate-y-4')}
             ${renderIcon('left-[45%] top-[5%]', 'text-[4rem] md:text-[5rem] w-16 h-16 md:w-20 md:h-20', 'group-hover:rotate-12')}
             ${renderIcon('left-[10%] bottom-[-5%]', 'text-[5rem] md:text-[7rem] w-20 h-20 md:w-28 md:h-28', 'group-hover:-rotate-12')}
@@ -948,7 +948,7 @@
       });
     }
 
-    // Modal Logic
+    // управление состоянием модалки
     let currentServiceIndex = null;
     let currentCarouselIndex = 0;
     let currentServiceImages = [];
@@ -962,20 +962,20 @@
       document.getElementById('modal-details').innerHTML = service.details;
       document.getElementById('modal-price').textContent = service.price;
       
-      // Reset images
+      // чистим стейт картинок
       currentServiceImages = [];
       
-      // Show modal immediately with placeholder or first guess
+      // открываем модалку, не дожидаясь всех картинок
       const modal = document.getElementById('service-modal');
       modal.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
 
-      // Push state to history for back button support
+      // фиксируем открытие в истории браузера
       if (!window.history.state || !window.history.state.modalOpen) {
         window.history.pushState({ modalOpen: true }, '');
       }
 
-      // Start discovery process
+      // ищем картинки в папке сервиса
       discoverServiceImages(service.folder);
     }
 
@@ -983,11 +983,11 @@
       const modal = document.getElementById('service-modal');
       if (modal.classList.contains('hidden')) return;
 
-      // If we have our modal state in history, go back
+      // если есть стейт в истории — откатываемся
       if (window.history.state && window.history.state.modalOpen) {
         window.history.back();
       } else {
-        // Fallback if state is missing
+        // если истории нет — просто закрываем
         actuallyCloseModal();
       }
     }
@@ -1000,7 +1000,7 @@
       currentServiceImages = [];
     }
 
-    // Handle back button / gesture
+    // хендлим кнопку "назад" на мобилках
     window.addEventListener('popstate', (event) => {
       const modal = document.getElementById('service-modal');
       if (modal && !modal.classList.contains('hidden')) {
@@ -1013,7 +1013,7 @@
       const imgEl = document.getElementById('modal-image');
       imgEl.src = currentServiceImages[currentCarouselIndex];
       
-      // Update dots
+      // перерисовываем пагинацию
       const dots = document.getElementById('modal-dots').children;
       for (let i = 0; i < dots.length; i++) {
         if (i === currentCarouselIndex) {
@@ -1053,7 +1053,7 @@
       updateModalImage();
     }
 
-    // Modal Swipe Logic
+    // свайпы в галерее модалки
     let modalTouchStartX = 0;
     let modalTouchEndX = 0;
 
@@ -1078,7 +1078,7 @@
       }
     }
 
-    // Scroll Logic
+    // плавные переходы по якорям
     function scrollToServices() {
       document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
     }
@@ -1091,7 +1091,7 @@
       
       const section = document.getElementById('contacts');
       if (section) {
-        // Small delay to allow modal to close before scrolling
+        // ждем закрытия модалки перед скроллом
         setTimeout(() => {
           section.scrollIntoView({ behavior: 'smooth' });
         }, 50);
@@ -1104,7 +1104,7 @@
       const servicesTrack = document.getElementById('services-track');
       
       window.addEventListener('scroll', () => {
-        // Header
+        // анимация шапки при скролле
         if (window.scrollY > 50) {
           header.classList.add('py-3', 'md:py-4');
           header.classList.remove('py-4', 'md:py-6');
@@ -1113,7 +1113,7 @@
           header.classList.add('py-4', 'md:py-6');
         }
 
-        // Horizontal Scroll
+        // апдейтим горизонтальный скролл
         updateHorizontalScroll(servicesSection, servicesTrack);
       });
 
@@ -1121,7 +1121,7 @@
         updateSectionHeight(servicesSection, servicesTrack);
       });
       
-      // Initial sizing
+      // первичный расчет геометрии
       setTimeout(() => updateSectionHeight(servicesSection, servicesTrack), 100);
     }
 
@@ -1164,7 +1164,7 @@
       track.style.transform = `translate3d(${-progress * maxTranslate}px, 0, 0)`;
     }
 
-    // Ready Sets Logic
+    // карусель готовых наборов
     function setupReadySetsScroll() {
       const track = document.getElementById('ready-sets-track');
       const leftBtn = document.getElementById('ready-left-btn');
