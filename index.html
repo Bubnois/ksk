@@ -961,17 +961,43 @@
       modal.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
 
+      // Push state to history for back button support
+      if (!window.history.state || !window.history.state.modalOpen) {
+        window.history.pushState({ modalOpen: true }, '');
+      }
+
       // Start discovery process
       discoverServiceImages(service.folder);
     }
 
     function closeServiceModal() {
       const modal = document.getElementById('service-modal');
+      if (modal.classList.contains('hidden')) return;
+
+      // If we have our modal state in history, go back
+      if (window.history.state && window.history.state.modalOpen) {
+        window.history.back();
+      } else {
+        // Fallback if state is missing
+        actuallyCloseModal();
+      }
+    }
+
+    function actuallyCloseModal() {
+      const modal = document.getElementById('service-modal');
       modal.classList.add('hidden');
       document.body.style.overflow = '';
       currentServiceIndex = null;
       currentServiceImages = [];
     }
+
+    // Handle back button / gesture
+    window.addEventListener('popstate', (event) => {
+      const modal = document.getElementById('service-modal');
+      if (modal && !modal.classList.contains('hidden')) {
+        actuallyCloseModal();
+      }
+    });
 
     function updateModalImage() {
       if (currentServiceImages.length === 0) return;

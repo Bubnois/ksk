@@ -369,6 +369,13 @@
     </div>
   </section>
 
+  <!-- Studio Gallery Section -->
+  <section class="w-full bg-bg-primary pb-16 md:pb-24">
+    <div id="studio-track" class="max-w-[1400px] mx-auto px-4 flex flex-col gap-2 md:gap-3">
+      <!-- Injected by JS -->
+    </div>
+  </section>
+
   <!-- FAQ Section -->
   <section class="w-full bg-bg-primary pb-16 md:pb-24 relative">
     <div class="max-w-[1000px] mx-auto px-4">
@@ -687,6 +694,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       renderServices();
       renderFeatures();
+      renderStudioGallery();
       
       // Setup logic that depends on content being rendered
       setupScrollListeners();
@@ -1145,6 +1153,29 @@
       const track = document.getElementById('ready-sets-track');
       const amount = direction === 'left' ? -320 : 320;
       track.scrollBy({ left: amount, behavior: 'smooth' });
+    }
+
+    // Studio Gallery Logic
+    function renderStudioGallery() {
+      const track = document.getElementById('studio-track');
+      if (!track) return;
+      
+      let html = '';
+      // Assuming up to 12 images
+      for (let i = 1; i <= 12; i++) {
+        html += `
+          <div class="sticky top-24 md:top-32 w-full aspect-square rounded-[16px] overflow-hidden border border-black/5 shadow-2xl bg-white" style="z-index: ${i}">
+            <img 
+              src="img/studio/${i}.jpg" 
+              alt="Студия ${i}" 
+              class="w-full h-full object-cover" 
+              referrerpolicy="no-referrer"
+              onerror="this.parentElement.remove()"
+            />
+          </div>
+        `;
+      }
+      track.innerHTML = html;
     }
 
   </script>
