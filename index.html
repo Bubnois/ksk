@@ -306,37 +306,46 @@
         <div id="ready-sets-track" class="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 px-4 md:px-16 pb-8 hide-scrollbar scroll-smooth">
           
           <!-- карточка 1 -->
-          <a href="https://vk.com/market-211294353" target="_blank" class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center no-underline">
+          <a href="https://vk.com/market-211294353" target="_blank" class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center snap-always no-underline">
             <div class="text-left pl-4 md:pl-6">
               <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">ДЕ Дреды</h4>
             </div>
             <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5">
               <img src="img/kits/1.jpg" alt="Комплект 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
+              <div class="absolute bottom-6 right-6 flex items-center justify-center text-btn-dark transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
+                <span class="material-icons text-3xl">arrow_outward</span>
+              </div>
             </div>
           </a>
 
           <!-- карточка 2 -->
-          <a href="https://vk.com/market-211294353" target="_blank" class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center no-underline">
+          <a href="https://vk.com/market-211294353" target="_blank" class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center snap-always no-underline">
             <div class="text-left pl-4 md:pl-6">
               <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">Гофродреды</h4>
             </div>
             <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5">
               <img src="img/kits/2.jpg" alt="Комплект 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
+              <div class="absolute bottom-6 right-6 flex items-center justify-center text-btn-dark transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
+                <span class="material-icons text-3xl">arrow_outward</span>
+              </div>
             </div>
           </a>
 
           <!-- карточка 3 -->
-          <a href="https://vk.com/market-211294353" target="_blank" class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center no-underline">
+          <a href="https://vk.com/market-211294353" target="_blank" class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center snap-always no-underline">
             <div class="text-left pl-4 md:pl-6">
               <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">Локоны ариэль долли</h4>
             </div>
             <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5">
               <img src="img/kits/3.jpg" alt="Комплект 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
+              <div class="absolute bottom-6 right-6 flex items-center justify-center text-btn-dark transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
+                <span class="material-icons text-3xl">arrow_outward</span>
+              </div>
             </div>
           </a>
 
           <!-- акцентная карточка с призывом -->
-          <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 snap-center">
+          <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 snap-center snap-always">
              <div class="h-[28px]"></div>
              <div class="w-full aspect-square rounded-[32px] bg-[#ff7752] p-8 md:p-10 flex flex-col text-white relative overflow-hidden">
                 <div class="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
@@ -1097,6 +1106,7 @@
       }
     }
 
+    let scrollTimeout;
     function setupScrollListeners() {
       const header = document.getElementById('main-header');
       const servicesSection = document.getElementById('services');
@@ -1114,6 +1124,12 @@
 
         // апдейтим горизонтальный скролл
         updateHorizontalScroll(servicesSection, servicesTrack);
+        
+        // привязка к центру при остановке скролла
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          snapServicesToCenter(servicesSection, servicesTrack);
+        }, 150);
       });
 
       window.addEventListener('resize', () => {
@@ -1122,6 +1138,63 @@
       
       // первичный расчет геометрии
       setTimeout(() => updateSectionHeight(servicesSection, servicesTrack), 100);
+    }
+
+    function snapServicesToCenter(section, track) {
+      if (!section || !track) return;
+      // Привязка к центру только на мобилках
+      if (window.innerWidth >= 768) return;
+      
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      // Снапим только если секция полностью на экране
+      if (rect.top > 0 || rect.bottom < windowHeight) return;
+      
+      const viewportWidth = window.innerWidth;
+      const maxTranslate = Math.max(0, track.scrollWidth - viewportWidth + 16);
+      if (maxTranslate <= 0) return;
+      
+      const scrollableDistance = section.offsetHeight - windowHeight;
+      const buffer = maxTranslate > 0 ? windowHeight * 0.2 : 0;
+      const effectiveDistance = scrollableDistance - (buffer * 2);
+      
+      let progress = (-rect.top - buffer) / effectiveDistance;
+      if (progress <= 0 || progress >= 1) return;
+      
+      const currentTranslate = progress * maxTranslate;
+      const cards = track.children;
+      if (cards.length === 0) return;
+      
+      let closestCardIndex = 0;
+      let minDistance = Infinity;
+      const viewportCenter = viewportWidth / 2;
+      
+      for (let i = 0; i < cards.length; i++) {
+        const card = cards[i];
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        const cardCenterOnScreen = cardCenter - currentTranslate;
+        const distance = Math.abs(cardCenterOnScreen - viewportCenter);
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestCardIndex = i;
+        }
+      }
+      
+      const targetCard = cards[closestCardIndex];
+      const targetCardCenter = targetCard.offsetLeft + targetCard.offsetWidth / 2;
+      let targetTranslate = targetCardCenter - viewportCenter;
+      targetTranslate = Math.max(0, Math.min(maxTranslate, targetTranslate));
+      
+      const targetProgress = targetTranslate / maxTranslate;
+      const targetScrollY = window.scrollY + rect.top + buffer + (targetProgress * effectiveDistance);
+      
+      if (Math.abs(window.scrollY - targetScrollY) > 5) {
+        window.scrollTo({
+          top: targetScrollY,
+          behavior: 'smooth'
+        });
+      }
     }
 
     function updateSectionHeight(section, track) {
