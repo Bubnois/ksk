@@ -90,6 +90,22 @@
     .animate-pulse-subtle {
       animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     }
+
+    /* Skeleton shimmer placeholders for loading images */
+    @keyframes imgSkeletonShimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .img-skeleton {
+      background: linear-gradient(90deg, #232220 25%, #3a3835 37%, #232220 63%);
+      background-size: 200% 100%;
+      animation: imgSkeletonShimmer 1.8s ease-in-out infinite;
+    }
+    .img-skeleton-light {
+      background: linear-gradient(90deg, #e4e4e7 25%, #f4f4f5 37%, #e4e4e7 63%);
+      background-size: 200% 100%;
+      animation: imgSkeletonShimmer 1.8s ease-in-out infinite;
+    }
   </style>
 </head>
 <body class="bg-bg-primary">
@@ -318,8 +334,8 @@
             <div class="text-left pl-4 md:pl-6">
               <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">ДЕ Дреды</h4>
             </div>
-            <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5">
-              <img src="img/kits/1.jpg" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
+            <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5 img-skeleton">
+              <img src="img/kits/1.jpg" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-0 transition-opacity duration-300" referrerpolicy="no-referrer" onload="this.classList.remove('opacity-0')" />
               <div class="absolute bottom-6 right-6 flex items-center justify-center text-btn-dark transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
                 <span class="material-icons text-3xl">arrow_outward</span>
               </div>
@@ -331,8 +347,8 @@
             <div class="text-left pl-4 md:pl-6">
               <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">Гофродреды</h4>
             </div>
-            <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5">
-              <img src="img/kits/2.jpg" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
+            <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5 img-skeleton">
+              <img src="img/kits/2.jpg" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-0 transition-opacity duration-300" referrerpolicy="no-referrer" onload="this.classList.remove('opacity-0')" />
               <div class="absolute bottom-6 right-6 flex items-center justify-center text-btn-dark transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
                 <span class="material-icons text-3xl">arrow_outward</span>
               </div>
@@ -344,8 +360,8 @@
             <div class="text-left pl-4 md:pl-6">
               <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">Локоны ариэль долли</h4>
             </div>
-            <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5">
-              <img src="img/kits/3.jpg" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
+            <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5 img-skeleton">
+              <img src="img/kits/3.jpg" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-0 transition-opacity duration-300" referrerpolicy="no-referrer" onload="this.classList.remove('opacity-0')" />
               <div class="absolute bottom-6 right-6 flex items-center justify-center text-btn-dark transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
                 <span class="material-icons text-3xl">arrow_outward</span>
               </div>
@@ -482,8 +498,8 @@
         <div class="flex md:hidden flex-col gap-10 -mx-4">
           <!-- Ряд 1: Фото (лево) + 4 Баббла (право) -->
           <div class="flex gap-4 items-stretch overflow-hidden">
-            <div class="w-[45%] shrink-0">
-              <img src="img/studio/1.jpg" alt="" class="w-full h-full object-cover rounded-r-[32px] shadow-sm" referrerpolicy="no-referrer" />
+            <div class="w-[45%] shrink-0 img-skeleton-light rounded-r-[32px]">
+              <img src="img/studio/1.jpg" alt="" class="w-full h-full object-cover rounded-r-[32px] shadow-sm opacity-0 transition-opacity duration-300" referrerpolicy="no-referrer" onload="this.classList.remove('opacity-0')" />
             </div>
             <div class="flex flex-col gap-2 justify-center flex-grow pr-4">
               <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug">
@@ -517,8 +533,8 @@
                 Экономию времени и денег&nbsp;💸
               </div>
             </div>
-            <div class="w-[45%] shrink-0">
-              <img src="img/studio/2.jpg" alt="" class="w-full h-full object-cover rounded-l-[32px] shadow-sm" referrerpolicy="no-referrer" />
+            <div class="w-[45%] shrink-0 img-skeleton-light rounded-l-[32px]">
+              <img src="img/studio/2.jpg" alt="" class="w-full h-full object-cover rounded-l-[32px] shadow-sm opacity-0 transition-opacity duration-300" referrerpolicy="no-referrer" onload="this.classList.remove('opacity-0')" />
             </div>
           </div>
         </div>
@@ -527,8 +543,8 @@
         <div class="hidden md:flex flex-col gap-20 -mx-16">
           <!-- Ряд 1: Фото (лево) + Бабблы (право) -->
           <div class="flex gap-16 items-stretch overflow-hidden">
-            <div class="w-[45%] shrink-0">
-              <img src="img/studio/1.jpg" alt="" class="w-full h-full object-cover rounded-r-[60px] shadow-md" referrerpolicy="no-referrer" />
+            <div class="w-[45%] shrink-0 img-skeleton-light rounded-r-[60px]">
+              <img src="img/studio/1.jpg" alt="" class="w-full h-full object-cover rounded-r-[60px] shadow-md opacity-0 transition-opacity duration-300" referrerpolicy="no-referrer" onload="this.classList.remove('opacity-0')" />
             </div>
             <div class="flex flex-col gap-6 justify-center flex-grow pr-16">
               <div class="bg-white/90 backdrop-blur-md border border-black/5 rounded-[24px] px-8 py-5 text-base text-text-primary leading-snug shadow-sm">
@@ -562,8 +578,8 @@
                 Экономию времени и денег&nbsp;💸
               </div>
             </div>
-            <div class="w-[45%] shrink-0">
-              <img src="img/studio/2.jpg" alt="" class="w-full h-full object-cover rounded-l-[60px] shadow-md" referrerpolicy="no-referrer" />
+            <div class="w-[45%] shrink-0 img-skeleton-light rounded-l-[60px]">
+              <img src="img/studio/2.jpg" alt="" class="w-full h-full object-cover rounded-l-[60px] shadow-md opacity-0 transition-opacity duration-300" referrerpolicy="no-referrer" onload="this.classList.remove('opacity-0')" />
             </div>
           </div>
         </div>
@@ -672,7 +688,7 @@
         <!-- галерея картинок -->
         <div 
           id="modal-carousel-container"
-          class="w-full md:w-1/2 aspect-[3/4] relative bg-black group shrink-0"
+          class="w-full md:w-1/2 aspect-[3/4] relative bg-black group shrink-0 img-skeleton"
         >
           <!-- лоадер -->
           <div id="modal-loader" class="absolute inset-0 flex items-center justify-center z-10 hidden">
@@ -1029,13 +1045,14 @@
             <div class="text-left pl-4 md:pl-6">
               <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">${service.title}</h4>
             </div>
-            <div class="w-full aspect-[3/4] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg hover:shadow-2xl transition-all duration-500">
+            <div class="w-full aspect-[3/4] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg hover:shadow-2xl transition-all duration-500 img-skeleton">
               <img 
                 src="${mainImage}" 
                 alt="" 
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-0 transition-opacity duration-300"
                 referrerpolicy="no-referrer"
                 onerror="this.onerror=null; this.src='img/${service.folder}/1.png';"
+                onload="this.classList.remove('opacity-0')"
               />
               <button class="absolute bottom-6 right-6 bg-accent-orange text-white px-5 py-2 rounded-full text-xs font-medium shadow-md transition-transform hover:scale-105 z-10 border-none cursor-pointer">подробнее</button>
             </div>
