@@ -90,22 +90,6 @@
     .animate-pulse-subtle {
       animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     }
-
-    /* Skeleton shimmer placeholders for loading images */
-    @keyframes imgSkeletonShimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
-    }
-    .img-skeleton {
-      background: linear-gradient(90deg, #232220 25%, #3a3835 37%, #232220 63%);
-      background-size: 200% 100%;
-      animation: imgSkeletonShimmer 1.8s ease-in-out infinite;
-    }
-    .img-skeleton-light {
-      background: linear-gradient(90deg, #e4e4e7 25%, #f4f4f5 37%, #e4e4e7 63%);
-      background-size: 200% 100%;
-      animation: imgSkeletonShimmer 1.8s ease-in-out infinite;
-    }
   </style>
 </head>
 <body class="bg-bg-primary">
@@ -160,11 +144,11 @@
       <div class="relative w-full flex flex-col items-center z-20">
         
         <!-- сам заголовок -->
-        <div class="text-center font-display leading-none tracking-tight text-text-primary relative mb-2">
-          <!-- First line: "Новый образ" -->
+        <div class="text-center font-display leading-none tracking-tight text-text-primary relative">
+          <!-- First line -->
           <div class="relative inline-block mb-2 md:mb-4">
-            <h1 class="text-4xl sm:text-5xl md:text-8xl lg:text-[7rem] leading-none tracking-tight text-text-primary">Новый образ</h1>
-            <!-- декоративная кривая справа -->
+            <h2 class="text-4xl sm:text-5xl md:text-8xl lg:text-[7rem] leading-none tracking-tight text-text-primary">Новый образ</h2>
+            <!-- Right Line -->
             <div class="absolute left-full top-1/2 -translate-y-1/2 ml-2 sm:ml-4 md:ml-6">
               <svg viewBox="0 0 600 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-[220px] sm:w-[350px] md:w-[550px] lg:w-[850px] xl:w-[1000px]">
                 <path class="animate-draw-line" d="M0 50 C 50 50, 100 80, 150 80 C 200 80, 250 20, 300 20 C 350 20, 400 80, 450 80 C 500 80, 550 20, 600 20" stroke="#1A1A1A" stroke-width="6" stroke-linecap="round" fill="none"/>
@@ -174,10 +158,10 @@
           
           <div class="block"></div>
 
-          <!-- Second line: "новый опыт" -->
+          <!-- Second line -->
           <div class="relative inline-block mb-2 md:mb-3">
             <h2 class="text-4xl sm:text-5xl md:text-8xl lg:text-[7rem] leading-none tracking-tight text-text-primary">новый опыт</h2>
-            <!-- декоративная кривая слева -->
+            <!-- Left Line -->
             <div class="absolute right-full top-1/2 -translate-y-1/2 mr-2 sm:mr-4 md:mr-6">
                <svg viewBox="0 0 600 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-[220px] sm:w-[350px] md:w-[550px] lg:w-[850px] xl:w-[1000px]">
                  <path class="animate-draw-line" d="M600 50 C 550 50, 500 20, 450 20 C 400 20, 350 80, 300 80 C 250 80, 200 20, 150 20 C 100 20, 50 80, 0 80" stroke="#1A1A1A" stroke-width="6" stroke-linecap="round" fill="none"/>
@@ -320,11 +304,11 @@
       </div>
       
       <div class="relative group/carousel">
-        <!-- контролы для карусели (скрыты на мобильных, видны на десктопе) -->
-        <button id="ready-left-btn" onclick="scrollReadySets('left')" class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-lg items-center justify-center text-black hover:bg-gray-50 transition-colors cursor-pointer border-none max-md:hidden md:flex hidden">
+        <!-- контролы для карусели -->
+        <button id="ready-left-btn" onclick="scrollReadySets('left')" class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-lg items-center justify-center text-black hover:bg-gray-50 transition-colors cursor-pointer border-none hidden">
           <span class="material-icons">chevron_left</span>
         </button>
-        <button id="ready-right-btn" onclick="scrollReadySets('right')" class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-lg items-center justify-center text-black hover:bg-gray-50 transition-colors cursor-pointer border-none max-md:hidden md:flex">
+        <button id="ready-right-btn" onclick="scrollReadySets('right')" class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-lg items-center justify-center text-black hover:bg-gray-50 transition-colors cursor-pointer border-none hidden md:flex">
           <span class="material-icons">chevron_right</span>
         </button>
 
@@ -336,8 +320,8 @@
             <div class="text-left pl-4 md:pl-6">
               <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">ДЕ Дреды</h4>
             </div>
-            <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5 img-skeleton">
-              <img src="img/kits/1.jpg" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-0 transition-opacity duration-300" referrerpolicy="no-referrer" onload="this.classList.remove('opacity-0')" />
+            <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5">
+              <img src="img/kits/1.jpg" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
               <div class="absolute bottom-6 right-6 flex items-center justify-center text-btn-dark transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
                 <span class="material-icons text-3xl">arrow_outward</span>
               </div>
@@ -349,8 +333,8 @@
             <div class="text-left pl-4 md:pl-6">
               <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">Гофродреды</h4>
             </div>
-            <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5 img-skeleton">
-              <img src="img/kits/2.jpg" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-0 transition-opacity duration-300" referrerpolicy="no-referrer" onload="this.classList.remove('opacity-0')" />
+            <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5">
+              <img src="img/kits/2.jpg" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
               <div class="absolute bottom-6 right-6 flex items-center justify-center text-btn-dark transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
                 <span class="material-icons text-3xl">arrow_outward</span>
               </div>
@@ -362,8 +346,8 @@
             <div class="text-left pl-4 md:pl-6">
               <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">Локоны ариэль долли</h4>
             </div>
-            <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5 img-skeleton">
-              <img src="img/kits/3.jpg" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-0 transition-opacity duration-300" referrerpolicy="no-referrer" onload="this.classList.remove('opacity-0')" />
+            <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5">
+              <img src="img/kits/3.jpg" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
               <div class="absolute bottom-6 right-6 flex items-center justify-center text-btn-dark transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
                 <span class="material-icons text-3xl">arrow_outward</span>
               </div>
@@ -500,8 +484,8 @@
         <div class="flex md:hidden flex-col gap-10 -mx-4">
           <!-- Ряд 1: Фото (лево) + 4 Баббла (право) -->
           <div class="flex gap-4 items-stretch overflow-hidden">
-            <div class="w-[45%] shrink-0 img-skeleton-light rounded-r-[32px]">
-              <img src="img/studio/1.jpg" alt="" class="w-full h-full object-cover rounded-r-[32px] shadow-sm opacity-0 transition-opacity duration-300" referrerpolicy="no-referrer" onload="this.classList.remove('opacity-0')" />
+            <div class="w-[45%] shrink-0">
+              <img src="img/studio/1.jpg" alt="" class="w-full h-full object-cover rounded-r-[32px] shadow-sm" referrerpolicy="no-referrer" />
             </div>
             <div class="flex flex-col gap-2 justify-center flex-grow pr-4">
               <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug">
@@ -535,8 +519,8 @@
                 Экономию времени и денег&nbsp;💸
               </div>
             </div>
-            <div class="w-[45%] shrink-0 img-skeleton-light rounded-l-[32px]">
-              <img src="img/studio/2.jpg" alt="" class="w-full h-full object-cover rounded-l-[32px] shadow-sm opacity-0 transition-opacity duration-300" referrerpolicy="no-referrer" onload="this.classList.remove('opacity-0')" />
+            <div class="w-[45%] shrink-0">
+              <img src="img/studio/2.jpg" alt="" class="w-full h-full object-cover rounded-l-[32px] shadow-sm" referrerpolicy="no-referrer" />
             </div>
           </div>
         </div>
@@ -545,8 +529,8 @@
         <div class="hidden md:flex flex-col gap-20 -mx-16">
           <!-- Ряд 1: Фото (лево) + Бабблы (право) -->
           <div class="flex gap-16 items-stretch overflow-hidden">
-            <div class="w-[45%] shrink-0 img-skeleton-light rounded-r-[60px]">
-              <img src="img/studio/1.jpg" alt="" class="w-full h-full object-cover rounded-r-[60px] shadow-md opacity-0 transition-opacity duration-300" referrerpolicy="no-referrer" onload="this.classList.remove('opacity-0')" />
+            <div class="w-[45%] shrink-0">
+              <img src="img/studio/1.jpg" alt="" class="w-full h-full object-cover rounded-r-[60px] shadow-md" referrerpolicy="no-referrer" />
             </div>
             <div class="flex flex-col gap-6 justify-center flex-grow pr-16">
               <div class="bg-white/90 backdrop-blur-md border border-black/5 rounded-[24px] px-8 py-5 text-base text-text-primary leading-snug shadow-sm">
@@ -580,8 +564,8 @@
                 Экономию времени и денег&nbsp;💸
               </div>
             </div>
-            <div class="w-[45%] shrink-0 img-skeleton-light rounded-l-[60px]">
-              <img src="img/studio/2.jpg" alt="" class="w-full h-full object-cover rounded-l-[60px] shadow-md opacity-0 transition-opacity duration-300" referrerpolicy="no-referrer" onload="this.classList.remove('opacity-0')" />
+            <div class="w-[45%] shrink-0">
+              <img src="img/studio/2.jpg" alt="" class="w-full h-full object-cover rounded-l-[60px] shadow-md" referrerpolicy="no-referrer" />
             </div>
           </div>
         </div>
@@ -690,7 +674,7 @@
         <!-- галерея картинок -->
         <div 
           id="modal-carousel-container"
-          class="w-full md:w-1/2 aspect-[3/4] relative bg-black group shrink-0 img-skeleton"
+          class="w-full md:w-1/2 aspect-[3/4] relative bg-black group shrink-0"
         >
           <!-- лоадер -->
           <div id="modal-loader" class="absolute inset-0 flex items-center justify-center z-10 hidden">
@@ -872,27 +856,6 @@
     // хендлим свайпы и колесо для горизонтального скролла
     let lastTouchX = 0;
     let lastTouchY = 0;
-    let isTouching = false;
-    let isSwipingHorizontal = false;
-
-    let cachedTrackWidth = 0;
-    let cachedViewportWidth = 0;
-    let cachedWindowHeight = 0;
-    let cachedSectionHeight = 0;
-    let cachedSectionOffsetTop = 0;
-    let cachedMaxTranslate = 0;
-    let cachedEffectiveDistance = 0;
-    let cachedBuffer = 0;
-    let cachedCardCenters = [];
-
-    function updateCardCenters(track) {
-      if (!track) return;
-      cachedCardCenters = [];
-      const cards = track.children;
-      for (let i = 0; i < cards.length; i++) {
-        cachedCardCenters.push(cards[i].offsetLeft + cards[i].offsetWidth / 2);
-      }
-    }
 
     function setupHorizontalInteraction() {
       const section = document.getElementById('services');
@@ -900,9 +863,9 @@
 
       // поддержка скролла мышкой
       section.addEventListener('wheel', (e) => {
-        const rectTop = cachedSectionOffsetTop - window.scrollY;
-        const rectBottom = rectTop + cachedSectionHeight;
-        if (rectTop < cachedWindowHeight && rectBottom > 0) {
+        const rect = section.getBoundingClientRect();
+        // скроллим, только если секция во вьюпорте
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
           if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
             e.preventDefault();
             window.scrollBy(0, e.deltaX);
@@ -911,20 +874,10 @@
       }, { passive: false });
 
       // поддержка тач-событий
-      let startTouchX = 0;
-      let startTouchY = 0;
-      let pendingScrollDelta = 0;
-      let isRafScheduled = false;
-
       section.addEventListener('touchstart', (e) => {
-        isTouching = true;
-        startTouchX = e.touches[0].clientX;
-        startTouchY = e.touches[0].clientY;
-        lastTouchX = startTouchX;
-        lastTouchY = startTouchY;
-        isSwipingHorizontal = false;
-        pendingScrollDelta = 0;
-      }, { passive: true });
+        lastTouchX = e.touches[0].clientX;
+        lastTouchY = e.touches[0].clientY;
+      }, { passive: false });
 
       section.addEventListener('touchmove', (e) => {
         const touchX = e.touches[0].clientX;
@@ -932,46 +885,20 @@
         const deltaX = lastTouchX - touchX;
         const deltaY = lastTouchY - touchY;
 
-        const rectTop = cachedSectionOffsetTop - window.scrollY;
-        const rectBottom = rectTop + cachedSectionHeight;
-
-        if (rectTop < cachedWindowHeight && rectBottom > 0) {
-          const totalDeltaX = Math.abs(touchX - startTouchX);
-          const totalDeltaY = Math.abs(touchY - startTouchY);
-
-          if (!isSwipingHorizontal && totalDeltaX > 6 && totalDeltaX > totalDeltaY) {
-            isSwipingHorizontal = true;
-          }
-
-          if (isSwipingHorizontal) {
+        const rect = section.getBoundingClientRect();
+        // скроллим, только если секция во вьюпорте
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          // проверяем, что свайп именно горизонтальный
+          if (Math.abs(deltaX) > Math.abs(deltaY)) {
             if (e.cancelable) e.preventDefault();
-            pendingScrollDelta += deltaX;
-
-            if (!isRafScheduled) {
-              isRafScheduled = true;
-              requestAnimationFrame(() => {
-                if (pendingScrollDelta !== 0) {
-                  window.scrollBy(0, pendingScrollDelta);
-                  pendingScrollDelta = 0;
-                }
-                isRafScheduled = false;
-              });
-            }
+            // ускоряем скролл для плавности
+            window.scrollBy(0, deltaX * 2);
           }
         }
 
         lastTouchX = touchX;
         lastTouchY = touchY;
       }, { passive: false });
-
-      const resetTouch = () => {
-        isTouching = false;
-        isSwipingHorizontal = false;
-        pendingScrollDelta = 0;
-      };
-
-      section.addEventListener('touchend', resetTouch, { passive: true });
-      section.addEventListener('touchcancel', resetTouch, { passive: true });
     }
 
     // чекаем, жива ли картинка по урлу
@@ -1098,14 +1025,13 @@
             <div class="text-left pl-4 md:pl-6">
               <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">${service.title}</h4>
             </div>
-            <div class="w-full aspect-[3/4] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg hover:shadow-2xl transition-all duration-500 img-skeleton">
+            <div class="w-full aspect-[3/4] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg hover:shadow-2xl transition-all duration-500">
               <img 
                 src="${mainImage}" 
                 alt="" 
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-0 transition-opacity duration-300"
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 referrerpolicy="no-referrer"
                 onerror="this.onerror=null; this.src='img/${service.folder}/1.png';"
-                onload="this.classList.remove('opacity-0')"
               />
               <button class="absolute bottom-6 right-6 bg-accent-orange text-white px-5 py-2 rounded-full text-xs font-medium shadow-md transition-transform hover:scale-105 z-10 border-none cursor-pointer">подробнее</button>
             </div>
@@ -1358,41 +1284,31 @@
       }
     }
 
-    let scrollTicking = false;
     let scrollTimeout;
-
     function setupScrollListeners() {
       const header = document.getElementById('main-header');
       const servicesSection = document.getElementById('services');
       const servicesTrack = document.getElementById('services-track');
       
       window.addEventListener('scroll', () => {
-        if (!scrollTicking) {
-          requestAnimationFrame(() => {
-            if (header) {
-              if (window.scrollY > 50) {
-                header.classList.add('py-3', 'md:py-4');
-                header.classList.remove('py-4', 'md:py-6');
-              } else {
-                header.classList.remove('py-3', 'md:py-4');
-                header.classList.add('py-4', 'md:py-6');
-              }
-            }
-
-            updateHorizontalScroll(servicesSection, servicesTrack);
-            scrollTicking = false;
-          });
-          scrollTicking = true;
+        // анимация шапки при скролле
+        if (window.scrollY > 50) {
+          header.classList.add('py-3', 'md:py-4');
+          header.classList.remove('py-4', 'md:py-6');
+        } else {
+          header.classList.remove('py-3', 'md:py-4');
+          header.classList.add('py-4', 'md:py-6');
         }
 
+        // апдейтим горизонтальный скролл
+        updateHorizontalScroll(servicesSection, servicesTrack);
+        
         // привязка к центру при остановке скролла
         clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(() => {
-          if (!isTouching) {
-            snapServicesToCenter(servicesSection, servicesTrack);
-          }
-        }, 200);
-      }, { passive: true });
+          snapServicesToCenter(servicesSection, servicesTrack);
+        }, 150);
+      });
 
       window.addEventListener('resize', () => {
         updateSectionHeight(servicesSection, servicesTrack);
@@ -1403,30 +1319,39 @@
     }
 
     function snapServicesToCenter(section, track) {
-      if (!section || !track || isTouching) return;
+      if (!section || !track) return;
       // Привязка к центру только на мобилках
       if (window.innerWidth >= 768) return;
       
-      const rectTop = cachedSectionOffsetTop - window.scrollY;
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
       
-      // Снапим только если секция активна на экране
-      if (rectTop > 0 || (rectTop + cachedSectionHeight) < cachedWindowHeight) return;
+      // Снапим только если секция полностью на экране
+      if (rect.top > 0 || rect.bottom < windowHeight) return;
       
-      if (cachedMaxTranslate <= 0 || cachedEffectiveDistance <= 0) return;
+      const viewportWidth = window.innerWidth;
+      const maxTranslate = Math.max(0, track.scrollWidth - viewportWidth + 16);
+      if (maxTranslate <= 0) return;
       
-      let progress = (-rectTop - cachedBuffer) / cachedEffectiveDistance;
+      const scrollableDistance = section.offsetHeight - windowHeight;
+      const buffer = maxTranslate > 0 ? windowHeight * 0.2 : 0;
+      const effectiveDistance = scrollableDistance - (buffer * 2);
+      
+      let progress = (-rect.top - buffer) / effectiveDistance;
       if (progress <= 0 || progress >= 1) return;
       
-      const currentTranslate = progress * cachedMaxTranslate;
-      if (cachedCardCenters.length === 0) updateCardCenters(track);
-      if (cachedCardCenters.length === 0) return;
+      const currentTranslate = progress * maxTranslate;
+      const cards = track.children;
+      if (cards.length === 0) return;
       
       let closestCardIndex = 0;
       let minDistance = Infinity;
-      const viewportCenter = cachedViewportWidth / 2;
+      const viewportCenter = viewportWidth / 2;
       
-      for (let i = 0; i < cachedCardCenters.length; i++) {
-        const cardCenterOnScreen = cachedCardCenters[i] - currentTranslate;
+      for (let i = 0; i < cards.length; i++) {
+        const card = cards[i];
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        const cardCenterOnScreen = cardCenter - currentTranslate;
         const distance = Math.abs(cardCenterOnScreen - viewportCenter);
         if (distance < minDistance) {
           minDistance = distance;
@@ -1434,14 +1359,15 @@
         }
       }
       
-      const targetCardCenter = cachedCardCenters[closestCardIndex];
+      const targetCard = cards[closestCardIndex];
+      const targetCardCenter = targetCard.offsetLeft + targetCard.offsetWidth / 2;
       let targetTranslate = targetCardCenter - viewportCenter;
-      targetTranslate = Math.max(0, Math.min(cachedMaxTranslate, targetTranslate));
+      targetTranslate = Math.max(0, Math.min(maxTranslate, targetTranslate));
       
-      const targetProgress = targetTranslate / cachedMaxTranslate;
-      const targetScrollY = cachedSectionOffsetTop + cachedBuffer + (targetProgress * cachedEffectiveDistance);
+      const targetProgress = targetTranslate / maxTranslate;
+      const targetScrollY = window.scrollY + rect.top + buffer + (targetProgress * effectiveDistance);
       
-      if (Math.abs(window.scrollY - targetScrollY) > 8) {
+      if (Math.abs(window.scrollY - targetScrollY) > 5) {
         window.scrollTo({
           top: targetScrollY,
           behavior: 'smooth'
@@ -1451,51 +1377,41 @@
 
     function updateSectionHeight(section, track) {
       if (!section || !track) return;
-
-      cachedTrackWidth = track.scrollWidth;
-      cachedViewportWidth = window.innerWidth;
-      cachedWindowHeight = window.innerHeight;
-
-      let top = 0;
-      let el = section;
-      while (el) {
-        top += el.offsetTop;
-        el = el.offsetParent;
-      }
-      cachedSectionOffsetTop = top;
-
-      const horizontalScrollDistance = Math.max(0, cachedTrackWidth - cachedViewportWidth + (cachedViewportWidth > 768 ? 64 : 16));
-      cachedBuffer = horizontalScrollDistance > 0 ? cachedWindowHeight * 0.2 : 0;
+      const trackWidth = track.scrollWidth;
+      const viewportWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
       
-      cachedSectionHeight = cachedWindowHeight + horizontalScrollDistance + (cachedBuffer * 2);
-      section.style.height = `${cachedSectionHeight}px`;
-
-      cachedMaxTranslate = horizontalScrollDistance;
-      const scrollableDistance = cachedSectionHeight - cachedWindowHeight;
-      cachedEffectiveDistance = scrollableDistance - (cachedBuffer * 2);
-
-      updateCardCenters(track);
-      updateHorizontalScroll(section, track);
+      const horizontalScrollDistance = Math.max(0, trackWidth - viewportWidth + (window.innerWidth > 768 ? 64 : 16));
+      const buffer = horizontalScrollDistance > 0 ? windowHeight * 0.4 : 0;
+      
+      section.style.height = `${windowHeight + horizontalScrollDistance + buffer}px`;
     }
 
     function updateHorizontalScroll(section, track) {
       if (!section || !track) return;
       
-      if (cachedEffectiveDistance <= 0 || cachedMaxTranslate <= 0) {
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const viewportWidth = window.innerWidth;
+      
+      const scrollableDistance = section.offsetHeight - windowHeight;
+      
+      if (scrollableDistance <= 0) {
         track.style.transform = `translate3d(0, 0, 0)`;
         return;
       }
 
-      const rectTop = cachedSectionOffsetTop - window.scrollY;
+      const maxTranslate = Math.max(0, track.scrollWidth - viewportWidth + (window.innerWidth > 768 ? 64 : 16));
+      const buffer = maxTranslate > 0 ? windowHeight * 0.2 : 0;
+      const effectiveDistance = scrollableDistance - (buffer * 2);
 
       let progress = 0;
-      if (cachedEffectiveDistance > 0) {
-        progress = (-rectTop - cachedBuffer) / cachedEffectiveDistance;
+      if (effectiveDistance > 0) {
+        progress = (-rect.top - buffer) / effectiveDistance;
       }
       
       progress = Math.max(0, Math.min(1, progress));
-      const translateX = -progress * cachedMaxTranslate;
-      track.style.transform = `translate3d(${translateX.toFixed(2)}px, 0, 0)`;
+      track.style.transform = `translate3d(${-progress * maxTranslate}px, 0, 0)`;
     }
 
     // карусель готовых наборов
@@ -1506,19 +1422,30 @@
 
       if (!track || !leftBtn || !rightBtn) return;
 
-      function updateButtons() {
-        if (window.innerWidth < 768) {
+      function updateNavButtons() {
+        const canLeft = track.scrollLeft > 0;
+        const canRight = track.scrollLeft + track.clientWidth < track.scrollWidth - 1;
+
+        if (canLeft) {
+          leftBtn.classList.remove('hidden');
+          leftBtn.classList.add('md:flex');
+        } else {
           leftBtn.classList.add('hidden');
-          rightBtn.classList.add('hidden');
-          return;
+          leftBtn.classList.remove('md:flex');
         }
-        leftBtn.classList.toggle('hidden', track.scrollLeft <= 0);
-        rightBtn.classList.toggle('hidden', track.scrollLeft + track.clientWidth >= track.scrollWidth - 1);
+
+        if (canRight) {
+          rightBtn.classList.remove('hidden');
+          rightBtn.classList.add('md:flex');
+        } else {
+          rightBtn.classList.add('hidden');
+          rightBtn.classList.remove('md:flex');
+        }
       }
 
-      track.addEventListener('scroll', updateButtons);
-      window.addEventListener('resize', updateButtons);
-      updateButtons();
+      track.addEventListener('scroll', updateNavButtons);
+      window.addEventListener('resize', updateNavButtons);
+      updateNavButtons();
     }
 
     function scrollReadySets(direction) {
