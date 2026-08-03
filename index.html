@@ -725,12 +725,6 @@
           <h3 id="modal-title" class="text-3xl md:text-4xl font-display mb-4 text-accent-orange"></h3>
           
           <div id="modal-details" class="text-sm md:text-base text-text-secondary mb-8 leading-relaxed whitespace-pre-wrap"></div>
-          <div id="modal-custom-link" class="mt-4 mb-8 hidden">
-            <a href="prich.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent-orange text-white text-sm md:text-base font-semibold hover:bg-accent-orange/90 transition-all no-underline shadow-md hover:shadow-lg">
-              <span class="material-icons text-base md:text-lg">grid_view</span>
-              Разные виды плетения (фото)
-            </a>
-          </div>
 
           <div class="mt-auto pt-6 border-t border-black/5 flex items-center justify-between gap-4">
             <div class="flex flex-col justify-center">
@@ -878,6 +872,27 @@
     // хендлим свайпы и колесо для горизонтального скролла
     let lastTouchX = 0;
     let lastTouchY = 0;
+    let isTouching = false;
+    let isSwipingHorizontal = false;
+
+    let cachedTrackWidth = 0;
+    let cachedViewportWidth = 0;
+    let cachedWindowHeight = 0;
+    let cachedSectionHeight = 0;
+    let cachedSectionOffsetTop = 0;
+    let cachedMaxTranslate = 0;
+    let cachedEffectiveDistance = 0;
+    let cachedBuffer = 0;
+    let cachedCardCenters = [];
+
+    function updateCardCenters(track) {
+      if (!track) return;
+      cachedCardCenters = [];
+      const cards = track.children;
+      for (let i = 0; i < cards.length; i++) {
+        cachedCardCenters.push(cards[i].offsetLeft + cards[i].offsetWidth / 2);
+      }
+    }
 
     function setupHorizontalInteraction() {
       const section = document.getElementById('services');
@@ -885,9 +900,9 @@
 
       // поддержка скролла мышкой
       section.addEventListener('wheel', (e) => {
-        const rect = section.getBoundingClientRect();
-        // скроллим, только если секция во вьюпорте
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
+        const rectTop = cachedSectionOffsetTop - window.scrollY;
+        const rectBottom = rectTop + cachedSectionHeight;
+        if (rectTop < cachedWindowHeight && rectBottom > 0) {
           if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
             e.preventDefault();
             window.scrollBy(0, e.deltaX);
@@ -896,10 +911,20 @@
       }, { passive: false });
 
       // поддержка тач-событий
+      let startTouchX = 0;
+      let startTouchY = 0;
+      let pendingScrollDelta = 0;
+      let isRafScheduled = false;
+
       section.addEventListener('touchstart', (e) => {
-        lastTouchX = e.touches[0].clientX;
-        lastTouchY = e.touches[0].clientY;
-      }, { passive: false });
+        isTouching = true;
+        startTouchX = e.touches[0].clientX;
+        startTouchY = e.touches[0].clientY;
+        lastTouchX = startTouchX;
+        lastTouchY = startTouchY;
+        isSwipingHorizontal = false;
+        pendingScrollDelta = 0;
+      }, { passive: true });
 
       section.addEventListener('touchmove', (e) => {
         const touchX = e.touches[0].clientX;
@@ -907,20 +932,46 @@
         const deltaX = lastTouchX - touchX;
         const deltaY = lastTouchY - touchY;
 
-        const rect = section.getBoundingClientRect();
-        // скроллим, только если секция во вьюпорте
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-          // проверяем, что свайп именно горизонтальный
-          if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        const rectTop = cachedSectionOffsetTop - window.scrollY;
+        const rectBottom = rectTop + cachedSectionHeight;
+
+        if (rectTop < cachedWindowHeight && rectBottom > 0) {
+          const totalDeltaX = Math.abs(touchX - startTouchX);
+          const totalDeltaY = Math.abs(touchY - startTouchY);
+
+          if (!isSwipingHorizontal && totalDeltaX > 6 && totalDeltaX > totalDeltaY) {
+            isSwipingHorizontal = true;
+          }
+
+          if (isSwipingHorizontal) {
             if (e.cancelable) e.preventDefault();
-            // ускоряем скролл для плавности
-            window.scrollBy(0, deltaX * 2);
+            pendingScrollDelta += deltaX;
+
+            if (!isRafScheduled) {
+              isRafScheduled = true;
+              requestAnimationFrame(() => {
+                if (pendingScrollDelta !== 0) {
+                  window.scrollBy(0, pendingScrollDelta);
+                  pendingScrollDelta = 0;
+                }
+                isRafScheduled = false;
+              });
+            }
           }
         }
 
         lastTouchX = touchX;
         lastTouchY = touchY;
       }, { passive: false });
+
+      const resetTouch = () => {
+        isTouching = false;
+        isSwipingHorizontal = false;
+        pendingScrollDelta = 0;
+      };
+
+      section.addEventListener('touchend', resetTouch, { passive: true });
+      section.addEventListener('touchcancel', resetTouch, { passive: true });
     }
 
     // чекаем, жива ли картинка по урлу
@@ -1133,13 +1184,6 @@
       document.getElementById('modal-title').textContent = service.title;
       document.getElementById('modal-details').innerHTML = service.details;
       document.getElementById('modal-price').textContent = service.price;
-
-      const customLink = document.getElementById('modal-custom-link');
-      if (service.title === 'Брейды') {
-        customLink.classList.remove('hidden');
-      } else {
-        customLink.classList.add('hidden');
-      }
       
       // чистим стейт картинок
       currentServiceImages = [];
@@ -1314,31 +1358,41 @@
       }
     }
 
+    let scrollTicking = false;
     let scrollTimeout;
+
     function setupScrollListeners() {
       const header = document.getElementById('main-header');
       const servicesSection = document.getElementById('services');
       const servicesTrack = document.getElementById('services-track');
       
       window.addEventListener('scroll', () => {
-        // анимация шапки при скролле
-        if (window.scrollY > 50) {
-          header.classList.add('py-3', 'md:py-4');
-          header.classList.remove('py-4', 'md:py-6');
-        } else {
-          header.classList.remove('py-3', 'md:py-4');
-          header.classList.add('py-4', 'md:py-6');
+        if (!scrollTicking) {
+          requestAnimationFrame(() => {
+            if (header) {
+              if (window.scrollY > 50) {
+                header.classList.add('py-3', 'md:py-4');
+                header.classList.remove('py-4', 'md:py-6');
+              } else {
+                header.classList.remove('py-3', 'md:py-4');
+                header.classList.add('py-4', 'md:py-6');
+              }
+            }
+
+            updateHorizontalScroll(servicesSection, servicesTrack);
+            scrollTicking = false;
+          });
+          scrollTicking = true;
         }
 
-        // апдейтим горизонтальный скролл
-        updateHorizontalScroll(servicesSection, servicesTrack);
-        
         // привязка к центру при остановке скролла
         clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(() => {
-          snapServicesToCenter(servicesSection, servicesTrack);
-        }, 150);
-      });
+          if (!isTouching) {
+            snapServicesToCenter(servicesSection, servicesTrack);
+          }
+        }, 200);
+      }, { passive: true });
 
       window.addEventListener('resize', () => {
         updateSectionHeight(servicesSection, servicesTrack);
@@ -1349,39 +1403,30 @@
     }
 
     function snapServicesToCenter(section, track) {
-      if (!section || !track) return;
+      if (!section || !track || isTouching) return;
       // Привязка к центру только на мобилках
       if (window.innerWidth >= 768) return;
       
-      const rect = section.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
+      const rectTop = cachedSectionOffsetTop - window.scrollY;
       
-      // Снапим только если секция полностью на экране
-      if (rect.top > 0 || rect.bottom < windowHeight) return;
+      // Снапим только если секция активна на экране
+      if (rectTop > 0 || (rectTop + cachedSectionHeight) < cachedWindowHeight) return;
       
-      const viewportWidth = window.innerWidth;
-      const maxTranslate = Math.max(0, track.scrollWidth - viewportWidth + 16);
-      if (maxTranslate <= 0) return;
+      if (cachedMaxTranslate <= 0 || cachedEffectiveDistance <= 0) return;
       
-      const scrollableDistance = section.offsetHeight - windowHeight;
-      const buffer = maxTranslate > 0 ? windowHeight * 0.2 : 0;
-      const effectiveDistance = scrollableDistance - (buffer * 2);
-      
-      let progress = (-rect.top - buffer) / effectiveDistance;
+      let progress = (-rectTop - cachedBuffer) / cachedEffectiveDistance;
       if (progress <= 0 || progress >= 1) return;
       
-      const currentTranslate = progress * maxTranslate;
-      const cards = track.children;
-      if (cards.length === 0) return;
+      const currentTranslate = progress * cachedMaxTranslate;
+      if (cachedCardCenters.length === 0) updateCardCenters(track);
+      if (cachedCardCenters.length === 0) return;
       
       let closestCardIndex = 0;
       let minDistance = Infinity;
-      const viewportCenter = viewportWidth / 2;
+      const viewportCenter = cachedViewportWidth / 2;
       
-      for (let i = 0; i < cards.length; i++) {
-        const card = cards[i];
-        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-        const cardCenterOnScreen = cardCenter - currentTranslate;
+      for (let i = 0; i < cachedCardCenters.length; i++) {
+        const cardCenterOnScreen = cachedCardCenters[i] - currentTranslate;
         const distance = Math.abs(cardCenterOnScreen - viewportCenter);
         if (distance < minDistance) {
           minDistance = distance;
@@ -1389,15 +1434,14 @@
         }
       }
       
-      const targetCard = cards[closestCardIndex];
-      const targetCardCenter = targetCard.offsetLeft + targetCard.offsetWidth / 2;
+      const targetCardCenter = cachedCardCenters[closestCardIndex];
       let targetTranslate = targetCardCenter - viewportCenter;
-      targetTranslate = Math.max(0, Math.min(maxTranslate, targetTranslate));
+      targetTranslate = Math.max(0, Math.min(cachedMaxTranslate, targetTranslate));
       
-      const targetProgress = targetTranslate / maxTranslate;
-      const targetScrollY = window.scrollY + rect.top + buffer + (targetProgress * effectiveDistance);
+      const targetProgress = targetTranslate / cachedMaxTranslate;
+      const targetScrollY = cachedSectionOffsetTop + cachedBuffer + (targetProgress * cachedEffectiveDistance);
       
-      if (Math.abs(window.scrollY - targetScrollY) > 5) {
+      if (Math.abs(window.scrollY - targetScrollY) > 8) {
         window.scrollTo({
           top: targetScrollY,
           behavior: 'smooth'
@@ -1407,41 +1451,51 @@
 
     function updateSectionHeight(section, track) {
       if (!section || !track) return;
-      const trackWidth = track.scrollWidth;
-      const viewportWidth = window.innerWidth;
-      const windowHeight = window.innerHeight;
+
+      cachedTrackWidth = track.scrollWidth;
+      cachedViewportWidth = window.innerWidth;
+      cachedWindowHeight = window.innerHeight;
+
+      let top = 0;
+      let el = section;
+      while (el) {
+        top += el.offsetTop;
+        el = el.offsetParent;
+      }
+      cachedSectionOffsetTop = top;
+
+      const horizontalScrollDistance = Math.max(0, cachedTrackWidth - cachedViewportWidth + (cachedViewportWidth > 768 ? 64 : 16));
+      cachedBuffer = horizontalScrollDistance > 0 ? cachedWindowHeight * 0.2 : 0;
       
-      const horizontalScrollDistance = Math.max(0, trackWidth - viewportWidth + (window.innerWidth > 768 ? 64 : 16));
-      const buffer = horizontalScrollDistance > 0 ? windowHeight * 0.4 : 0;
-      
-      section.style.height = `${windowHeight + horizontalScrollDistance + buffer}px`;
+      cachedSectionHeight = cachedWindowHeight + horizontalScrollDistance + (cachedBuffer * 2);
+      section.style.height = `${cachedSectionHeight}px`;
+
+      cachedMaxTranslate = horizontalScrollDistance;
+      const scrollableDistance = cachedSectionHeight - cachedWindowHeight;
+      cachedEffectiveDistance = scrollableDistance - (cachedBuffer * 2);
+
+      updateCardCenters(track);
+      updateHorizontalScroll(section, track);
     }
 
     function updateHorizontalScroll(section, track) {
       if (!section || !track) return;
       
-      const rect = section.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      const viewportWidth = window.innerWidth;
-      
-      const scrollableDistance = section.offsetHeight - windowHeight;
-      
-      if (scrollableDistance <= 0) {
+      if (cachedEffectiveDistance <= 0 || cachedMaxTranslate <= 0) {
         track.style.transform = `translate3d(0, 0, 0)`;
         return;
       }
 
-      const maxTranslate = Math.max(0, track.scrollWidth - viewportWidth + (window.innerWidth > 768 ? 64 : 16));
-      const buffer = maxTranslate > 0 ? windowHeight * 0.2 : 0;
-      const effectiveDistance = scrollableDistance - (buffer * 2);
+      const rectTop = cachedSectionOffsetTop - window.scrollY;
 
       let progress = 0;
-      if (effectiveDistance > 0) {
-        progress = (-rect.top - buffer) / effectiveDistance;
+      if (cachedEffectiveDistance > 0) {
+        progress = (-rectTop - cachedBuffer) / cachedEffectiveDistance;
       }
       
       progress = Math.max(0, Math.min(1, progress));
-      track.style.transform = `translate3d(${-progress * maxTranslate}px, 0, 0)`;
+      const translateX = -progress * cachedMaxTranslate;
+      track.style.transform = `translate3d(${translateX.toFixed(2)}px, 0, 0)`;
     }
 
     // карусель готовых наборов
