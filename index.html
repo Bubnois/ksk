@@ -4,14 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Коскина | Студия Брейдинга в Омске</title>
-  <meta name="description" content="Новый образ - новый опыт. Студия брейдинга &quot;Коскина&quot;. Город Омск, ул. Красный Путь, 143 к3. Предварительная запись">
+  <meta name="description" content="Студия брейдинга «Коскина» в Омске: дреды, косы, локоны, афронаращивание, готовые комплекты. ул. 5-й Армии, 6. Запись по предварительной договорённости.">
+  <meta name="theme-color" content="#F5F5F3">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="Коскина | Студия брейдинга в Омске">
+  <meta property="og:description" content="Новый образ — новый опыт. Дреды, косы, локоны, наращивание. Омск, ул. 5-й Армии, 6.">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"HairSalon","name":"Коскина — студия брейдинга","telephone":"+79006725456","address":{"@type":"PostalAddress","streetAddress":"ул. 5-й Армии, 6","addressLocality":"Омск","addressCountry":"RU"},"sameAs":["https://vk.com/koski_na","https://t.me/koski_na","https://www.instagram.com/koski_na"]}</script>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   
   <!-- подтягиваем шрифты и иконки, база -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400..700&family=Inter:wght@400..700&family=Jost:wght@700&display=swap" rel="stylesheet">
   
   <!-- тейлвинд, чтобы не возиться с цсс -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -67,6 +73,12 @@
       overflow-x: hidden;
     }
     
+    :focus-visible { outline: 2px solid #FF7A59; outline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) {
+      .animate-draw-line { animation: none !important; stroke-dashoffset: 0; }
+      * { scroll-behavior: auto !important; }
+    }
+
     .animate-draw-line {
       stroke-dasharray: 640;
       stroke-dashoffset: 640;
@@ -98,7 +110,7 @@
   <header id="main-header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 px-4 md:px-6 py-4 md:py-6 mix-blend-difference">
     <div class="max-w-[1400px] mx-auto flex flex-row justify-between items-center text-white">
       <!-- брендинг: лого и нейминг -->
-      <div class="flex flex-col justify-between h-9 md:h-11 w-max select-none">
+      <a href="#" aria-label="Коскина — студия брейдинга" class="flex flex-col justify-between h-9 md:h-11 w-max select-none no-underline text-white"><span class="contents" aria-hidden="true">
         <div class="flex justify-between w-full text-[0.5rem] md:text-[0.65rem] leading-none uppercase tracking-wider">
           <span>С</span><span>т</span><span>у</span><span>д</span><span>и</span><span>я</span>
           <span class="w-1 md:w-2"></span>
@@ -107,13 +119,13 @@
         <div class="flex justify-between w-full text-lg md:text-2xl leading-none font-bold uppercase font-iskra">
           <span>К</span><span>о</span><span>с</span><span>к</span><span>и</span><span>н</span><span>а</span>
         </div>
-      </div>
+      </span></a>
 
       <!-- контакты и колл-ту-экшн -->
       <div class="flex flex-row items-center gap-6">
         <div class="text-xs md:text-sm text-white/80 text-right leading-tight font-medium uppercase tracking-wider hidden lg:block">
-          <p>+7 900 672 54 56</p>
-          <p>ул. красный путь 143 к3</p>
+          <p><a href="tel:+79006725456" class="text-inherit no-underline hover:text-white">+7 900 672 54 56</a></p>
+          <p>ул. 5-й Армии, 6</p>
         </div>
         <button onclick="scrollToContacts()" class="h-9 md:h-11 px-6 rounded-full bg-white text-black text-xs md:text-sm font-medium hover:bg-gray-100 transition-colors border-none cursor-pointer flex items-center">
           Записаться
@@ -122,12 +134,13 @@
     </div>
   </header>
 
-  <div class="relative w-full h-[70vh] rounded-b-[40px] md:rounded-b-[80px] overflow-hidden shrink-0">
+  <div class="relative w-full h-[70vh] bg-btn-dark rounded-b-[40px] md:rounded-b-[80px] overflow-hidden shrink-0">
     <video 
       autoplay 
       loop 
       muted 
       playsinline 
+      aria-hidden="true"
       class="absolute inset-0 w-full h-full object-cover"
     >
       <source src="img/head.mp4" type="video/mp4">
@@ -142,11 +155,11 @@
       <!-- хиро-блок: заголовок и кривые -->
       <div class="relative w-full flex flex-col items-center z-20">
         
-        <!-- сам заголовок -->
-        <div class="text-center font-display leading-none tracking-tight text-text-primary relative">
+        <h1 class="sr-only">Новый образ — новый опыт. Студия брейдинга «Коскина» в Омске</h1>
+        <div aria-hidden="true" class="text-center font-display leading-none tracking-tight text-text-primary relative">
           <!-- First line -->
           <div class="relative inline-block mb-2 md:mb-4">
-            <h2 class="text-4xl sm:text-5xl md:text-8xl lg:text-[7rem] leading-none tracking-tight text-text-primary">Новый образ</h2>
+            <p class="text-4xl sm:text-5xl md:text-8xl lg:text-[7rem] leading-none tracking-tight text-text-primary">Новый образ</p>
             <!-- Right Line -->
             <div class="absolute left-full top-1/2 -translate-y-1/2 ml-2 sm:ml-4 md:ml-6">
               <svg viewBox="0 0 600 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-[220px] sm:w-[350px] md:w-[550px] lg:w-[850px] xl:w-[1000px]">
@@ -159,7 +172,7 @@
 
           <!-- Second line -->
           <div class="relative inline-block mb-2 md:mb-3">
-            <h2 class="text-4xl sm:text-5xl md:text-8xl lg:text-[7rem] leading-none tracking-tight text-text-primary">новый опыт</h2>
+            <p class="text-4xl sm:text-5xl md:text-8xl lg:text-[7rem] leading-none tracking-tight text-text-primary">новый опыт</p>
             <!-- Left Line -->
             <div class="absolute right-full top-1/2 -translate-y-1/2 mr-2 sm:mr-4 md:mr-6">
                <svg viewBox="0 0 600 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-[220px] sm:w-[350px] md:w-[550px] lg:w-[850px] xl:w-[1000px]">
@@ -198,7 +211,7 @@
     <div class="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden">
       
       <div class="max-w-[1400px] mx-auto px-4 md:px-8 w-full mb-8 shrink-0 text-center">
-        <h3 class="text-4xl md:text-6xl font-display mb-4">Услуги</h3>
+        <h2 class="text-4xl md:text-6xl font-display mb-4">Услуги</h2>
         <p class="text-white/70 text-sm md:text-base leading-relaxed max-w-xl mx-auto">
           Мы предлагаем широкий спектр услуг по плетению и уходу за заплетенными волосами. 
           Каждая работа выполняется с любовью и вниманием к деталям
@@ -221,7 +234,7 @@
         
         <!-- центрируем заголовок -->
         <div class="text-center mb-4 md:mb-6">
-          <h3 class="text-4xl md:text-6xl font-display tracking-tight">Кому подойдет?</h3>
+          <h2 class="text-4xl md:text-6xl font-display tracking-tight">Кому подойдет?</h2>
         </div>
 
         <!-- сетка с карточками преимуществ -->
@@ -239,7 +252,7 @@
             
             <div class="relative z-10">
               <div class="mb-3 md:mb-4">
-                <h4 class="text-lg md:text-xl font-display font-bold text-text-primary">Тем, кто ценит время</h4>
+                <h3 class="text-lg md:text-xl font-display font-bold text-text-primary">Тем, кто ценит время</h3>
               </div>
               <p class="text-text-secondary text-sm md:text-base leading-relaxed max-w-2xl">
                 Косы и дреды не требуют ежедневного ухода. Проснулась и уже&nbsp;красивая!
@@ -259,7 +272,7 @@
 
             <div class="relative z-10">
               <div class="mb-3 md:mb-4">
-                <h4 class="text-lg md:text-xl font-display font-bold text-text-primary">Тем, кто выбирает красоту и удобство</h4>
+                <h3 class="text-lg md:text-xl font-display font-bold text-text-primary">Тем, кто выбирает красоту и удобство</h3>
               </div>
               <p class="text-text-secondary text-sm md:text-base leading-relaxed max-w-2xl">
                 100% уверенности в своей причёске, так как её не испортят дождь, ветер или физическая активность. Да, выглядеть великолепно в любой ситуации — это&nbsp;реально
@@ -279,7 +292,7 @@
 
             <div class="relative z-10">
               <div class="mb-3 md:mb-4">
-                <h4 class="text-lg md:text-xl font-display font-bold text-text-primary">Тем, кому важно проявляться</h4>
+                <h3 class="text-lg md:text-xl font-display font-bold text-text-primary">Тем, кому важно проявляться</h3>
               </div>
               <p class="text-text-secondary text-sm md:text-base leading-relaxed max-w-2xl">
                 Заплести дреды или косы — это отличный способ заявить о себе, своих принципах и желаниях. Они дополнят уже созданный образ, а также помогут сделать шаг к изменению&nbsp;имиджа
@@ -296,7 +309,7 @@
   <section class="w-full bg-btn-dark py-16 md:py-24 relative group/section text-white">
     <div class="max-w-[1400px] mx-auto relative">
       <div class="text-center mb-8 px-4">
-        <h3 class="text-4xl md:text-6xl font-display mb-4 tracking-tight text-white">Готовые комплекты</h3>
+        <h2 class="text-4xl md:text-6xl font-display mb-4 tracking-tight text-white">Готовые комплекты</h2>
         <p class="text-white/70 text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
           Помимо заплетения, мы изготавливаем великолепные и самые разнообразные комплекты. В наличии более 30 вариантов на любой вкус и&nbsp;стиль
         </p>
@@ -304,51 +317,51 @@
       
       <div class="relative group/carousel">
         <!-- контролы для карусели -->
-        <button id="ready-left-btn" onclick="scrollReadySets('left')" class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-lg items-center justify-center text-black hover:bg-gray-50 transition-colors cursor-pointer border-none hidden">
-          <span class="material-icons">chevron_left</span>
+        <button id="ready-left-btn" aria-label="Назад" onclick="scrollReadySets('left')" class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-lg items-center justify-center text-black hover:bg-gray-50 transition-colors cursor-pointer border-none hidden">
+          <span aria-hidden="true" class="material-icons">chevron_left</span>
         </button>
-        <button id="ready-right-btn" onclick="scrollReadySets('right')" class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-lg items-center justify-center text-black hover:bg-gray-50 transition-colors cursor-pointer border-none hidden md:flex">
-          <span class="material-icons">chevron_right</span>
+        <button id="ready-right-btn" aria-label="Вперёд" onclick="scrollReadySets('right')" class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-lg items-center justify-center text-black hover:bg-gray-50 transition-colors cursor-pointer border-none hidden md:flex">
+          <span aria-hidden="true" class="material-icons">chevron_right</span>
         </button>
 
         <!-- сама карусель с наборами -->
         <div id="ready-sets-track" class="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 px-4 md:px-16 pb-8 hide-scrollbar scroll-smooth">
           
           <!-- карточка 1 -->
-          <a href="https://vk.com/market-211294353" target="_blank" class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center snap-always no-underline">
+          <a href="https://vk.com/market-211294353" target="_blank" rel="noopener noreferrer" class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center snap-always no-underline">
             <div class="text-left pl-4 md:pl-6">
-              <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">ДЕ Дреды</h4>
+              <h3 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">ДЕ Дреды</h3>
             </div>
             <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5">
-              <img src="img/kits/1.jpg" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
+              <img src="img/kits/1.jpg" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async" />
               <div class="absolute bottom-6 right-6 flex items-center justify-center text-btn-dark transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
-                <span class="material-icons text-3xl">arrow_outward</span>
+                <span aria-hidden="true" class="material-icons text-3xl">arrow_outward</span>
               </div>
             </div>
           </a>
 
           <!-- карточка 2 -->
-          <a href="https://vk.com/market-211294353" target="_blank" class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center snap-always no-underline">
+          <a href="https://vk.com/market-211294353" target="_blank" rel="noopener noreferrer" class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center snap-always no-underline">
             <div class="text-left pl-4 md:pl-6">
-              <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">Гофродреды</h4>
+              <h3 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">Гофродреды</h3>
             </div>
             <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5">
-              <img src="img/kits/2.jpg" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
+              <img src="img/kits/2.jpg" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async" />
               <div class="absolute bottom-6 right-6 flex items-center justify-center text-btn-dark transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
-                <span class="material-icons text-3xl">arrow_outward</span>
+                <span aria-hidden="true" class="material-icons text-3xl">arrow_outward</span>
               </div>
             </div>
           </a>
 
           <!-- карточка 3 -->
-          <a href="https://vk.com/market-211294353" target="_blank" class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center snap-always no-underline">
+          <a href="https://vk.com/market-211294353" target="_blank" rel="noopener noreferrer" class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center snap-always no-underline">
             <div class="text-left pl-4 md:pl-6">
-              <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">Локоны ариэль долли</h4>
+              <h3 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">Локоны ариэль долли</h3>
             </div>
             <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5">
-              <img src="img/kits/3.jpg" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerpolicy="no-referrer" />
+              <img src="img/kits/3.jpg" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async" />
               <div class="absolute bottom-6 right-6 flex items-center justify-center text-btn-dark transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
-                <span class="material-icons text-3xl">arrow_outward</span>
+                <span aria-hidden="true" class="material-icons text-3xl">arrow_outward</span>
               </div>
             </div>
           </a>
@@ -364,7 +377,7 @@
                 </p>
                 
                 <div class="w-full flex justify-center z-10 mt-4">
-                  <a href="https://vk.com/market-211294353" target="_blank" class="inline-flex items-center justify-center bg-white text-[#ff7752] px-8 py-3 rounded-full font-bold uppercase tracking-wide hover:bg-white/90 transition-colors no-underline">
+                  <a href="https://vk.com/market-211294353" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-white text-[#ff7752] px-8 py-3 rounded-full font-bold uppercase tracking-wide hover:bg-white/90 transition-colors no-underline">
                     Посмотреть все
                   </a>
                 </div>
@@ -379,7 +392,7 @@
   <!-- блок с фичами студии -->
   <section class="w-full bg-bg-primary py-16 md:py-24">
     <div class="max-w-[1400px] mx-auto px-4">
-      <h3 class="text-4xl md:text-6xl font-display mb-4 text-center tracking-tight">Почему нас выбирают</h3>
+      <h2 class="text-4xl md:text-6xl font-display mb-4 text-center tracking-tight">Почему нас выбирают</h2>
       
       <div id="features-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
         <!-- сюда js нарендерит фичи -->
@@ -391,7 +404,7 @@
   <section class="w-full bg-bg-primary pb-16 md:pb-24 relative">
     <div class="max-w-[1000px] mx-auto px-4">
       <div class="text-center mb-6 md:mb-8">
-        <h3 class="text-4xl md:text-6xl font-display mb-4 tracking-tight text-text-primary">Вопросы и ответы</h3>
+        <h2 class="text-4xl md:text-6xl font-display mb-4 tracking-tight text-text-primary">Вопросы и ответы</h2>
       </div>
       
       <div class="flex flex-col gap-4">
@@ -399,7 +412,7 @@
         <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden" open>
           <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer font-sans text-base md:text-lg font-medium text-text-primary select-none">
             С ними удобно?
-            <span class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
+            <span aria-hidden="true" class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
           </summary>
           <div class="px-6 md:px-8 pb-6 md:pb-8 text-text-secondary text-sm md:text-base leading-relaxed">
             <p>С ними — идеально. Не тяжело, не жарко, не тянет, не чешется, спать не мешают — при условии, что всё сделано правильно. <br class="md:hidden">Все заботы о причёске исчезают на целых 6 недель!</p>
@@ -410,10 +423,10 @@
         <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
           <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer font-sans text-base md:text-lg font-medium text-text-primary select-none">
             Как мыть?
-            <span class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
+            <span aria-hidden="true" class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
           </summary>
           <div class="px-6 md:px-8 pb-6 md:pb-8 text-text-secondary text-sm md:text-base leading-relaxed">
-            <p>Моем 1 раз в 7−10 дней специальной пенкой для мытья заплетенных волос или разбавленным шампунем. Подробную инструкцию по уходу расскажем дважды — при консультации и во время плетения.</p>
+            <p>Моем 1 раз в 7–10 дней специальной пенкой для мытья заплетенных волос или разбавленным шампунем. Подробную инструкцию по уходу расскажем дважды — при консультации и во время плетения.</p>
           </div>
         </details>
 
@@ -421,7 +434,7 @@
         <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
           <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer font-sans text-base md:text-lg font-medium text-text-primary select-none">
             Вши будут?
-            <span class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
+            <span aria-hidden="true" class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
           </summary>
           <div class="px-6 md:px-8 pb-6 md:pb-8 text-text-secondary text-sm md:text-base leading-relaxed">
             <p>К сожалению, в комплекте с косами их не будет. Если серьезно, то педикулёз — это контактное заболевание. Насекомые могут только переселиться с зараженной головы, но никак не могут «завестись» самостоятельно. И да, они с намного большим удовольствием живут на волосах, которые часто моют и носят распущенными, чем на косах и дредах из искусственного материала, так как они не могут эффективно размножаться в неестественных условиях.</p>
@@ -432,7 +445,7 @@
         <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
           <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer font-sans text-base md:text-lg font-medium text-text-primary select-none">
             Хочу себе что-нибудь заплести, но не знаю, что именно. Как выбрать?
-            <span class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
+            <span aria-hidden="true" class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
           </summary>
           <div class="px-6 md:px-8 pb-6 md:pb-8 text-text-secondary text-sm md:text-base leading-relaxed">
             <p>Если хочется посмотреть и потрогать вживую разные фактуры, можно прийти к нам в студию на личную консультацию. Всё покажем и расскажем, поможем сориентироваться в этом бесконечном многообразии.</p>
@@ -443,7 +456,7 @@
         <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
           <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer font-sans text-base md:text-lg font-medium text-text-primary select-none">
             Как записаться?
-            <span class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
+            <span aria-hidden="true" class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
           </summary>
           <div class="px-6 md:px-8 pb-6 md:pb-8 text-text-secondary text-sm md:text-base leading-relaxed">
             <p>Для записи достаточно написать нам любым удобным для Вас способом.</p>
@@ -462,7 +475,7 @@
         <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
           <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer font-sans text-base md:text-lg font-medium text-text-primary select-none">
             Что взять с собой на процедуру?
-            <span class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
+            <span aria-hidden="true" class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
           </summary>
           <div class="px-6 md:px-8 pb-6 md:pb-8 text-text-secondary text-sm md:text-base leading-relaxed">
             <p>Плетение занимает в среднем 3 часа, возьмите с собой всё, что может потребоваться Вам в это время — перекус и что-нибудь занятное, чтобы не скучно было сидеть. Если принимаете лекарства по часам, не забудьте и о них.</p>
@@ -476,7 +489,7 @@
   <!-- Почему нас выбирают -->
   <section id="why-us" class="py-16 md:py-24 bg-bg-primary overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 md:px-16">
-      <h2 class="text-4xl md:text-6xl font-display mb-12 md:mb-16 tracking-tight text-center text-text-primary">Заплетаясь у нас вы получаете —</h2>
+      <h2 class="text-4xl md:text-6xl font-display mb-12 md:mb-16 tracking-tight text-center text-text-primary">Заплетаясь у нас, вы получаете —</h2>
 
       <div class="max-w-4xl mx-auto">
         <!-- Мобильная версия (зигзаг) -->
@@ -484,7 +497,7 @@
           <!-- Ряд 1: Фото (лево) + 4 Баббла (право) -->
           <div class="flex gap-4 items-stretch overflow-hidden">
             <div class="w-[45%] shrink-0">
-              <img src="img/studio/1.jpg" alt="" class="w-full h-full object-cover rounded-r-[32px] shadow-sm" referrerpolicy="no-referrer" />
+              <img src="img/studio/1.jpg" alt="" class="w-full h-full object-cover rounded-r-[32px] shadow-sm" loading="lazy" decoding="async" />
             </div>
             <div class="flex flex-col gap-2 justify-center flex-grow pr-4">
               <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug">
@@ -519,7 +532,7 @@
               </div>
             </div>
             <div class="w-[45%] shrink-0">
-              <img src="img/studio/2.jpg" alt="" class="w-full h-full object-cover rounded-l-[32px] shadow-sm" referrerpolicy="no-referrer" />
+              <img src="img/studio/2.jpg" alt="" class="w-full h-full object-cover rounded-l-[32px] shadow-sm" loading="lazy" decoding="async" />
             </div>
           </div>
         </div>
@@ -529,7 +542,7 @@
           <!-- Ряд 1: Фото (лево) + Бабблы (право) -->
           <div class="flex gap-16 items-stretch overflow-hidden">
             <div class="w-[45%] shrink-0">
-              <img src="img/studio/1.jpg" alt="" class="w-full h-full object-cover rounded-r-[60px] shadow-md" referrerpolicy="no-referrer" />
+              <img src="img/studio/1.jpg" alt="" class="w-full h-full object-cover rounded-r-[60px] shadow-md" loading="lazy" decoding="async" />
             </div>
             <div class="flex flex-col gap-6 justify-center flex-grow pr-16">
               <div class="bg-white/90 backdrop-blur-md border border-black/5 rounded-[24px] px-8 py-5 text-base text-text-primary leading-snug shadow-sm">
@@ -564,7 +577,7 @@
               </div>
             </div>
             <div class="w-[45%] shrink-0">
-              <img src="img/studio/2.jpg" alt="" class="w-full h-full object-cover rounded-l-[60px] shadow-md" referrerpolicy="no-referrer" />
+              <img src="img/studio/2.jpg" alt="" class="w-full h-full object-cover rounded-l-[60px] shadow-md" loading="lazy" decoding="async" />
             </div>
           </div>
         </div>
@@ -582,7 +595,7 @@
   <!-- футер с контактами -->
   <section id="contacts" class="w-full bg-btn-dark py-16 md:py-24 relative text-white rounded-t-[32px] md:rounded-t-[48px]">
     <div class="max-w-[1200px] mx-auto px-4">
-      <h3 class="text-4xl md:text-6xl font-display mb-4 tracking-tight text-white text-center">Контакты</h3>
+      <h2 class="text-4xl md:text-6xl font-display mb-4 tracking-tight text-white text-center">Контакты</h2>
       <p class="text-white/70 text-sm md:text-base text-center max-w-2xl mx-auto mb-8 md:mb-12 px-4">
         Консультация бесплатна. Задать все интересующие вопросы и записаться на плетение можно любым удобным способом
       </p>
@@ -592,18 +605,18 @@
         <div class="w-full md:w-1/2 flex flex-row md:flex-col gap-4 md:gap-6 items-start">
           <!-- лого студии -->
           <div class="w-20 h-20 md:w-full md:h-auto shrink-0">
-            <img src="img/logo.png" alt="" class="w-full h-full md:aspect-auto rounded-xl md:rounded-[40px] object-contain" referrerpolicy="no-referrer" />
+            <img src="img/logo.png" alt="Логотип студии «Коскина»" class="w-full h-full md:aspect-auto rounded-xl md:rounded-[40px] object-contain" loading="lazy" decoding="async" />
           </div>
           
           <!-- кнопки связи для узких экранов -->
           <div class="flex flex-wrap gap-2 md:hidden flex-grow pt-1">
-            <a href="https://t.me/koski_na" target="_blank" class="px-4 py-2 rounded-full bg-white/10 text-white text-sm font-medium no-underline whitespace-nowrap hover:bg-accent-orange active:bg-accent-orange transition-colors">
+            <a href="https://t.me/koski_na" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-full bg-white/10 text-white text-sm font-medium no-underline whitespace-nowrap hover:bg-accent-orange active:bg-accent-orange transition-colors">
               Telegram
             </a>
-            <a href="https://vk.com/koski_na" target="_blank" class="px-4 py-2 rounded-full bg-white/10 text-white text-sm font-medium no-underline whitespace-nowrap hover:bg-accent-orange active:bg-accent-orange transition-colors">
+            <a href="https://vk.com/koski_na" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-full bg-white/10 text-white text-sm font-medium no-underline whitespace-nowrap hover:bg-accent-orange active:bg-accent-orange transition-colors">
               ВКонтакте
             </a>
-            <a href="https://www.instagram.com/koski_na" target="_blank" class="px-4 py-2 rounded-full bg-white/10 text-white text-sm font-medium no-underline whitespace-nowrap hover:bg-accent-orange active:bg-accent-orange transition-colors">
+            <a href="https://www.instagram.com/koski_na" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-full bg-white/10 text-white text-sm font-medium no-underline whitespace-nowrap hover:bg-accent-orange active:bg-accent-orange transition-colors">
               Instagram
             </a>
             <a href="tel:+79006725456" class="px-4 py-2 rounded-full bg-white/10 text-white text-sm font-medium no-underline whitespace-nowrap hover:bg-accent-orange active:bg-accent-orange transition-colors">
@@ -619,13 +632,13 @@
               <a href="tel:+79006725456" class="flex items-center gap-2 px-4 md:px-8 py-2 md:py-4 rounded-full bg-white/10 hover:bg-accent-orange active:bg-accent-orange transition-colors text-white text-sm md:text-lg font-medium no-underline">
                 +7 900 672 54 56
               </a>
-              <a href="https://www.instagram.com/koski_na" target="_blank" class="flex items-center gap-2 px-4 md:px-8 py-2 md:py-4 rounded-full bg-white/10 hover:bg-accent-orange active:bg-accent-orange transition-colors text-white text-sm md:text-lg font-medium no-underline">
+              <a href="https://www.instagram.com/koski_na" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-4 md:px-8 py-2 md:py-4 rounded-full bg-white/10 hover:bg-accent-orange active:bg-accent-orange transition-colors text-white text-sm md:text-lg font-medium no-underline">
                 Instagram
               </a>
-              <a href="https://vk.com/koski_na" target="_blank" class="flex items-center gap-2 px-4 md:px-8 py-2 md:py-4 rounded-full bg-white/10 hover:bg-accent-orange active:bg-accent-orange transition-colors text-white text-sm md:text-lg font-medium no-underline">
+              <a href="https://vk.com/koski_na" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-4 md:px-8 py-2 md:py-4 rounded-full bg-white/10 hover:bg-accent-orange active:bg-accent-orange transition-colors text-white text-sm md:text-lg font-medium no-underline">
                 ВКонтакте
               </a>
-              <a href="https://t.me/koski_na" target="_blank" class="flex items-center gap-2 px-4 md:px-8 py-2 md:py-4 rounded-full bg-white/10 hover:bg-accent-orange active:bg-accent-orange transition-colors text-white text-sm md:text-lg font-medium no-underline">
+              <a href="https://t.me/koski_na" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-4 md:px-8 py-2 md:py-4 rounded-full bg-white/10 hover:bg-accent-orange active:bg-accent-orange transition-colors text-white text-sm md:text-lg font-medium no-underline">
                 Telegram
               </a>
             </div>
@@ -633,14 +646,17 @@
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
             <div class="flex items-start gap-3 md:gap-5">
-              <span class="material-icons text-accent-orange mt-1 text-xl md:text-3xl">location_on</span>
+              <span aria-hidden="true" class="material-icons text-accent-orange mt-1 text-xl md:text-3xl">location_on</span>
               <div class="flex items-center h-full">
-                <p class="text-white font-bold text-base md:text-xl">г. Омск, ул. Красный Путь, 143 к3</p>
+                <a href="https://yandex.ru/maps/?text=%D0%9E%D0%BC%D1%81%D0%BA%2C%20%D1%83%D0%BB.%205-%D0%B9%20%D0%90%D1%80%D0%BC%D0%B8%D0%B8%2C%206" target="_blank" rel="noopener noreferrer" class="no-underline text-white hover:text-accent-orange transition-colors">
+                  <p class="font-bold text-base md:text-xl">г. Омск, ул. 5-й Армии, 6</p>
+                  <p class="text-white/60 text-sm mt-1">остановка «Сибзавод»</p>
+                </a>
               </div>
             </div>
             
             <div class="flex items-start gap-3 md:gap-5">
-              <span class="material-icons text-accent-orange mt-1 text-xl md:text-3xl">schedule</span>
+              <span aria-hidden="true" class="material-icons text-accent-orange mt-1 text-xl md:text-3xl">schedule</span>
               <div class="flex items-center h-full">
                 <p class="text-white font-bold text-base md:text-xl">По предварительной записи</p>
               </div>
@@ -648,6 +664,7 @@
           </div>
         </div>
       </div>
+      <p class="text-center text-white/40 text-xs mt-16 md:mt-24">Коскина • 2017 - <span id="year-end">2026</span></p>
     </div>
   </section>
 
@@ -660,11 +677,11 @@
     ></div>
     
     <!-- тело модалки -->
-    <div class="relative w-full max-w-2xl md:max-w-7xl bg-bg-primary rounded-[40px] overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh] animate-modal">
+    <div role="dialog" aria-modal="true" aria-labelledby="modal-title" class="relative w-full max-w-2xl md:max-w-7xl bg-bg-primary rounded-[40px] overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh] animate-modal">
       
       <!-- крестик -->
-      <button onclick="closeServiceModal()" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-accent-orange flex items-center justify-center text-white hover:bg-accent-orange/80 transition-colors cursor-pointer border-none shadow-lg">
-        <span class="material-icons">close</span>
+      <button type="button" aria-label="Закрыть" onclick="closeServiceModal()" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-accent-orange flex items-center justify-center text-white hover:bg-accent-orange/80 transition-colors cursor-pointer border-none shadow-lg">
+        <span aria-hidden="true" class="material-icons">close</span>
       </button>
 
       <!-- контейнер со скроллом -->
@@ -690,11 +707,11 @@
           />
           
           <!-- стрелки в галерее -->
-          <button onclick="prevImage()" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/40 transition-colors cursor-pointer border-none opacity-0 group-hover:opacity-100">
-            <span class="material-icons">chevron_left</span>
+          <button type="button" aria-label="Предыдущее фото" onclick="prevImage()" class="focus-visible:opacity-100 absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/40 transition-colors cursor-pointer border-none opacity-0 group-hover:opacity-100">
+            <span aria-hidden="true" class="material-icons">chevron_left</span>
           </button>
-          <button onclick="nextImage()" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/40 transition-colors cursor-pointer border-none opacity-0 group-hover:opacity-100">
-            <span class="material-icons">chevron_right</span>
+          <button type="button" aria-label="Следующее фото" onclick="nextImage()" class="focus-visible:opacity-100 absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/40 transition-colors cursor-pointer border-none opacity-0 group-hover:opacity-100">
+            <span aria-hidden="true" class="material-icons">chevron_right</span>
           </button>
 
           <!-- пагинация точками -->
@@ -705,7 +722,7 @@
 
         <!-- описание и цена -->
         <div class="w-full md:w-1/2 p-6 md:p-10 flex flex-col bg-bg-primary overflow-visible md:overflow-y-auto hide-scrollbar">
-          <h3 id="modal-title" class="text-3xl md:text-4xl font-display mb-4 text-accent-orange"></h3>
+          <h2 id="modal-title" class="text-3xl md:text-4xl font-display mb-4 text-accent-orange"></h2>
           
           <div id="modal-details" class="text-sm md:text-base text-text-secondary mb-8 leading-relaxed whitespace-pre-wrap"></div>
 
@@ -781,7 +798,7 @@
         folder: 'sphinx',
         price: 'от 7500 ₽',
         hash: 'сфинкс',
-        details: 'Комбинированная прическа, где на макушке и висках заплетены косы по голове (брейды), а на затылке - любые косы, дреды или локоны. Такая форма очень удобна тем, что все волосы аккуратно убраны назад и не мешают у лица.\n\nЦвет кос, их длина и узор из брейдов могут быть любыми.\n\nОсобенность этой прически заключается в том, что затылок, заплетенный точечно, можно носить до 6ти недель, а брейды на макушке прослужат от 2х до 4х недель, в зависимости от выбранного узора. Поэтому в середине срока носки можно переплести брейды, сменив рисунок на новый, или просто расплести их и походить с частичным заплетением на затылке.\n\nОдна прическа = два образа'
+        details: 'Комбинированная прическа, где на макушке и висках заплетены косы по голове (брейды), а на затылке - любые косы, дреды или локоны. Такая форма очень удобна тем, что все волосы аккуратно убраны назад и не мешают у лица.\n\nЦвет кос, их длина и узор из брейдов могут быть любыми.\n\nОсобенность этой прически заключается в том, что затылок, заплетенный точечно, можно носить до 6 недель, а брейды на макушке прослужат от 2 до 4 недель, в зависимости от выбранного узора. Поэтому в середине срока носки можно переплести брейды, сменив рисунок на новый, или просто расплести их и походить с частичным заплетением на затылке.\n\nОдна прическа = два образа'
       },
       {
         title: 'Наращивание волос',
@@ -809,13 +826,13 @@
       },
       {
         title: 'Уютная студия',
-        description: 'Большая огороженая парковка, хорошая транспортная доступность, удобные кресла, возможность помыть и уложить волосы после расплетения, чай/кофе и печеньки, wi-fi, тёплые пледы и тапочки. У нас можно как отдохнуть, наслаждаясь процессом, так и поработать свою удаленную работу, чтобы не терять время',
+        description: 'Большая огороженная парковка, хорошая транспортная доступность, удобные кресла, возможность помыть и уложить волосы после расплетения, чай/кофе и печеньки, wi-fi, тёплые пледы и тапочки. У нас можно как отдохнуть, наслаждаясь процессом, так и поработать свою удаленную работу, чтобы не терять время',
         icon: 'weekend',
         svg: '<path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.27 1 2.61 1 4 0 5.52-4.48 10-10 10S2 19.52 2 14c0-1.39.43-2.73 1-4 0 0-1.82-6.42-.42-7 1.39-.58 4.64.26 6.42 2.26.65-.17 1.33-.26 2-.26Z" /><path d="M8 14h.01" /><path d="M16 14h.01" /><path d="M12 17l-1-1h2l-1 1Z" />'
       },
       {
         title: 'Скорость плетения',
-        description: 'Мы работаем в 4 руки, что позволяет вплетать комплекты от 2х часов, расплетать причёски за 1 час, а также быстро изготавливать комплекты. Да, больше не придётся ждать своей записи 3−5 недель, как это было раньше',
+        description: 'Мы работаем в 4 руки, что позволяет вплетать комплекты от 2 часов, расплетать причёски за 1 час, а также быстро изготавливать комплекты. Да, больше не придётся ждать своей записи 3–5 недель, как это было раньше',
         icon: 'speed'
       },
       {
@@ -825,10 +842,66 @@
       }
     ];
 
+    // страховка от плохой сети: пробуем другой формат, потом повторяем с задержкой и сбросом кеша
+    document.addEventListener('error', (e) => {
+      const img = e.target;
+      if (!(img instanceof HTMLImageElement) || !img.getAttribute('src') || img.src.startsWith('data:')) return;
+      const fb = (img.dataset.fallbacks || '').split(',').filter(Boolean);
+      if (fb.length) {
+        img.dataset.fallbacks = fb.slice(1).join(',');
+        img.src = img.getAttribute('src').replace(/\.\w+(\?.*)?$/, '.' + fb[0]);
+        return;
+      }
+      const n = +(img.dataset.retry || 0);
+      if (n >= 2) return;
+      img.dataset.retry = n + 1;
+      if (img.dataset.fb0) img.dataset.fallbacks = img.dataset.fb0;
+      const base = (img.dataset.src0 || img.getAttribute('src')).split('?')[0];
+      setTimeout(() => { img.src = base + '?r=' + Date.now(); }, 1200 * (n + 1));
+    }, true);
+
+    // после загрузки страницы тихо подтягиваем карточки услуг, чтобы к скроллу они уже были в кеше
+    function setupImageWarmup() {
+      window.addEventListener('load', () => {
+        (window.requestIdleCallback || setTimeout)(() => {
+          document.querySelectorAll('#services-track img').forEach(img => { img.loading = 'eager'; });
+        });
+      });
+    }
+
+    // видео играют только когда видны; при reduce-motion стоят на месте
+    function setupVideos() {
+      const videos = document.querySelectorAll('video');
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        videos.forEach(v => { v.pause(); v.removeAttribute('autoplay'); });
+        return;
+      }
+      const io = new IntersectionObserver(entries => entries.forEach(en => {
+        if (en.isIntersecting) en.target.play().catch(() => {}); else en.target.pause();
+      }), { threshold: 0.1 });
+      videos.forEach(v => io.observe(v));
+    }
+
+    // битый хэш (%E0%A4%A) не должен ронять скрипт
+    function getHash() {
+      try { return decodeURIComponent(window.location.hash.substring(1)); } catch (e) { return ''; }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      const modal = document.getElementById('service-modal');
+      if (modal.classList.contains('hidden')) return;
+      if (e.key === 'Escape') closeServiceModal();
+      else if (e.key === 'ArrowRight') nextImage();
+      else if (e.key === 'ArrowLeft') prevImage();
+    });
+
     // стартуем инициализацию по дом-реди
     document.addEventListener('DOMContentLoaded', () => {
       renderServices();
       renderFeatures();
+      setupVideos();
+      setupImageWarmup();
+      const y = document.getElementById('year-end'); if (y) y.textContent = new Date().getFullYear();
       
       // вешаем листенеры на то, что уже в доме
       setupScrollListeners();
@@ -848,11 +921,11 @@
     });
 
     function checkHashOnLoad() {
-      const hash = decodeURIComponent(window.location.hash.substring(1));
+      const hash = getHash();
       if (hash) {
         const serviceIndex = services.findIndex(s => s.hash === hash);
         if (serviceIndex !== -1) {
-          scrollToServices();
+          document.getElementById('services').scrollIntoView();
           setTimeout(() => {
             openServiceModal(serviceIndex, true);
           }, 100);
@@ -884,7 +957,7 @@
       section.addEventListener('touchstart', (e) => {
         lastTouchX = e.touches[0].clientX;
         lastTouchY = e.touches[0].clientY;
-      }, { passive: false });
+      }, { passive: true });
 
       section.addEventListener('touchmove', (e) => {
         const touchX = e.touches[0].clientX;
@@ -918,72 +991,46 @@
       });
     }
 
-    // фоновая загрузка ассетов сервиса
+    // фото услуги: идём по номерам пачками по 5, стоп на первой пустой пачке (было ~160 запросов вслепую)
+    const galleryCache = {};
+    let galleryToken = 0;
+    let lastFocused = null;
+
+    async function findImage(folder, i) {
+      const url = (e) => `img/${folder}/${i}.${e}`;
+      if (await checkImageExists(url('jpg'))) return url('jpg');
+      const hits = await Promise.all(['png', 'jpeg', 'webp', 'svg'].map(e => checkImageExists(url(e)).then(ok => ok ? url(e) : null)));
+      return hits.find(Boolean) || null;
+    }
+
     async function discoverServiceImages(folder) {
-      const extensions = ['jpg', 'png', 'jpeg', 'svg'];
-      const preloader = document.getElementById('modal-preloader');
-      if (preloader) preloader.innerHTML = '';
-      
-      // хелпер для уникальных картинок
-      const addImage = (url) => {
-        if (!currentServiceImages.includes(url)) {
-          currentServiceImages.push(url);
-          
-          // прелоадим в дом для кеширования браузером
-          if (preloader) {
-            const pImg = new Image();
-            pImg.src = url;
-            pImg.referrerPolicy = 'no-referrer';
-            preloader.appendChild(pImg);
-          }
-
-          // сразу показываем первую найденную
-          if (currentServiceImages.length === 1) {
-            updateModalImage();
-          }
-          renderModalDots();
-        }
+      const token = ++galleryToken;
+      if (galleryCache[folder]) {
+        currentServiceImages = galleryCache[folder].slice();
+        renderModalDots();
+        updateModalImage();
+        return;
+      }
+      const found = [];
+      const add = (i, url) => {
+        if (token !== galleryToken) return;
+        const cur = currentServiceImages[currentCarouselIndex];
+        found.push({ i, url });
+        found.sort((x, y) => x.i - y.i);
+        currentServiceImages = found.map(f => f.url);
+        currentCarouselIndex = Math.max(0, currentServiceImages.indexOf(cur));
+        renderModalDots();
+        if (cur === undefined) updateModalImage();
       };
-
-      // брутфорсим первые 10 индексов
-      // пробуем все расширения для каждого индекса
-      const checkPromises = [];
-      for (let i = 1; i <= 10; i++) {
-        for (const ext of extensions) {
-          const url = `img/${folder}/${i}.${ext}`;
-          checkPromises.push(
-            checkImageExists(url).then(exists => {
-              if (exists) addImage(url);
-            })
-          );
-        }
+      for (let start = 1; start <= 40 && token === galleryToken; start += 5) {
+        const batch = await Promise.all([0, 1, 2, 3, 4].map(async k => {
+          const url = await findImage(folder, start + k);
+          if (url) add(start + k, url);
+          return !!url;
+        }));
+        if (!batch.some(Boolean)) break;
       }
-
-      // догружаем остальное, если есть
-      await Promise.all(checkPromises);
-      
-      const secondBatch = [];
-      for (let i = 11; i <= 20; i++) {
-        for (const ext of extensions) {
-          const url = `img/${folder}/${i}.${ext}`;
-          secondBatch.push(
-            checkImageExists(url).then(exists => {
-              if (exists) addImage(url);
-            })
-          );
-        }
-      }
-      
-      await Promise.all(secondBatch);
-      
-      // сортируем по индексу в названии
-      currentServiceImages.sort((a, b) => {
-        const getNum = (s) => parseInt(s.match(/\/(\d+)\./)?.[1] || '0');
-        return getNum(a) - getNum(b);
-      });
-
-      renderModalDots();
-      updateModalImage();
+      if (token === galleryToken) galleryCache[folder] = currentServiceImages.slice();
     }
 
     // отрисовка услуг в дом
@@ -1000,7 +1047,7 @@
           html += `
           <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group rounded-[32px]">
             <div class="text-left pl-4 md:pl-6">
-              <h4 class="text-lg font-sans font-medium text-white transition-colors">Другие прически</h4>
+              <h3 class="text-lg font-sans font-medium text-white transition-colors">Другие прически</h3>
             </div>
             <div class="w-full aspect-[3/4] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg transition-all duration-500">
               <video 
@@ -1008,6 +1055,8 @@
                 loop 
                 muted 
                 playsinline 
+                preload="none"
+                aria-hidden="true"
                 poster="${mainImage}"
                 class="w-full h-full object-cover"
               >
@@ -1028,19 +1077,22 @@
             onclick="openServiceModal(${i})"
             tabindex="0"
             role="button"
+            aria-label="Подробнее: ${service.title}"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openServiceModal(${i})}"
           >
             <div class="text-left pl-4 md:pl-6">
-              <h4 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">${service.title}</h4>
+              <h3 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">${service.title}</h3>
             </div>
             <div class="w-full aspect-[3/4] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg hover:shadow-2xl transition-all duration-500">
               <img 
                 src="${mainImage}" 
-                alt="" 
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                referrerpolicy="no-referrer"
-                onerror="this.onerror=null; this.src='img/${service.folder}/1.png';"
+                alt="${service.title}" 
+                width="600" height="800"
+                loading="lazy" decoding="async"
+                data-src0="${mainImage}" data-fallbacks="png,jpeg,webp" data-fb0="png,jpeg,webp"
+                class="w-full h-full object-cover bg-white/5 transition-transform duration-700 group-hover:scale-105"
               />
-              <button class="absolute bottom-6 right-6 bg-accent-orange text-white px-5 py-2 rounded-full text-xs font-medium shadow-md transition-transform hover:scale-105 z-10 border-none cursor-pointer">подробнее</button>
+              <span class="absolute bottom-6 right-6 bg-accent-orange text-white px-5 py-2 rounded-full text-xs font-medium shadow-md transition-transform group-hover:scale-105 z-10">подробнее</span>
             </div>
           </div>
           `;
@@ -1057,7 +1109,7 @@
           if (feature.svg) {
             return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="absolute ${posClasses} ${sizeClasses} text-black/5 transition-all duration-500 ${hoverClasses} group-hover:text-accent-orange/10">${feature.svg}</svg>`;
           }
-          return `<span class="material-icons absolute ${posClasses} ${sizeClasses} text-black/5 transition-all duration-500 ${hoverClasses} group-hover:text-accent-orange/10">${feature.icon}</span>`;
+          return `<span aria-hidden="true" class="material-icons absolute ${posClasses} ${sizeClasses} text-black/5 transition-all duration-500 ${hoverClasses} group-hover:text-accent-orange/10">${feature.icon}</span>`;
         };
 
         return `
@@ -1071,7 +1123,7 @@
           </div>
           
           <div class="relative z-10 flex flex-col gap-4">
-            <h4 class="text-lg md:text-xl font-display font-bold text-text-primary">${feature.title}</h4>
+            <h3 class="text-lg md:text-xl font-display font-bold text-text-primary">${feature.title}</h3>
             <p class="text-text-secondary text-sm md:text-base leading-relaxed">
               ${feature.description}
             </p>
@@ -1118,8 +1170,14 @@
       document.getElementById('modal-details').innerHTML = service.details;
       document.getElementById('modal-price').textContent = service.price;
       
-      // чистим стейт картинок
+      // чистим стейт и прошлую картинку, чтобы не мелькала чужая
       currentServiceImages = [];
+      const prevImg = document.getElementById('modal-image');
+      prevImg.classList.add('opacity-0');
+      prevImg.removeAttribute('src');
+      document.getElementById('modal-loader').classList.remove('hidden');
+      renderModalDots();
+      lastFocused = document.activeElement;
       
       // открываем модалку, не дожидаясь всех картинок
       const modal = document.getElementById('service-modal');
@@ -1128,7 +1186,7 @@
 
       // фиксируем открытие в истории браузера
       if (!fromPopstate) {
-        const currentHash = decodeURIComponent(window.location.hash.substring(1));
+        const currentHash = getHash();
         if (currentHash !== service.hash) {
           window.history.pushState({ modalOpen: true }, '', '#' + service.hash);
         } else {
@@ -1138,6 +1196,7 @@
 
       // ищем картинки в папке сервиса
       discoverServiceImages(service.folder);
+      document.querySelector('#service-modal button[aria-label="Закрыть"]').focus();
     }
 
     function closeServiceModal() {
@@ -1159,8 +1218,10 @@
       document.body.style.overflow = '';
       currentServiceIndex = null;
       currentServiceImages = [];
+      galleryToken++;
+      if (lastFocused && lastFocused.focus) lastFocused.focus();
       
-      const currentHash = decodeURIComponent(window.location.hash.substring(1));
+      const currentHash = getHash();
       if (currentHash) {
         window.history.replaceState(null, '', window.location.pathname + window.location.search);
       }
@@ -1169,7 +1230,7 @@
     // хендлим кнопку "назад" на мобилках и переходы по хэшам
     window.addEventListener('popstate', (event) => {
       const modal = document.getElementById('service-modal');
-      const hash = decodeURIComponent(window.location.hash.substring(1));
+      const hash = getHash();
       
       if (hash) {
         const serviceIndex = services.findIndex(s => s.hash === hash);
@@ -1223,7 +1284,8 @@
       const dotsContainer = document.getElementById('modal-dots');
       dotsContainer.innerHTML = currentServiceImages.map((_, i) => `
         <button 
-          class="w-2 h-2 rounded-full transition-all duration-300 cursor-pointer border-none p-0 ${i === 0 ? 'bg-white w-4' : 'bg-white/40'}"
+          aria-label="Фото ${i + 1}"
+          class="w-2 h-2 rounded-full transition-all duration-300 cursor-pointer border-none p-0 ${i === currentCarouselIndex ? 'bg-white w-4' : 'bg-white/40'}"
           onclick="setCarouselIndex(${i})"
         ></button>
       `).join('');
@@ -1296,32 +1358,31 @@
       const header = document.getElementById('main-header');
       const servicesSection = document.getElementById('services');
       const servicesTrack = document.getElementById('services-track');
-      
-      window.addEventListener('scroll', () => {
-        // анимация шапки при скролле
-        if (window.scrollY > 50) {
-          header.classList.add('py-3', 'md:py-4');
-          header.classList.remove('py-4', 'md:py-6');
-        } else {
-          header.classList.remove('py-3', 'md:py-4');
-          header.classList.add('py-4', 'md:py-6');
-        }
+      let compact = false, ticking = false, lastW = innerWidth, lastH = innerHeight;
 
-        // апдейтим горизонтальный скролл
+      const onScroll = () => {
+        ticking = false;
+        const next = window.scrollY > 50;
+        if (next !== compact) {
+          compact = next;
+          header.classList.toggle('py-3', next); header.classList.toggle('md:py-4', next);
+          header.classList.toggle('py-4', !next); header.classList.toggle('md:py-6', !next);
+        }
         updateHorizontalScroll(servicesSection, servicesTrack);
-        
-        // привязка к центру при остановке скролла
         clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-          snapServicesToCenter(servicesSection, servicesTrack);
-        }, 150);
-      });
+        scrollTimeout = setTimeout(() => snapServicesToCenter(servicesSection, servicesTrack), 150);
+      };
+      window.addEventListener('scroll', () => {
+        if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+      }, { passive: true });
 
       window.addEventListener('resize', () => {
+        // адресная строка на мобилках дёргает resize при скролле: мелкие скачки высоты игнорируем
+        if (innerWidth === lastW && Math.abs(innerHeight - lastH) < 120) return;
+        lastW = innerWidth; lastH = innerHeight;
         updateSectionHeight(servicesSection, servicesTrack);
+        updateHorizontalScroll(servicesSection, servicesTrack);
       });
-      
-      // первичный расчет геометрии
       setTimeout(() => updateSectionHeight(servicesSection, servicesTrack), 100);
     }
 
