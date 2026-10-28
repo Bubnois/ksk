@@ -101,6 +101,12 @@
       #ready-sets-track .kit-cta > div { width: auto; margin-top: 0; flex-shrink: 0; margin-left: auto; }
     }
 
+    /* На мобильных карточка «Другие комплекты» сохраняет квадратный размер; видео остаётся фоном. */
+    @media (max-width: 767px) {
+      #ready-sets-track .kit-cta { aspect-ratio: 1 / 1; min-height: 0; }
+      #ready-sets-track.ready-looping { scroll-behavior: auto; }
+    }
+
     /* костыли и фиксы, когда тейлвинда не хватило */
     body {
       background-color: #F5F5F3;
@@ -951,6 +957,7 @@
       
       // вешаем листенеры на то, что уже в доме
       setupScrollListeners();
+      setupReadySetsInfiniteLoop();
       setupHorizontalInteraction();
       setupModalSwipe();
       setupFeatureObserver();
@@ -1396,6 +1403,59 @@
           section.scrollIntoView({ behavior: 'smooth' });
         }, 50);
       }
+    }
+
+    // Бесконечная карусель готовых комплектов только на мобильных экранах.
+    // Клонируем карточки по краям и незаметно переносим позицию при достижении края.
+    function setupReadySetsInfiniteLoop() {
+      const track = document.getElementById('ready-sets-track');
+      if (!track || window.innerWidth >= 768 || track.dataset.loopReady === 'true') return;
+
+      const originals = Array.from(track.children);
+      if (originals.length < 2) return;
+      track.dataset.loopReady = 'true';
+      track.classList.add('ready-looping');
+      track.style.scrollSnapType = 'none';
+
+      const before = document.createDocumentFragment();
+      originals.forEach(card => {
+        const clone = card.cloneNode(true);
+        clone.dataset.loopClone = 'true';
+        before.appendChild(clone);
+      });
+      const after = originals.map(card => card.cloneNode(true));
+      after.forEach(card => { card.dataset.loopClone = 'true'; track.appendChild(card); });
+      track.insertBefore(before, track.firstChild);
+
+      // Автовоспроизведение фоновых видео также для карточек-клонов карусели.
+      track.querySelectorAll('.kit-cta video').forEach(video => {
+        video.muted = true;
+        video.playsInline = true;
+        const playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(() => {});
+      });
+
+      const getSetWidth = () => originals.reduce((sum, card) => {
+        const style = getComputedStyle(track);
+        const gap = parseFloat(style.columnGap || style.gap) || 0;
+        return sum + card.getBoundingClientRect().width + gap;
+      }, 0);
+
+      const jumpToMiddle = () => { track.scrollLeft = getSetWidth(); };
+      requestAnimationFrame(jumpToMiddle);
+
+      let wrapping = false;
+      track.addEventListener('scroll', () => {
+        if (wrapping) return;
+        const setWidth = getSetWidth();
+        if (!setWidth) return;
+        const totalMiddleWidth = setWidth;
+        if (track.scrollLeft < setWidth * 0.35) {
+          wrapping = true; track.scrollLeft += totalMiddleWidth; wrapping = false;
+        } else if (track.scrollLeft > setWidth * 1.65) {
+          wrapping = true; track.scrollLeft -= totalMiddleWidth; wrapping = false;
+        }
+      }, { passive: true });
     }
 
     let scrollTimeout;
