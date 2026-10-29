@@ -84,14 +84,14 @@
     .svc-track { gap: 1rem; padding-left: 1rem; padding-right: 1rem; }
     .svc-pad { padding: 2rem; }
     @media (min-width: 768px) {
-      .modal-card { max-width: 56rem; }
+      .modal-card { max-width: clamp(58rem, 78vw, 76rem); }
       /* на низких экранах (ноутбуки 768px по высоте) карточка чуть уже, чтобы целиком помещаться на экране */
       .svc-card { width: clamp(260px, calc((100vh - 370px) * 0.75), 400px); }
       .svc-title { padding-left: 1.5rem; }
       .svc-track { gap: 1.5rem; padding-left: 2rem; padding-right: 2rem; }
       .svc-pad { padding: 2.5rem; }
 
- /* готовые комплекты: на десктопе без карусели — три карточки в ряд и баннер-призыв на всю ширину */
+      /* готовые комплекты: на десктопе без карусели — три карточки в ряд и баннер-призыв на всю ширину */
       #ready-sets-track { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; overflow: visible; padding-bottom: 0; }
       #ready-sets-track > * { width: auto; }
       #ready-sets-track > div:last-child { grid-column: 1 / -1; }
@@ -450,7 +450,7 @@
     </div>
   </section>
 
-<!-- блок факап... ой, фака -->
+  <!-- блок факап... ой, фака -->
   <section class="w-full bg-bg-primary pb-16 desk:pb-24 relative">
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="text-center mb-6 desk:mb-8">
@@ -536,12 +536,12 @@
     </div>
   </section>
 
-  <!-- Почему нас выбирают -->
-  <section id="why-us" class="py-16 desk:py-24 bg-bg-primary overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-4xl desk:text-5xl font-display mb-12 desk:mb-16 tracking-tight text-center text-text-primary">Заплетаясь у нас, вы получаете&nbsp;—</h2>
+  <!-- Заплетаясь у нас, вы получаете -->
+  <section id="why-us" class="w-full py-16 desk:py-24 bg-bg-primary overflow-hidden">
+    <div class="max-w-[1400px] mx-auto px-4">
+      <h2 class="text-4xl desk:text-6xl font-display mb-12 desk:mb-16 tracking-tight text-center text-text-primary">Заплетаясь у нас, вы получаете&nbsp;—</h2>
 
-      <div class="max-w-4xl mx-auto">
+      <div class="w-full">
         <!-- Мобильная версия (зигзаг) -->
         <div class="flex desk:hidden flex-col gap-10 -mx-4">
           <!-- Ряд 1: Фото (лево) + 4 Баббла (право) -->
@@ -587,53 +587,53 @@
           </div>
         </div>
 
-<!-- Десктопная версия (зигзаг) -->
-        <div class="hidden desk:flex flex-col gap-16">
+        <!-- Десктопная версия (динамическая высота фото под высоту баблов, без пустот) -->
+        <div class="hidden desk:flex flex-col gap-6">
           <!-- Ряд 1: Фото (лево) + Бабблы (право) -->
-          <div class="flex gap-10 items-center">
-            <div class="w-[45%] aspect-square shrink-0">
-              <img src="img/studio/1.jpg" alt="" class="w-full h-full object-cover rounded-[40px]" loading="lazy" decoding="async" />
+          <div class="flex gap-6 items-stretch">
+            <div class="w-[46%] relative rounded-[32px] overflow-hidden shrink-0">
+              <img src="img/studio/1.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
             </div>
-            <div class="flex flex-col gap-6 justify-center flex-grow">
-              <div class="bg-white border border-black/5 rounded-[24px] px-8 py-5 text-base text-text-primary leading-snug">
+            <div class="flex flex-col gap-3 justify-between flex-grow">
+              <div class="bg-white border border-black/5 rounded-[24px] px-7 py-5 text-base text-text-primary leading-snug">
                 Прическу, созданную с учетом Ваших пожеланий и особенностей&nbsp;💇‍♀️
               </div>
-              <div class="bg-white border border-black/5 rounded-[24px] px-8 py-5 text-base text-text-primary leading-snug w-fit ml-8">
+              <div class="bg-white border border-black/5 rounded-[24px] px-7 py-5 text-base text-text-primary leading-snug ml-8">
                 Многоразовый комплект отличного качества&nbsp;✨
               </div>
-              <div class="bg-white border border-black/5 rounded-[24px] px-8 py-5 text-base text-text-primary leading-snug w-fit ml-4">
+              <div class="bg-white border border-black/5 rounded-[24px] px-7 py-5 text-base text-text-primary leading-snug ml-4">
                 Повышенное внимание окружающих&nbsp;🤩
               </div>
-              <div class="bg-white border border-black/5 rounded-[24px] px-8 py-5 text-base text-text-primary leading-snug w-fit ml-12">
+              <div class="bg-white border border-black/5 rounded-[24px] px-7 py-5 text-base text-text-primary leading-snug ml-12">
                 Безлимит на комплименты&nbsp;🥰
               </div>
             </div>
           </div>
 
           <!-- Ряд 2: Бабблы (лево) + Фото (право) -->
-          <div class="flex gap-10 items-center">
-            <div class="flex flex-col gap-6 justify-center items-end flex-grow text-right">
-              <div class="bg-white border border-black/5 rounded-[24px] px-8 py-5 text-base text-text-primary leading-snug w-fit mr-12">
+          <div class="flex gap-6 items-stretch">
+            <div class="flex flex-col gap-3 justify-between flex-grow text-right">
+              <div class="bg-white border border-black/5 rounded-[24px] px-7 py-5 text-base text-text-primary leading-snug mr-12">
                 Уверенность в своём внешнем виде&nbsp;👑
               </div>
-              <div class="bg-white border border-black/5 rounded-[24px] px-8 py-5 text-base text-text-primary leading-snug w-fit mr-4">
+              <div class="bg-white border border-black/5 rounded-[24px] px-7 py-5 text-base text-text-primary leading-snug mr-4">
                 Новый опыт и новое ощущение себя&nbsp;🦋
               </div>
-              <div class="bg-white border border-black/5 rounded-[24px] px-8 py-5 text-base text-text-primary leading-snug w-fit mr-8">
+              <div class="bg-white border border-black/5 rounded-[24px] px-7 py-5 text-base text-text-primary leading-snug mr-8">
                 Свободу от ежедневного ухода за волосами&nbsp;🕊️
               </div>
-              <div class="bg-white border border-black/5 rounded-[24px] px-8 py-5 text-base text-text-primary leading-snug">
+              <div class="bg-white border border-black/5 rounded-[24px] px-7 py-5 text-base text-text-primary leading-snug">
                 Экономию времени и денег&nbsp;💸
               </div>
             </div>
-            <div class="w-[45%] aspect-square shrink-0">
-              <img src="img/studio/2.jpg" alt="" class="w-full h-full object-cover rounded-[40px]" loading="lazy" decoding="async" />
+            <div class="w-[46%] relative rounded-[32px] overflow-hidden shrink-0">
+              <img src="img/studio/2.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
             </div>
           </div>
         </div>
 
         <!-- Общий подвал для обеих версий -->
-        <div class="text-center mt-10 desk:mt-16 relative z-20">
+        <div class="text-center mt-10 desk:mt-14 relative z-20">
           <div class="bg-white border border-black/5 text-text-primary rounded-[16px] desk:rounded-[24px] px-6 py-4 desk:px-8 desk:py-5 inline-block text-sm desk:text-base font-medium">
             Свободное место для следующего «хочу»&nbsp;🧡
           </div>
@@ -644,8 +644,8 @@
 
   </div><!-- /page-col -->
 
- <!-- футер с контактами (внутри колонки page-col) -->
-  <section id="contacts" class="page-col bg-btn-dark py-16 desk:py-24 relative text-white rounded-t-[32px] desk:rounded-t-[48px]">
+  <!-- футер с контактами (внутри колонки page-col) -->
+  <section id="contacts" class="page-col bg-btn-dark pt-16 pb-10 desk:pt-24 desk:pb-12 relative text-white rounded-t-[32px] desk:rounded-t-[48px]">
     <div class="max-w-[1400px] mx-auto px-4 desk:px-8">
       <h2 class="text-4xl desk:text-6xl font-display mb-4 tracking-tight text-white text-center">Контакты</h2>
       <p class="text-white/70 text-sm desk:text-base text-center max-w-2xl mx-auto mb-8 desk:mb-12 px-4">
@@ -662,41 +662,45 @@
           
           <!-- кнопки связи для узких экранов -->
           <div class="flex flex-wrap gap-2 desk:hidden flex-grow pt-1">
-            <a href="https://t.me/koski_na" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-full bg-white/10 text-white text-sm font-medium no-underline whitespace-nowrap hover:bg-accent-orange active:bg-accent-orange transition-colors">
+            <a href="https://t.me/koski_na" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-full bg-white/10 text-white text-sm font-medium no-underline whitespace-nowrap hover:bg-accent-orange active:bg-accent-orange transition-colors w-fit">
               Telegram
             </a>
-            <a href="https://vk.com/koski_na" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-full bg-white/10 text-white text-sm font-medium no-underline whitespace-nowrap hover:bg-accent-orange active:bg-accent-orange transition-colors">
+            <a href="https://vk.com/koski_na" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-full bg-white/10 text-white text-sm font-medium no-underline whitespace-nowrap hover:bg-accent-orange active:bg-accent-orange transition-colors w-fit">
               ВКонтакте
             </a>
-            <a href="https://www.instagram.com/koski_na" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-full bg-white/10 text-white text-sm font-medium no-underline whitespace-nowrap hover:bg-accent-orange active:bg-accent-orange transition-colors">
-              Instagram
+            <a href="https://www.instagram.com/koski_na" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-full bg-white/10 text-white text-sm font-medium no-underline whitespace-nowrap hover:bg-accent-orange active:bg-accent-orange transition-colors w-fit">
+              Instagram<sup class="ml-1 text-[10px] opacity-60 font-normal tracking-tighter">ΦωΦ</sup>
             </a>
-            <a href="tel:+79006725456" class="px-4 py-2 rounded-full bg-white/10 text-white text-sm font-medium no-underline whitespace-nowrap hover:bg-accent-orange active:bg-accent-orange transition-colors">
+            <a href="tel:+79006725456" class="px-4 py-2 rounded-full bg-white/10 text-white text-sm font-medium no-underline whitespace-nowrap hover:bg-accent-orange active:bg-accent-orange transition-colors w-fit">
               +7 900 672 54 56
             </a>
           </div>
         </div>
         
         <!-- основная инфа по контактам -->
-        <div class="flex-grow flex flex-col justify-center py-2 desk:py-8">
-          <div class="hidden desk:block mb-8 desk:mb-12">
-            <div class="flex flex-wrap gap-2 desk:gap-4">
-              <a href="tel:+79006725456" class="flex items-center gap-2 px-4 desk:px-8 py-2 desk:py-4 rounded-full bg-white/10 hover:bg-accent-orange active:bg-accent-orange transition-colors text-white text-sm desk:text-lg font-medium no-underline">
+        <div class="flex-grow flex flex-col justify-center py-2 desk:py-4">
+          <!-- баблы с контактами в две строки на десктопе, динамической ширины по тексту -->
+          <div class="hidden desk:flex flex-col gap-3 mb-10 items-start">
+            <div class="flex flex-wrap gap-3 items-center">
+              <a href="tel:+79006725456" class="inline-flex w-fit items-center justify-center px-7 py-3.5 rounded-full bg-white/10 hover:bg-accent-orange active:bg-accent-orange transition-colors text-white text-base font-medium no-underline whitespace-nowrap">
                 +7 900 672 54 56
               </a>
-              <a href="https://www.instagram.com/koski_na" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-4 desk:px-8 py-2 desk:py-4 rounded-full bg-white/10 hover:bg-accent-orange active:bg-accent-orange transition-colors text-white text-sm desk:text-lg font-medium no-underline">
-                Instagram
+<a href="https://www.instagram.com/koski_na" target="_blank" rel="noopener noreferrer" class="inline-flex w-fit items-center justify-center px-7 py-3.5 rounded-full bg-white/10 hover:bg-accent-orange active:bg-accent-orange transition-colors text-white text-base font-medium no-underline whitespace-nowrap">
+                Instagram<sup class="ml-1.5 text-[11px] opacity-60 font-normal tracking-tighter">ΦωΦ</sup>
               </a>
-              <a href="https://vk.com/koski_na" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-4 desk:px-8 py-2 desk:py-4 rounded-full bg-white/10 hover:bg-accent-orange active:bg-accent-orange transition-colors text-white text-sm desk:text-lg font-medium no-underline">
+            </div>
+            <div class="flex flex-wrap gap-3 items-center">
+              <a href="https://vk.com/koski_na" target="_blank" rel="noopener noreferrer" class="inline-flex w-fit items-center justify-center px-7 py-3.5 rounded-full bg-white/10 hover:bg-accent-orange active:bg-accent-orange transition-colors text-white text-base font-medium no-underline whitespace-nowrap">
                 ВКонтакте
               </a>
-              <a href="https://t.me/koski_na" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-4 desk:px-8 py-2 desk:py-4 rounded-full bg-white/10 hover:bg-accent-orange active:bg-accent-orange transition-colors text-white text-sm desk:text-lg font-medium no-underline">
+              <a href="https://t.me/koski_na" target="_blank" rel="noopener noreferrer" class="inline-flex w-fit items-center justify-center px-7 py-3.5 rounded-full bg-white/10 hover:bg-accent-orange active:bg-accent-orange transition-colors text-white text-base font-medium no-underline whitespace-nowrap">
                 Telegram
               </a>
             </div>
           </div>
 
-          <div class="grid grid-cols-1 desk:grid-cols-2 gap-6 desk:gap-10">
+          <!-- адрес и предварительная запись в две строки -->
+          <div class="flex flex-col gap-6 desk:gap-6">
             <div class="flex items-start gap-3 desk:gap-5">
               <span aria-hidden="true" class="material-icons text-accent-orange mt-1 text-xl desk:text-3xl">location_on</span>
               <div class="flex items-center h-full">
@@ -707,8 +711,8 @@
               </div>
             </div>
             
-            <div class="flex items-start gap-3 desk:gap-5">
-              <span aria-hidden="true" class="material-icons text-accent-orange mt-1 text-xl desk:text-3xl">schedule</span>
+            <div class="flex items-center gap-3 desk:gap-5">
+              <span aria-hidden="true" class="material-icons text-accent-orange text-xl desk:text-3xl">schedule</span>
               <div class="flex items-center h-full">
                 <p class="text-white font-bold text-base desk:text-xl">По предварительной записи</p>
               </div>
@@ -716,7 +720,14 @@
           </div>
         </div>
       </div>
-      <p class="text-center text-white/40 text-xs mt-16 desk:mt-24">2017 – <span id="year-end">2026</span></p>
+
+<!-- самый низ: дисклеймер с котиком-звёздочкой и годы работы -->
+      <div class="mt-16 desk:mt-24 pt-6 border-t border-white/10 flex flex-col items-center gap-2 text-center text-white/40 text-xs">
+        <p class="max-w-xl leading-relaxed">
+          <span class="mr-1 tracking-tighter">ΦωΦ</span>Instagram принадлежит компании Meta, признанной экстремистской организацией и запрещённой на территории РФ
+        </p>
+        <p>2017 – <span id="year-end">2026</span></p>
+      </div>
     </div>
   </section>
 
@@ -729,10 +740,10 @@
     ></div>
     
     <!-- тело модалки -->
-    <div role="dialog" aria-modal="true" aria-labelledby="modal-title" class="relative w-full modal-card bg-bg-primary rounded-[40px] overflow-hidden shadow-2xl flex flex-col desk:flex-row max-h-[90vh] desk:h-[620px] animate-modal">
+    <div role="dialog" aria-modal="true" aria-labelledby="modal-title" class="relative w-full modal-card bg-bg-primary rounded-[40px] overflow-hidden shadow-2xl flex flex-col desk:flex-row max-h-[90vh] desk:h-[min(82vh,780px)] animate-modal">
       
       <!-- крестик -->
-      <button type="button" aria-label="Закрыть" onclick="closeServiceModal()" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-accent-orange flex items-center justify-center text-white hover:bg-accent-orange/80 transition-colors cursor-pointer border-none shadow-lg">
+      <button type="button" aria-label="Закрыть" onclick="closeServiceModal()" class="absolute top-4 right-4 desk:top-6 desk:right-6 z-20 w-10 h-10 desk:w-11 desk:h-11 rounded-full bg-accent-orange flex items-center justify-center text-white hover:bg-accent-orange/80 transition-colors cursor-pointer border-none shadow-lg">
         <span aria-hidden="true" class="material-icons">close</span>
       </button>
 
@@ -759,10 +770,10 @@
           />
           
           <!-- стрелки в галерее -->
-          <button type="button" aria-label="Предыдущее фото" onclick="prevImage()" class="focus-visible:opacity-100 absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/40 transition-colors cursor-pointer border-none opacity-0 group-hover:opacity-100">
+          <button type="button" aria-label="Предыдущее фото" onclick="prevImage()" class="focus-visible:opacity-100 absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 desk:w-11 desk:h-11 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/40 transition-colors cursor-pointer border-none opacity-0 group-hover:opacity-100">
             <span aria-hidden="true" class="material-icons">chevron_left</span>
           </button>
-          <button type="button" aria-label="Следующее фото" onclick="nextImage()" class="focus-visible:opacity-100 absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/40 transition-colors cursor-pointer border-none opacity-0 group-hover:opacity-100">
+          <button type="button" aria-label="Следующее фото" onclick="nextImage()" class="focus-visible:opacity-100 absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 desk:w-11 desk:h-11 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/40 transition-colors cursor-pointer border-none opacity-0 group-hover:opacity-100">
             <span aria-hidden="true" class="material-icons">chevron_right</span>
           </button>
 
@@ -772,9 +783,9 @@
           </div>
         </div>
 
-        <!-- описание и цена -->
+        <!-- описание и цена (размер текста как на всём сайте: text-sm desk:text-base) -->
         <div class="w-full desk:w-1/2 desk:h-full p-6 desk:p-10 flex flex-col bg-bg-primary overflow-visible desk:overflow-y-auto hide-scrollbar">
-          <h2 id="modal-title" class="text-3xl desk:text-4xl font-display mb-4 pr-10 text-accent-orange"></h2>
+          <h2 id="modal-title" class="text-2xl desk:text-3xl font-display mb-4 pr-12 text-accent-orange leading-tight"></h2>
           
           <div id="modal-details" class="text-sm desk:text-base text-text-secondary mb-8 leading-relaxed whitespace-pre-wrap"></div>
 
