@@ -349,7 +349,7 @@
       <div class="text-center mb-8 px-4">
         <h2 class="text-4xl desk:text-6xl font-display mb-4 tracking-tight text-white">Готовые комплекты</h2>
         <p class="text-white/70 text-sm desk:text-base leading-relaxed max-w-2xl mx-auto">
-          Изготавливаем самые разнообразные комплекты. <br> В наличии более 30 готовых к заплетению на любой вкус и стиль
+          Изготавливаем самые разнообразные комплекты. В наличии более 30 готовых к заплетению на любой вкус и стиль
         </p>
       </div>
       
@@ -642,7 +642,7 @@
     <div class="max-w-[1400px] mx-auto px-4 desk:px-8">
       <h2 class="text-4xl desk:text-6xl font-display mb-4 tracking-tight text-white text-center">Контакты</h2>
       <p class="text-white/70 text-sm desk:text-base text-center max-w-2xl mx-auto mb-8 desk:mb-12 px-4">
-        Консультация бесплатна.<br> Задать все интересующие вопросы и записаться можно любым удобным способом
+        Консультация бесплатна. Задать все интересующие вопросы и записаться можно любым удобным способом
       </p>
       
       <div class="flex flex-col desk:flex-row gap-8 desk:gap-16 items-start">
@@ -1463,8 +1463,17 @@
 
       // автопрокрутка: пауза при наведении и касании, не едет вне экрана и при «уменьшить движение»
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      const SPEED = 40; // px в секунду
-      let pos = track.scrollLeft, lastSet = pos, last = 0, pausedUntil = 0, hovering = false, visible = true;
+      // лента всегда едет; скорость идёт по кривой: фоновый ход и периодические плавные ускорения
+      const BASE = 28;    // px/с, спокойная скорость
+      const BOOST = 150;  // px/с, добавка на пике ускорения
+      const PERIOD = 6;   // с, интервал между ускорениями
+      const SHARP = 3;    // чем больше, тем короче и резче пик
+      const speedAt = (sec) => {
+        const w = 0.5 + 0.5 * Math.sin((2 * Math.PI * sec) / PERIOD - Math.PI / 2); // 0..1, старт в минимуме
+        return BASE + BOOST * Math.pow(w, SHARP);
+      };
+      let pos = track.scrollLeft, lastSet = pos, last = 0, clock = 0;
+      let pausedUntil = 0, hovering = false, visible = true;
       const pause = (ms) => { pausedUntil = performance.now() + ms; };
       track.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') hovering = true; });
       track.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') hovering = false; });
@@ -1480,8 +1489,9 @@
         last = now;
         if (visible && !hovering && !document.hidden && now >= pausedUntil) {
           const cur = track.scrollLeft;
-          if (Math.abs(cur - lastSet) > 2) pos = cur; // пользователь или зацикливание сдвинули ленту
-          pos += SPEED * dt;
+          if (Math.abs(cur - lastSet) > 2) pos = cur; // пользователь или перенос по краю цикла сдвинули ленту
+          clock += dt;
+          pos += speedAt(clock) * dt;
           track.scrollLeft = pos;
           lastSet = pos;
         }
