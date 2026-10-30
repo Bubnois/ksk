@@ -11,7 +11,7 @@ const MAX_IMG_WIDTH = 1280;          // берём самый большой р�
 const TOKEN = process.env.VK_TOKEN;
 
 if (!TOKEN) {
-  console.error('Не задан VK_TOKEN (секрет репозитория).');
+  console.error('::error title=VK_TOKEN::Не задан VK_TOKEN (секрет репозитория пуст или назван иначе).');
   process.exit(1);
 }
 
@@ -110,4 +110,9 @@ async function main() {
   console.log(`Готово: ${out.length} товаров.`);
 }
 
-main().catch(e => { console.error(e); process.exit(1); });
+main().catch(e => {
+  // ::error:: попадает в сводку Annotations на странице запуска
+  console.error(`::error title=Не удалось обновить комплекты::${e.message}`);
+  console.error(e);
+  process.exit(1);
+});
