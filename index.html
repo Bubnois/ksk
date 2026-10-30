@@ -1463,9 +1463,9 @@
       track.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') hovering = true; });
       track.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') hovering = false; });
       track.addEventListener('touchstart', () => pause(1e9), { passive: true });
-      track.addEventListener('touchend', () => pause(2000), { passive: true });
-      track.addEventListener('touchcancel', () => pause(2000), { passive: true });
-      track.addEventListener('wheel', () => pause(2000), { passive: true });
+      track.addEventListener('touchend', () => pause(600), { passive: true });
+      track.addEventListener('touchcancel', () => pause(600), { passive: true });
+      track.addEventListener('wheel', () => pause(600), { passive: true });
       if ('IntersectionObserver' in window) {
         new IntersectionObserver(([en]) => { visible = en.isIntersecting; }).observe(track);
       }
