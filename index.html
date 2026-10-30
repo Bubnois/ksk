@@ -91,14 +91,13 @@
       .svc-track { gap: 1.5rem; padding-left: 2rem; padding-right: 2rem; }
       .svc-pad { padding: 2.5rem; }
 
-      /* готовые комплекты: на десктопе без карусели — три карточки в ряд и баннер-призыв на всю ширину */
-      #ready-sets-track { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; overflow: visible; padding-bottom: 0; }
-      #ready-sets-track > * { width: auto; }
+      /* готовые комплекты: и на десктопе лента сама едет по горизонтали */
+      #ready-sets-track { gap: 1.5rem; padding-left: 2rem; padding-right: 2rem; }
+      #ready-sets-track > a { width: 400px; }
     }
 
-    @media (max-width: 767px) {
-      #ready-sets-track.ready-looping { scroll-behavior: auto; }
-    }
+    /* автопрокрутка двигает scrollLeft сама, плавность браузера ей мешает */
+    #ready-sets-track.ready-looping { scroll-behavior: auto; }
 
     /* костыли и фиксы, когда тейлвинда не хватило */
     body {
@@ -359,12 +358,9 @@
         <div id="ready-sets-track" class="flex overflow-x-auto snap-x snap-mandatory gap-4 px-4 pb-8 hide-scrollbar scroll-smooth">
           
           <!-- карточка 1 -->
-          <a href="https://vk.com/market-211294353" target="_blank" rel="noopener noreferrer" class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center snap-always no-underline">
-            <div class="text-left pl-4 desk:pl-6">
-              <h3 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">ДЕ Дреды</h3>
-            </div>
-            <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5">
-              <img src="img/kits/1.jpg" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async" />
+          <a href="https://vk.com/market-211294353" target="_blank" rel="noopener noreferrer" class="w-[300px] md:w-[400px] shrink-0 flex flex-col group cursor-pointer snap-center snap-always no-underline">
+            <div class="w-full aspect-[4/3] desk:aspect-square rounded-[32px] overflow-hidden relative border border-black/5">
+              <img src="img/kits/1.jpg" alt="ДЕ дреды" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async" />
               <div class="absolute bottom-6 right-6 flex items-center justify-center text-btn-dark transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
                 <span aria-hidden="true" class="material-icons text-3xl">arrow_outward</span>
               </div>
@@ -372,12 +368,9 @@
           </a>
 
           <!-- карточка 2 -->
-          <a href="https://vk.com/market-211294353" target="_blank" rel="noopener noreferrer" class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center snap-always no-underline">
-            <div class="text-left pl-4 desk:pl-6">
-              <h3 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">Гофродреды</h3>
-            </div>
-            <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5">
-              <img src="img/kits/2.jpg" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async" />
+          <a href="https://vk.com/market-211294353" target="_blank" rel="noopener noreferrer" class="w-[300px] md:w-[400px] shrink-0 flex flex-col group cursor-pointer snap-center snap-always no-underline">
+            <div class="w-full aspect-[4/3] desk:aspect-square rounded-[32px] overflow-hidden relative border border-black/5">
+              <img src="img/kits/2.jpg" alt="Гофродреды" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async" />
               <div class="absolute bottom-6 right-6 flex items-center justify-center text-btn-dark transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
                 <span aria-hidden="true" class="material-icons text-3xl">arrow_outward</span>
               </div>
@@ -385,12 +378,29 @@
           </a>
 
           <!-- карточка 3 -->
-          <a href="https://vk.com/market-211294353" target="_blank" rel="noopener noreferrer" class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 group cursor-pointer snap-center snap-always no-underline">
-            <div class="text-left pl-4 desk:pl-6">
-              <h3 class="text-lg font-sans font-medium text-white group-hover:text-accent-orange transition-colors">Локоны ариэль долли</h3>
+          <a href="https://vk.com/market-211294353" target="_blank" rel="noopener noreferrer" class="w-[300px] md:w-[400px] shrink-0 flex flex-col group cursor-pointer snap-center snap-always no-underline">
+            <div class="w-full aspect-[4/3] desk:aspect-square rounded-[32px] overflow-hidden relative border border-black/5">
+              <img src="img/kits/3.jpg" alt="Локоны ариэль долли" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async" />
+              <div class="absolute bottom-6 right-6 flex items-center justify-center text-btn-dark transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
+                <span aria-hidden="true" class="material-icons text-3xl">arrow_outward</span>
+              </div>
             </div>
-            <div class="w-full aspect-square rounded-[32px] overflow-hidden relative border border-black/5">
-              <img src="img/kits/3.jpg" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async" />
+          </a>
+
+          <!-- карточка 4 -->
+          <a href="https://vk.com/market-211294353" target="_blank" rel="noopener noreferrer" class="w-[300px] md:w-[400px] shrink-0 flex flex-col group cursor-pointer snap-center snap-always no-underline">
+            <div class="w-full aspect-[4/3] desk:aspect-square rounded-[32px] overflow-hidden relative border border-black/5">
+              <img src="img/kits/4.jpg" alt="Готовый комплект" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async" />
+              <div class="absolute bottom-6 right-6 flex items-center justify-center text-btn-dark transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
+                <span aria-hidden="true" class="material-icons text-3xl">arrow_outward</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- карточка 5 -->
+          <a href="https://vk.com/market-211294353" target="_blank" rel="noopener noreferrer" class="w-[300px] md:w-[400px] shrink-0 flex flex-col group cursor-pointer snap-center snap-always no-underline">
+            <div class="w-full aspect-[4/3] desk:aspect-square rounded-[32px] overflow-hidden relative border border-black/5">
+              <img src="img/kits/5.jpg" alt="Готовый комплект" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async" />
               <div class="absolute bottom-6 right-6 flex items-center justify-center text-btn-dark transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
                 <span aria-hidden="true" class="material-icons text-3xl">arrow_outward</span>
               </div>
@@ -400,7 +410,7 @@
         </div>
 
         <!-- баннер-призыв: отдельно от карусели, на всю ширину, без подписи -->
-        <a href="https://vk.com/market-211294353" target="_blank" rel="noopener noreferrer" aria-label="Посмотреть все комплекты" class="kit-cta group block mx-4 desk:mt-6 h-[180px] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg no-underline">
+        <a href="https://vk.com/market-211294353" target="_blank" rel="noopener noreferrer" aria-label="Посмотреть все комплекты" class="kit-cta group block mx-4 desk:mx-8 mt-2 desk:mt-6 h-[88px] desk:h-[180px] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg no-underline">
           <video
             autoplay
             loop
@@ -414,7 +424,7 @@
             <source src="img/others/1.mp4" type="video/mp4">
           </video>
           <div class="absolute inset-0 bg-black/60"></div>
-          <span class="absolute bottom-6 right-6 bg-accent-orange text-white px-5 py-2 rounded-full text-xs font-medium shadow-md transition-transform group-hover:scale-105 z-10">посмотреть все</span>
+          <span class="absolute bottom-6 right-6 bg-accent-orange text-white px-5 py-2 rounded-full text-xs font-medium shadow-md transition-transform group-hover:scale-105 z-10 max-md:bottom-1/2 max-md:translate-y-1/2">посмотреть все</span>
         </a>
       </div>
     </div>
@@ -1399,11 +1409,11 @@
       }
     }
 
-    // Бесконечная карусель готовых комплектов только на мобильных экранах.
+    // Бесконечная карусель готовых комплектов с автопрокруткой (мобильная и десктопная версии).
     // Клонируем карточки по краям и незаметно переносим позицию при достижении края.
     function setupReadySetsInfiniteLoop() {
       const track = document.getElementById('ready-sets-track');
-      if (!track || window.innerWidth >= 768 || track.dataset.loopReady === 'true') return;
+      if (!track || track.dataset.loopReady === 'true') return;
 
       const originals = Array.from(track.children);
       if (originals.length < 2) return;
@@ -1450,6 +1460,34 @@
           wrapping = true; track.scrollLeft -= totalMiddleWidth; wrapping = false;
         }
       }, { passive: true });
+
+      // автопрокрутка: пауза при наведении и касании, не едет вне экрана и при «уменьшить движение»
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const SPEED = 40; // px в секунду
+      let pos = track.scrollLeft, lastSet = pos, last = 0, pausedUntil = 0, hovering = false, visible = true;
+      const pause = (ms) => { pausedUntil = performance.now() + ms; };
+      track.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') hovering = true; });
+      track.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') hovering = false; });
+      track.addEventListener('touchstart', () => pause(1e9), { passive: true });
+      track.addEventListener('touchend', () => pause(2500), { passive: true });
+      track.addEventListener('touchcancel', () => pause(2500), { passive: true });
+      track.addEventListener('wheel', () => pause(2000), { passive: true });
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(([en]) => { visible = en.isIntersecting; }).observe(track);
+      }
+      const tick = (now) => {
+        const dt = Math.min(now - (last || now), 50) / 1000;
+        last = now;
+        if (visible && !hovering && !document.hidden && now >= pausedUntil) {
+          const cur = track.scrollLeft;
+          if (Math.abs(cur - lastSet) > 2) pos = cur; // пользователь или зацикливание сдвинули ленту
+          pos += SPEED * dt;
+          track.scrollLeft = pos;
+          lastSet = pos;
+        }
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
     }
 
     let scrollTimeout;
