@@ -94,16 +94,9 @@
       /* готовые комплекты: на десктопе без карусели — три карточки в ряд и баннер-призыв на всю ширину */
       #ready-sets-track { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; overflow: visible; padding-bottom: 0; }
       #ready-sets-track > * { width: auto; }
-      #ready-sets-track > div:last-child { grid-column: 1 / -1; }
-      #ready-sets-track .kit-spacer { display: none; }
-      #ready-sets-track .kit-cta { aspect-ratio: auto; min-height: 180px; }
-      #ready-sets-track .kit-cta > p { margin-bottom: 0; max-width: 34rem; }
-      #ready-sets-track .kit-cta > div { width: auto; margin-top: 0; flex-shrink: 0; margin-left: auto; }
     }
 
-    /* На мобильных карточка «Другие комплекты» сохраняет квадратный размер; видео остаётся фоном. */
     @media (max-width: 767px) {
-      #ready-sets-track .kit-cta { aspect-ratio: 1 / 1; min-height: 0; }
       #ready-sets-track.ready-looping { scroll-behavior: auto; }
     }
 
@@ -229,7 +222,7 @@
       <!-- интро про студию -->
       <div class="mt-8 desk:mt-12 max-w-2xl text-center px-4">
         <p class="text-text-secondary text-sm desk:text-base leading-relaxed">
-          Делаем потрясающие прически с 2017 года. Девять лет работы и бесчисленное количество заплетенных голов.<br>Уютная студия, работаем в четыре руки.<br>По-настоящему индивидуальный&nbsp;подход
+          Делаем потрясающие прически с 2017 года.<br> Девятилетный опыт, работа в четыре руки, уютная студия и по-настоящему индивидуальный подход
         </p>
       </div>
 
@@ -256,8 +249,7 @@
       <div class="max-w-[1400px] mx-auto px-4 desk:px-8 w-full mb-8 shrink-0 text-center">
         <h2 class="text-4xl desk:text-6xl font-display mb-4">Услуги</h2>
         <p class="text-white/70 text-sm desk:text-base leading-relaxed max-w-xl mx-auto">
-          Мы предлагаем широкий спектр услуг по плетению и уходу за заплетенными волосами. 
-          Каждая работа выполняется с любовью и вниманием к деталям
+          Мы предлагаем широкий спектр услуг по плетению и уходу за заплетенными волосами
         </p>
       </div>
 
@@ -358,7 +350,7 @@
       <div class="text-center mb-8 px-4">
         <h2 class="text-4xl desk:text-6xl font-display mb-4 tracking-tight text-white">Готовые комплекты</h2>
         <p class="text-white/70 text-sm desk:text-base leading-relaxed max-w-2xl mx-auto">
-          Помимо заплетения, мы изготавливаем великолепные и самые разнообразные комплекты. В наличии более 30 вариантов на любой вкус и&nbsp;стиль
+          Изготавливаем самые разнообразные комплекты. В наличии более 30 готовых к заплетению на любой вкус и стиль
         </p>
       </div>
       
@@ -405,34 +397,25 @@
             </div>
           </a>
 
-          <!-- акцентная карточка с призывом (оформлена как "Другие прически") -->
-          <div class="w-[300px] md:w-[400px] shrink-0 flex flex-col gap-3 snap-center snap-always">
-             <div class="h-[28px] kit-spacer"></div>
-             <div class="kit-cta w-full aspect-square rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg">
-                <video 
-                  autoplay 
-                  loop 
-                  muted 
-                  playsinline 
-                  preload="none"
-                  aria-hidden="true"
-                  poster="img/others/1.jpg"
-                  class="absolute inset-0 w-full h-full object-cover"
-                >
-                  <source src="img/others/1.mp4" type="video/mp4">
-                </video>
-                <div class="absolute inset-0 bg-black/60 p-8 desk:px-10 desk:py-8 flex flex-col desk:flex-row desk:items-center justify-between gap-6 text-left">
-                  <p class="text-white text-base leading-relaxed desk:max-w-[36rem]">
-                    У нас множество самых разнообразных готовых комплектов, готовых к заплетению. Также мы произведем комплект на любой вкус и любой сложности.
-                  </p>
-                  <a href="https://vk.com/market-211294353" target="_blank" rel="noopener noreferrer" class="self-end desk:self-center shrink-0 bg-accent-orange text-white px-5 py-2 rounded-full text-xs font-medium shadow-md transition-transform hover:scale-105 no-underline">
-                    посмотреть все
-                  </a>
-                </div>
-             </div>
-          </div>
-
         </div>
+
+        <!-- баннер-призыв: отдельно от карусели, на всю ширину, без подписи -->
+        <a href="https://vk.com/market-211294353" target="_blank" rel="noopener noreferrer" aria-label="Посмотреть все комплекты" class="kit-cta group block mx-4 desk:mt-6 h-[180px] rounded-[32px] overflow-hidden relative border border-white/10 shadow-lg no-underline">
+          <video
+            autoplay
+            loop
+            muted
+            playsinline
+            preload="none"
+            aria-hidden="true"
+            poster="img/others/1.jpg"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          >
+            <source src="img/others/1.mp4" type="video/mp4">
+          </video>
+          <div class="absolute inset-0 bg-black/60"></div>
+          <span class="absolute bottom-6 right-6 bg-accent-orange text-white px-5 py-2 rounded-full text-xs font-medium shadow-md transition-transform group-hover:scale-105 z-10">посмотреть все</span>
+        </a>
       </div>
     </div>
   </section>
@@ -649,7 +632,7 @@
     <div class="max-w-[1400px] mx-auto px-4 desk:px-8">
       <h2 class="text-4xl desk:text-6xl font-display mb-4 tracking-tight text-white text-center">Контакты</h2>
       <p class="text-white/70 text-sm desk:text-base text-center max-w-2xl mx-auto mb-8 desk:mb-12 px-4">
-        Консультация бесплатна. Задать все интересующие вопросы и записаться на плетение можно любым удобным способом
+        Консультация бесплатна. Задать все интересующие вопросы и записаться можно любым удобным способом
       </p>
       
       <div class="flex flex-col desk:flex-row gap-8 desk:gap-16 items-start">
@@ -685,8 +668,8 @@
               <a href="tel:+79006725456" class="inline-flex w-fit items-center justify-center px-7 py-3.5 rounded-full bg-white/10 hover:bg-accent-orange active:bg-accent-orange transition-colors text-white text-base font-medium no-underline whitespace-nowrap">
                 +7 900 672 54 56
               </a>
-<a href="https://www.instagram.com/koski_na" target="_blank" rel="noopener noreferrer" class="inline-flex w-fit items-center justify-center px-7 py-3.5 rounded-full bg-white/10 hover:bg-accent-orange active:bg-accent-orange transition-colors text-white text-base font-medium no-underline whitespace-nowrap">
-                Instagram<sup class="ml-1.5 text-[8px] opacity-60 font-normal tracking-tighter">*</sup>
+                            <a href="https://www.instagram.com/koski_na" target="_blank" rel="noopener noreferrer" class="inline-flex w-fit items-center justify-center px-7 py-3.5 rounded-full bg-white/10 hover:bg-accent-orange active:bg-accent-orange transition-colors text-white text-base font-medium no-underline whitespace-nowrap">
+                Instagram
               </a>
             </div>
             <div class="flex flex-wrap gap-3 items-center">

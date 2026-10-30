@@ -102,57 +102,6 @@
     @media (min-width: 768px) { .kit-cta { height: auto; min-height: 180px; } }
     @media (max-width: 767px) { #ready-sets-track.ready-looping { scroll-behavior: auto; } }
 
-    /* морфинг-сетка: 6 плиток на сетке 12×12, три состояния (data-s = a | b | c).
-       Положение и скругления задаются переменными, поэтому браузер сам плавно переходит между состояниями */
-    .morph-wrap { --gap: 8px; --rl: 30px; --rs: 8px; }
-    @media (min-width: 768px) { .morph-wrap { --gap: 12px; --rl: 44px; --rs: 10px; } }
-    .morph { position: relative; aspect-ratio: 5 / 6; margin: calc(var(--gap) / -2); width: calc(100% + var(--gap)); }
-    @media (min-width: 768px) { .morph { aspect-ratio: 4 / 3; } }
-    .mt {
-      position: absolute; padding: calc(var(--gap) / 2);
-      left: calc(var(--x) * 100% / 12); top: calc(var(--y) * 100% / 12);
-      width: calc(var(--w) * 100% / 12); height: calc(var(--h) * 100% / 12);
-      transition: left 1.3s cubic-bezier(.65,0,.35,1), top 1.3s cubic-bezier(.65,0,.35,1),
-                  width 1.3s cubic-bezier(.65,0,.35,1), height 1.3s cubic-bezier(.65,0,.35,1);
-    }
-    .mt-in {
-      position: relative; width: 100%; height: 100%; overflow: hidden; background: rgba(26,26,26,.06);
-      border-radius: var(--r); transition: border-radius 1.3s cubic-bezier(.65,0,.35,1);
-      transform: translateZ(0);
-    }
-    .mt-img {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-      opacity: 0; transform: scale(1.1); transition: opacity 1s ease, transform 1.8s ease;
-    }
-    .mt-img.on { opacity: 1; transform: scale(1); }
-    /* скругления: у каждой плитки свой рисунок «крупный/мелкий угол», в каждом состоянии он сдвигается */
-    .morph { --r1: var(--rl) var(--rs) var(--rl) var(--rs); --r2: var(--rs) var(--rl) var(--rs) var(--rl);
-             --r3: var(--rl) var(--rl) var(--rs) var(--rs); --r4: var(--rs) var(--rs) var(--rl) var(--rl);
-             --r5: var(--rl) var(--rs) var(--rs) var(--rl); --r6: var(--rs) var(--rl) var(--rl) var(--rs); }
-
-    /* состояние A */
-    .morph[data-s="a"] .mt:nth-child(1) { --x:0; --y:0; --w:7; --h:7; } .morph[data-s="a"] .mt:nth-child(1) .mt-in { --r: var(--r1); }
-    .morph[data-s="a"] .mt:nth-child(2) { --x:7; --y:0; --w:5; --h:5; } .morph[data-s="a"] .mt:nth-child(2) .mt-in { --r: var(--r2); }
-    .morph[data-s="a"] .mt:nth-child(3) { --x:7; --y:5; --w:5; --h:3; } .morph[data-s="a"] .mt:nth-child(3) .mt-in { --r: var(--r3); }
-    .morph[data-s="a"] .mt:nth-child(4) { --x:7; --y:8; --w:5; --h:4; } .morph[data-s="a"] .mt:nth-child(4) .mt-in { --r: var(--r4); }
-    .morph[data-s="a"] .mt:nth-child(5) { --x:0; --y:7; --w:4; --h:5; } .morph[data-s="a"] .mt:nth-child(5) .mt-in { --r: var(--r5); }
-    .morph[data-s="a"] .mt:nth-child(6) { --x:4; --y:7; --w:3; --h:5; } .morph[data-s="a"] .mt:nth-child(6) .mt-in { --r: var(--r6); }
-    /* состояние B */
-    .morph[data-s="b"] .mt:nth-child(1) { --x:0; --y:0; --w:4; --h:8; } .morph[data-s="b"] .mt:nth-child(1) .mt-in { --r: var(--r2); }
-    .morph[data-s="b"] .mt:nth-child(2) { --x:4; --y:0; --w:4; --h:4; } .morph[data-s="b"] .mt:nth-child(2) .mt-in { --r: var(--r3); }
-    .morph[data-s="b"] .mt:nth-child(3) { --x:8; --y:0; --w:4; --h:6; } .morph[data-s="b"] .mt:nth-child(3) .mt-in { --r: var(--r4); }
-    .morph[data-s="b"] .mt:nth-child(4) { --x:4; --y:4; --w:4; --h:8; } .morph[data-s="b"] .mt:nth-child(4) .mt-in { --r: var(--r5); }
-    .morph[data-s="b"] .mt:nth-child(5) { --x:8; --y:6; --w:4; --h:6; } .morph[data-s="b"] .mt:nth-child(5) .mt-in { --r: var(--r6); }
-    .morph[data-s="b"] .mt:nth-child(6) { --x:0; --y:8; --w:4; --h:4; } .morph[data-s="b"] .mt:nth-child(6) .mt-in { --r: var(--r1); }
-    /* состояние C */
-    .morph[data-s="c"] .mt:nth-child(1) { --x:0; --y:0; --w:8; --h:4; } .morph[data-s="c"] .mt:nth-child(1) .mt-in { --r: var(--r3); }
-    .morph[data-s="c"] .mt:nth-child(2) { --x:8; --y:0; --w:4; --h:6; } .morph[data-s="c"] .mt:nth-child(2) .mt-in { --r: var(--r4); }
-    .morph[data-s="c"] .mt:nth-child(3) { --x:0; --y:4; --w:5; --h:5; } .morph[data-s="c"] .mt:nth-child(3) .mt-in { --r: var(--r5); }
-    .morph[data-s="c"] .mt:nth-child(4) { --x:5; --y:4; --w:3; --h:5; } .morph[data-s="c"] .mt:nth-child(4) .mt-in { --r: var(--r6); }
-    .morph[data-s="c"] .mt:nth-child(5) { --x:0; --y:9; --w:8; --h:3; } .morph[data-s="c"] .mt:nth-child(5) .mt-in { --r: var(--r1); }
-    .morph[data-s="c"] .mt:nth-child(6) { --x:8; --y:6; --w:4; --h:6; } .morph[data-s="c"] .mt:nth-child(6) .mt-in { --r: var(--r2); }
-    @media (prefers-reduced-motion: reduce) { .mt, .mt-in, .mt-img { transition: none !important; } }
-
     /* костыли и фиксы, когда тейлвинда не хватило */
     body {
       background-color: #F5F5F3;
