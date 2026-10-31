@@ -99,6 +99,49 @@
     /* автопрокрутка двигает scrollLeft сама, плавность браузера ей мешает */
     #ready-sets-track.ready-looping { scroll-behavior: auto; }
 
+    /* «Кому подойдет?»: три экрана с фоном на всю ширину; фон и бабл меняются по мере скролла */
+    .aud { position: relative; width: 100%; height: 300vh; height: 300svh; background: #2D2C2A; color: #fff; }
+    .aud-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+    .aud-slide { position: absolute; inset: 0; opacity: 0; transition: opacity .9s ease; background: #4a3b33; }
+    .aud-slide[data-i="1"] { background: #38424f; }
+    .aud-slide[data-i="2"] { background: #55383a; }
+    .aud-slide.is-active { opacity: 1; }
+    .aud-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); transition: transform 7s ease-out; }
+    .aud-slide.is-active .aud-bg { transform: scale(1); }
+    .aud-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,.12) 38%, rgba(0,0,0,.3) 100%); }
+    .aud-title { position: absolute; left: 0; right: 0; top: 5.5rem; margin: 0; padding: 0 1rem; text-align: center; font-size: 2.25rem; line-height: 1.1; color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,.45); z-index: 3; }
+
+    /* баблы: разные несимметричные формы; радиусы медленно «перетекают» */
+    .aud-bubble { position: absolute; z-index: 2; width: min(88vw, 21.5rem); padding: 2.9rem 2.6rem; box-shadow: 0 24px 60px rgba(0,0,0,.35);
+      border-radius: var(--s1); opacity: 0; transform: var(--from); transition: opacity .7s ease .3s, transform 1s cubic-bezier(.2,.9,.3,1.15) .3s; }
+    .aud-slide.is-active .aud-bubble { opacity: 1; transform: none; animation: audMorph 14s ease-in-out 1.3s infinite alternate; }
+    @keyframes audMorph { from { border-radius: var(--s1); } to { border-radius: var(--s2); } }
+    .aud-bubble p { margin: 0; }
+    .aud-bubble.b1 { left: 4%; top: 24%; background: rgba(245,245,243,.95); color: #1A1A1A;
+      --s1: 63% 37% 54% 46% / 55% 48% 52% 45%; --s2: 42% 58% 38% 62% / 48% 62% 38% 52%; --from: translate(-60px, 30px) scale(.8) rotate(-6deg); }
+    .aud-bubble.b2 { right: 4%; bottom: 9%; background: #FF7A59; color: #1A1A1A;
+      --s1: 38% 62% 47% 53% / 58% 41% 59% 42%; --s2: 55% 45% 62% 38% / 42% 55% 45% 58%; --from: translate(60px, 50px) scale(.8) rotate(5deg); }
+    .aud-bubble.b3 { right: 4%; top: 28%; background: #2D2C2A; color: #fff;
+      --s1: 54% 46% 33% 67% / 41% 59% 41% 59%; --s2: 36% 64% 58% 42% / 60% 40% 55% 45%; --from: translate(40px, -50px) scale(.8) rotate(-4deg); }
+
+    .aud-dots { position: absolute; left: 0; right: 0; bottom: 1.1rem; display: flex; justify-content: center; gap: .5rem; z-index: 3; }
+    .aud-dot { width: .5rem; height: .5rem; border-radius: 999px; background: rgba(255,255,255,.45); transition: width .4s ease, background-color .4s ease; }
+    .aud-dot.is-active { width: 1.5rem; background: #FF7A59; }
+
+    @media (min-width: 768px) {
+      .aud-title { top: 7.5rem; font-size: 3.75rem; }
+      .aud-bubble { padding: 3.4rem 3.2rem; }
+      .aud-bubble.b1 { left: 7%; top: 28%; width: 25rem; }
+      .aud-bubble.b2 { right: 7%; bottom: 10%; width: 29rem; }
+      .aud-bubble.b3 { right: 9%; top: 27%; width: 27rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .aud-bg, .aud-slide.is-active .aud-bg { transform: none; transition: none; }
+      .aud-bubble { transform: none; transition: opacity .4s ease; }
+      .aud-slide.is-active .aud-bubble { animation: none; }
+    }
+
+
     /* костыли и фиксы, когда тейлвинда не хватило */
     body {
       background-color: #F5F5F3;
@@ -261,90 +304,44 @@
     </div>
   </section>
 
-  <div class="page-col">
+  <!-- блок про ЦА: три экрана с фоном на всю ширину, листаются скроллом (подложка на всю ширину) -->
+  <section id="audience" class="aud" aria-labelledby="aud-title">
+    <div class="aud-stage">
 
-  <!-- блок про ЦА: экран закрепляется, а при скролле слайды сменяют друг друга (картинка на всю заливку + свой асимметричный баббл) -->
-  <section class="w-full bg-bg-primary relative z-10 text-text-primary">
-    <div class="text-center px-4 pt-16 desk:pt-24 pb-8 desk:pb-12">
-      <h2 class="text-4xl desk:text-6xl font-display tracking-tight">Кому подойдет?</h2>
-    </div>
-
-    <!-- высокая обёртка даёт «длину» скролла, внутри липкая сцена -->
-    <div id="aud-wrap" class="relative" style="height: 360svh;">
-      <div class="sticky top-0 w-full overflow-hidden" style="height: 100svh; min-height: 520px;">
-      <article class="aud-slide absolute inset-0 overflow-hidden bg-btn-dark" data-i="0">
-        <img src="img/audience/1.jpg" alt="" loading="eager" decoding="async" class="aud-img absolute inset-0 w-full h-full object-cover">
-        <div class="aud-bubble absolute top-[16%] left-[5%] desk:top-[18%] desk:left-[7%] bg-white text-text-primary w-[80%] max-w-[22rem] desk:max-w-[29rem] px-9 py-11 desk:px-14 desk:py-16 shadow-2xl" style="border-radius: 62% 38% 55% 45% / 48% 58% 42% 52%;">
-          <h3 class="text-xl desk:text-3xl font-display font-bold leading-tight mb-3 desk:mb-4 ">Тем, кто ценит время</h3>
-          <p class="text-sm desk:text-lg leading-relaxed text-text-secondary">Косы и дреды не требуют ежедневного ухода. Проснулась и уже&nbsp;красивая!</p>
-        </div>
-      </article>
-      <article class="aud-slide absolute inset-0 overflow-hidden bg-btn-dark" data-i="1">
-        <img src="img/audience/2.jpg" alt="" loading="lazy" decoding="async" class="aud-img absolute inset-0 w-full h-full object-cover">
-        <div class="aud-bubble absolute top-[34%] right-[4%] desk:top-[28%] desk:right-[7%] bg-accent-orange text-text-primary w-[84%] max-w-[23rem] desk:max-w-[32rem] px-9 py-12 desk:px-16 desk:py-20 shadow-2xl" style="border-radius: 36% 64% 42% 58% / 60% 34% 66% 40%;">
-          <h3 class="text-xl desk:text-3xl font-display font-bold leading-tight mb-3 desk:mb-4 ">Тем, кто выбирает красоту и удобство</h3>
-          <p class="text-sm desk:text-lg leading-relaxed text-text-primary/85">100% уверенности в своей причёске, так как её не испортят дождь, ветер или физическая активность. Да, выглядеть великолепно в любой ситуации — это&nbsp;реально</p>
-        </div>
-      </article>
-      <article class="aud-slide absolute inset-0 overflow-hidden bg-btn-dark" data-i="2">
-        <img src="img/audience/3.jpg" alt="" loading="lazy" decoding="async" class="aud-img absolute inset-0 w-full h-full object-cover">
-        <div class="aud-bubble absolute bottom-[9%] left-[8%] desk:bottom-[10%] desk:left-[12%] bg-btn-dark text-white w-[82%] max-w-[22rem] desk:max-w-[31rem] px-10 py-11 desk:px-16 desk:py-16 shadow-2xl" style="border-radius: 45% 55% 34% 66% / 38% 52% 48% 62%;">
-          <h3 class="text-xl desk:text-3xl font-display font-bold leading-tight mb-3 desk:mb-4 ">Тем, кому важно проявляться</h3>
-          <p class="text-sm desk:text-lg leading-relaxed text-white/80">Заплести дреды или косы — это отличный способ заявить о себе, своих принципах и желаниях. Они дополнят уже созданный образ, а также помогут сделать шаг к изменению&nbsp;имиджа</p>
-        </div>
-      </article>
-
-        <!-- индикатор слайдов -->
-        <div class="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2 z-20" aria-hidden="true">
-          <span class="aud-dot block h-2 w-2 rounded-full bg-white/50 transition-all duration-500"></span>
-          <span class="aud-dot block h-2 w-2 rounded-full bg-white/50 transition-all duration-500"></span>
-          <span class="aud-dot block h-2 w-2 rounded-full bg-white/50 transition-all duration-500"></span>
+      <!-- экран 1: фон + бабл -->
+      <div class="aud-slide" data-i="0">
+        <img src="img/audience/1.jpg" alt="" class="aud-bg" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <div class="aud-shade"></div>
+        <div class="aud-bubble b1">
+          <h3 class="text-lg desk:text-xl font-display font-bold leading-snug mb-3">Тем, кто ценит время</h3>
+          <p class="text-sm desk:text-base leading-relaxed">Косы и дреды не требуют ежедневного ухода. Проснулась и уже&nbsp;красивая!</p>
         </div>
       </div>
+
+      <!-- экран 2: фон + бабл -->
+      <div class="aud-slide" data-i="1">
+        <img src="img/audience/2.jpg" alt="" class="aud-bg" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <div class="aud-shade"></div>
+        <div class="aud-bubble b2">
+          <h3 class="text-lg desk:text-xl font-display font-bold leading-snug mb-3">Тем, кто выбирает красоту и удобство</h3>
+          <p class="text-sm desk:text-base leading-relaxed">100% уверенности в своей причёске, так как её не испортят дождь, ветер или физическая активность. Да, выглядеть великолепно в любой ситуации — это&nbsp;реально</p>
+        </div>
+      </div>
+
+      <!-- экран 3: фон + бабл -->
+      <div class="aud-slide" data-i="2">
+        <img src="img/audience/3.jpg" alt="" class="aud-bg" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <div class="aud-shade"></div>
+        <div class="aud-bubble b3">
+          <h3 class="text-lg desk:text-xl font-display font-bold leading-snug mb-3">Тем, кому важно проявляться</h3>
+          <p class="text-sm desk:text-base leading-relaxed">Заплести дреды или косы — это отличный способ заявить о себе, своих принципах и желаниях. Они дополнят уже созданный образ, а также помогут сделать шаг к изменению&nbsp;имиджа</p>
+        </div>
+      </div>
+
+      <h2 id="aud-title" class="aud-title font-display tracking-tight">Кому подойдет?</h2>
+      <div class="aud-dots" aria-hidden="true"><span class="aud-dot"></span><span class="aud-dot"></span><span class="aud-dot"></span></div>
     </div>
-
-    <style>
-      /* слайды лежат стопкой, активный проявляется поверх, картинка чуть «отъезжает», баббл всплывает */
-      .aud-slide { opacity: 0; visibility: hidden; transition: opacity .8s ease, visibility 0s linear .8s; z-index: 0; }
-      .aud-slide.is-active { opacity: 1; visibility: visible; transition: opacity .8s ease, visibility 0s; z-index: 1; }
-      .aud-img { transform: scale(1.1); transition: transform 1.6s ease; }
-      .aud-slide.is-active .aud-img { transform: scale(1); }
-      .aud-bubble { opacity: 0; transform: translateY(32px) scale(.92); transition: opacity .6s ease, transform .8s cubic-bezier(.2,.8,.2,1); }
-      .aud-slide.is-active .aud-bubble { opacity: 1; transform: none; transition-delay: .25s; }
-      .aud-dot.is-active { width: 1.5rem; background: #fff; }
-      @media (prefers-reduced-motion: reduce) {
-        .aud-slide, .aud-slide.is-active, .aud-img, .aud-bubble { transition: none !important; }
-        .aud-img { transform: none; }
-        .aud-bubble { transform: none; }
-      }
-    </style>
-    <script>
-      (function () {
-        var wrap = document.getElementById('aud-wrap');
-        if (!wrap) return;
-        var slides = wrap.querySelectorAll('.aud-slide');
-        var dots = wrap.querySelectorAll('.aud-dot');
-        var cur = -1, ticking = false;
-        function update() {
-          ticking = false;
-          var r = wrap.getBoundingClientRect();
-          var total = wrap.offsetHeight - window.innerHeight;
-          var p = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 0;
-          var i = Math.min(slides.length - 1, Math.floor(p * slides.length));
-          if (i === cur) return;
-          cur = i;
-          slides.forEach(function (el, k) { el.classList.toggle('is-active', k === i); });
-          dots.forEach(function (el, k) { el.classList.toggle('is-active', k === i); });
-        }
-        function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
-        window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', onScroll);
-        update();
-      })();
-    </script>
   </section>
-
-  </div><!-- /page-col -->
 
   <!-- витрина готовых комплектов (подложка на всю ширину) -->
   <section class="w-full bg-btn-dark py-16 desk:py-24 relative group/section text-white">
@@ -950,6 +947,7 @@
       // вешаем листенеры на то, что уже в доме
       setupScrollListeners();
       setupReadySetsInfiniteLoop();
+      setupAudience();
       setupHorizontalInteraction();
       setupModalSwipe();
       setupFeatureObserver();
@@ -1379,10 +1377,12 @@
 
     // плавные переходы по якорям
     function scrollToServices() {
+      if (window.audFree) window.audFree();
       document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
     }
 
     function scrollToContacts() {
+      if (window.audFree) window.audFree();
       const modal = document.getElementById('service-modal');
       if (modal && !modal.classList.contains('hidden')) {
         closeServiceModal();
@@ -1395,6 +1395,170 @@
           section.scrollIntoView({ behavior: 'smooth' });
         }, 50);
       }
+    }
+
+    // «Кому подойдет?»: экраны (фон + бабл) сменяют друг друга по скроллу, но строго по одному за жест —
+    // колесо, свайп, клавиши и даже резкий «бросок» двигают ровно на один экран, пролистнуть лишнее нельзя
+    function setupAudience() {
+      const sec = document.getElementById('audience');
+      if (!sec) return;
+      const stage = sec.querySelector('.aud-stage');
+      const slides = Array.from(sec.querySelectorAll('.aud-slide'));
+      const dots = Array.from(sec.querySelectorAll('.aud-dot'));
+      const N = slides.length;
+      if (!stage || !N) return;
+
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const TWEEN_MS = reduce ? 0 : 750;  // сколько едем до следующего экрана
+      const LOCK_MS = 150;                // короткая пауза после перехода
+      const GAP_MS = 160;                 // пауза в событиях длиннее этого = новый жест (инерция тачпада/пальца короче)
+      const TOL = 2;
+
+      let idx = -2;          // показанный экран (-1 — блок вне экрана)
+      let busy = false;      // идёт доезд до экрана
+      let lockUntil = 0;
+      let free = false, freeTimer = 0;   // свободный скролл: переход по якорю (кнопка «записаться» и т.п.)
+      let lastScroll = 0, lastWheel = 0, wheelDone = false;
+      let touch = null, ticking = false;
+
+      const stepPx = () => stage.offsetHeight || window.innerHeight;
+      const anchor = (i) => sec.getBoundingClientRect().top + window.scrollY + i * stepPx();
+      const jump = (y) => window.scrollTo(0, y);
+
+      function show(i) {
+        if (i === idx) return;
+        idx = i;
+        slides.forEach((el, k) => el.classList.toggle('is-active', k === i));
+        dots.forEach((el, k) => el.classList.toggle('is-active', k === i));
+      }
+      function inView() {
+        const r = sec.getBoundingClientRect(), vh = window.innerHeight;
+        return r.top < vh * 0.5 && r.bottom > vh * 0.5;
+      }
+      function inRange() {
+        if (!inView()) return false;
+        const y = window.scrollY;
+        return y >= anchor(0) - TOL && y <= anchor(N - 1) + TOL;
+      }
+      function nearest() {
+        return Math.max(0, Math.min(N - 1, Math.round((window.scrollY - anchor(0)) / stepPx())));
+      }
+
+      const ease = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      function tweenTo(y) {
+        busy = true;
+        const y0 = window.scrollY, t0 = performance.now();
+        if (!TWEEN_MS || Math.abs(y - y0) < 1) { jump(y); busy = false; lockUntil = performance.now() + LOCK_MS; return; }
+        const frame = (now) => {
+          const t = Math.min(1, (now - t0) / TWEEN_MS);
+          jump(y0 + (y - y0) * ease(t));
+          if (t < 1) requestAnimationFrame(frame);
+          else { busy = false; lockUntil = performance.now() + LOCK_MS; }
+        };
+        requestAnimationFrame(frame);
+      }
+      // один шаг: только на соседний экран и только если не идёт переход
+      function go(i) {
+        if (busy || performance.now() < lockUntil || i < 0 || i >= N) return false;
+        show(i);
+        tweenTo(anchor(i));
+        return true;
+      }
+      const atExit = (dir) => (dir > 0 && idx === N - 1) || (dir < 0 && idx === 0);
+
+      // всё, что не перехвачено (ползунок, инерция «броска», автопрокрутка): держим на текущем экране
+      function sync() {
+        ticking = false;
+        const now = performance.now();
+        const gap = now - lastScroll;
+        lastScroll = now;
+        if (busy) return;
+        if (!inView()) { show(-1); return; }
+        const y = window.scrollY, a0 = anchor(0), aL = anchor(N - 1);
+        if (free) {
+          show(y <= a0 ? 0 : y >= aL ? N - 1 : nearest());
+          clearTimeout(freeTimer); freeTimer = setTimeout(endFree, 220);
+          return;
+        }
+        if (y <= a0 + TOL) { show(0); return; }
+        if (y >= aL - TOL) { show(N - 1); return; }
+        const cur = idx >= 0 ? idx : 0;
+        if (idx < 0) show(cur);
+        const d = y - anchor(cur);
+        if (Math.abs(d) < TOL) return;
+        if (gap > GAP_MS) { if (!go(cur + (d > 0 ? 1 : -1))) jump(anchor(cur)); }  // новый жест — один шаг
+        else jump(anchor(cur));                                                      // тот же жест — не пускаем дальше
+      }
+      function endFree() {
+        free = false; clearTimeout(freeTimer);
+        if (!inView()) { show(-1); return; }
+        const y = window.scrollY;
+        if (y <= anchor(0) + TOL) { show(0); return; }
+        if (y >= anchor(N - 1) - TOL) { show(N - 1); return; }
+        const i = nearest();
+        show(i);
+        tweenTo(anchor(i));
+      }
+      // вызывают переходы по якорям (scrollToContacts и т.п.), чтобы блок не держал страницу
+      window.audFree = () => { free = true; clearTimeout(freeTimer); freeTimer = setTimeout(endFree, 400); };
+
+      window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(sync); } }, { passive: true });
+
+      // колесо / тачпад: один жест = один экран
+      window.addEventListener('wheel', (e) => {
+        const now = performance.now();
+        if (now - lastWheel > GAP_MS) wheelDone = false;
+        lastWheel = now;
+        if (e.ctrlKey) return;
+        if (free) endFree();
+        if (!inRange()) { wheelDone = true; return; }  // хвост жеста, начатого снаружи
+        const dir = Math.sign(e.deltaY);
+        if (!dir) return;
+        if (atExit(dir) && !busy && !wheelDone) return; // выходим из блока обычным скроллом
+        e.preventDefault();
+        if (busy || wheelDone || Math.abs(e.deltaY) < 2) { wheelDone = true; return; }
+        wheelDone = true;
+        go(idx + dir);
+      }, { passive: false });
+
+      // свайп: один свайп = один экран
+      document.addEventListener('touchstart', (e) => {
+        if (free) endFree();
+        touch = e.touches.length === 1 ? { y: e.touches[0].clientY, inside: inRange(), mode: '', dir: 0, done: false } : null;
+      }, { passive: true });
+      document.addEventListener('touchmove', (e) => {
+        if (!touch || !touch.inside || !e.touches.length) return;
+        const dy = e.touches[0].clientY - touch.y;
+        if (!touch.mode) {
+          if (Math.abs(dy) < 4) return;
+          touch.dir = dy < 0 ? 1 : -1;
+          touch.mode = (atExit(touch.dir) && !busy) ? 'native' : 'hijack';
+        }
+        if (touch.mode !== 'hijack') return;
+        if (e.cancelable) e.preventDefault();
+        if (!touch.done && Math.abs(dy) > 28) { touch.done = true; go(idx + touch.dir); }
+      }, { passive: false });
+      const endTouch = () => { touch = null; };
+      document.addEventListener('touchend', endTouch, { passive: true });
+      document.addEventListener('touchcancel', endTouch, { passive: true });
+
+      // клавиатура: стрелки, PageUp/PageDown, пробел
+      window.addEventListener('keydown', (e) => {
+        if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;
+        const t = e.target;
+        if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT|BUTTON|SUMMARY|A|VIDEO)$/.test(t.tagName))) return;
+        let dir = 0;
+        if (e.key === 'ArrowDown' || e.key === 'PageDown') dir = 1;
+        else if (e.key === 'ArrowUp' || e.key === 'PageUp') dir = -1;
+        else if (e.key === ' ' || e.key === 'Spacebar') dir = e.shiftKey ? -1 : 1;
+        if (!dir || !inRange()) return;
+        if (atExit(dir) && !busy) return;
+        e.preventDefault();
+        if (!e.repeat) go(idx + dir);
+      });
+
+      endFree();                                  // выставить экран, если страница открылась посреди блока
+      window.addEventListener('load', endFree);
     }
 
     // Бесконечная карусель готовых комплектов с автопрокруткой (мобильная и десктопная версии).
