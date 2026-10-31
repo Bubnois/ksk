@@ -111,33 +111,30 @@
     .aud-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,.12) 38%, rgba(0,0,0,.3) 100%); }
     .aud-title { position: absolute; left: 0; right: 0; top: 5.5rem; margin: 0; padding: 0 1rem; text-align: center; font-size: 2.25rem; line-height: 1.1; color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,.45); z-index: 3; }
 
-    /* баблы: разные несимметричные формы; радиусы медленно «перетекают» */
-    .aud-bubble { position: absolute; z-index: 2; width: min(88vw, 21.5rem); padding: 2.9rem 2.6rem; box-shadow: 0 24px 60px rgba(0,0,0,.35);
+    /* баблы: разные несимметричные формы; радиусы медленно «перетекают».
+       Все три стоят примерно в одном месте у нижнего края, чтобы не закрывать лица на фото */
+    .aud-bubble { position: absolute; z-index: 2; left: 0; right: 0; bottom: 6%; margin: 0 auto; width: min(88vw, 21.5rem); padding: 2.9rem 2.6rem; box-shadow: 0 24px 60px rgba(0,0,0,.35);
       border-radius: var(--s1); opacity: 0; transform: var(--from); transition: opacity .7s ease .3s, transform 1s cubic-bezier(.2,.9,.3,1.15) .3s; }
     .aud-slide.is-active .aud-bubble { opacity: 1; transform: none; animation: audMorph 14s ease-in-out 1.3s infinite alternate; }
     @keyframes audMorph { from { border-radius: var(--s1); } to { border-radius: var(--s2); } }
     .aud-bubble p { margin: 0; }
-    .aud-bubble.b1 { left: 4%; top: 24%; background: rgba(245,245,243,.95); color: #1A1A1A;
-      --s1: 63% 37% 54% 46% / 55% 48% 52% 45%; --s2: 42% 58% 38% 62% / 48% 62% 38% 52%; --from: translate(-60px, 30px) scale(.8) rotate(-6deg); }
-    .aud-bubble.b2 { right: 4%; bottom: 9%; background: #FF7A59; color: #1A1A1A;
-      --s1: 38% 62% 47% 53% / 58% 41% 59% 42%; --s2: 55% 45% 62% 38% / 42% 55% 45% 58%; --from: translate(60px, 50px) scale(.8) rotate(5deg); }
-    .aud-bubble.b3 { right: 4%; top: 28%; background: #2D2C2A; color: #fff;
-      --s1: 54% 46% 33% 67% / 41% 59% 41% 59%; --s2: 36% 64% 58% 42% / 60% 40% 55% 45%; --from: translate(40px, -50px) scale(.8) rotate(-4deg); }
+    .aud-bubble.b1 { background: rgba(245,245,243,.95); color: #1A1A1A;
+      --s1: 63% 37% 54% 46% / 55% 48% 52% 45%; --s2: 42% 58% 38% 62% / 48% 62% 38% 52%; --from: translate(-24px, 60px) scale(.85) rotate(-5deg); }
+    .aud-bubble.b2 { background: #FF7A59; color: #1A1A1A;
+      --s1: 38% 62% 47% 53% / 58% 41% 59% 42%; --s2: 55% 45% 62% 38% / 42% 55% 45% 58%; --from: translate(24px, 60px) scale(.85) rotate(5deg); }
+    .aud-bubble.b3 { background: #2D2C2A; color: #fff;
+      --s1: 54% 46% 33% 67% / 41% 59% 41% 59%; --s2: 36% 64% 58% 42% / 60% 40% 55% 45%; --from: translate(0, 60px) scale(.85) rotate(-3deg); }
 
     /* на десктопе баблы живут внутри колонки сайта (как остальные блоки), фон слайдов при этом остаётся на всю ширину */
     .aud-col { position: absolute; inset: 0; width: 100%; max-width: var(--col); margin: 0 auto; z-index: 2; pointer-events: none; }
     .aud-col .aud-bubble { pointer-events: auto; }
 
-    .aud-dots { position: absolute; left: 0; right: 0; bottom: 1.1rem; display: flex; justify-content: center; gap: .5rem; z-index: 3; }
-    .aud-dot { width: .5rem; height: .5rem; border-radius: 999px; background: rgba(255,255,255,.45); transition: width .4s ease, background-color .4s ease; }
-    .aud-dot.is-active { width: 1.5rem; background: #FF7A59; }
-
     @media (min-width: 768px) {
       .aud-title { top: 7.5rem; font-size: 3.75rem; }
-      .aud-bubble { padding: 3.4rem 3.2rem; }
-      .aud-bubble.b1 { left: 7%; top: 28%; width: 25rem; }
-      .aud-bubble.b2 { right: 7%; bottom: 10%; width: 29rem; }
-      .aud-bubble.b3 { right: 9%; top: 27%; width: 27rem; }
+      .aud-bubble { padding: 3.4rem 3.2rem; bottom: 7%; }
+      .aud-bubble.b1 { width: 25rem; }
+      .aud-bubble.b2 { width: 29rem; }
+      .aud-bubble.b3 { width: 27rem; }
     }
     @media (prefers-reduced-motion: reduce) {
       .aud-bg, .aud-slide.is-active .aud-bg { transform: none; transition: none; }
@@ -349,7 +346,6 @@
       </div>
 
       <h2 id="aud-title" class="aud-title font-display tracking-tight">Кому подойдет?</h2>
-      <div class="aud-dots" aria-hidden="true"><span class="aud-dot"></span><span class="aud-dot"></span><span class="aud-dot"></span></div>
     </div>
   </section>
 
@@ -1407,28 +1403,28 @@
       }
     }
 
-    // «Кому подойдет?»: экраны (фон + бабл) сменяют друг друга по скроллу, но строго по одному за жест —
-    // колесо, свайп, клавиши и даже резкий «бросок» двигают ровно на один экран, пролистнуть лишнее нельзя
+    // «Кому подойдет?»: экраны (фон + бабл) сменяют друг друга по скроллу, строго по одному за жест —
+    // колесо, свайп, клавиши и резкий «бросок» двигают ровно на один экран, пролистнуть лишнее нельзя
     function setupAudience() {
       const sec = document.getElementById('audience');
       if (!sec) return;
       const stage = sec.querySelector('.aud-stage');
       const slides = Array.from(sec.querySelectorAll('.aud-slide'));
-      const dots = Array.from(sec.querySelectorAll('.aud-dot'));
       const N = slides.length;
       if (!stage || !N) return;
 
       const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const TWEEN_MS = reduce ? 0 : 750;  // сколько едем до следующего экрана
-      const LOCK_MS = 150;                // короткая пауза после перехода
-      const GAP_MS = 160;                 // пауза в событиях длиннее этого = новый жест (инерция тачпада/пальца короче)
+      const STEP_MS = reduce ? 0 : 600;   // переход на соседний экран
+      const FIX_MS = reduce ? 0 : 260;    // мягкий возврат на экран, если страницу сдвинуло мимо
+      const LOCK_MS = 80;                 // короткая пауза после перехода
+      const GAP_MS = 160;                 // пауза в событиях длиннее этой = новый жест (инерция короче)
       const TOL = 2;
 
       let idx = -2;          // показанный экран (-1 — блок вне экрана)
       let busy = false;      // идёт доезд до экрана
       let lockUntil = 0;
       let free = false, freeTimer = 0;   // свободный скролл: переход по якорю (кнопка «записаться» и т.п.)
-      let lastScroll = 0, lastWheel = 0, wheelDone = false;
+      let lastScroll = 0, prevY = window.scrollY, lastWheel = 0, wheelDone = false;
       let touch = null, ticking = false;
 
       const stepPx = () => stage.offsetHeight || window.innerHeight;
@@ -1439,7 +1435,6 @@
         if (i === idx) return;
         idx = i;
         slides.forEach((el, k) => el.classList.toggle('is-active', k === i));
-        dots.forEach((el, k) => el.classList.toggle('is-active', k === i));
       }
       function inView() {
         const r = sec.getBoundingClientRect(), vh = window.innerHeight;
@@ -1453,17 +1448,19 @@
       function nearest() {
         return Math.max(0, Math.min(N - 1, Math.round((window.scrollY - anchor(0)) / stepPx())));
       }
+      // экран мог не успеть выставиться (вход колесом/касанием раньше события скролла)
+      function ensure() { if (idx < 0 && inRange()) show(nearest()); }
 
       const ease = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-      function tweenTo(y) {
+      function tweenTo(y, ms) {
         busy = true;
         const y0 = window.scrollY, t0 = performance.now();
-        if (!TWEEN_MS || Math.abs(y - y0) < 1) { jump(y); busy = false; lockUntil = performance.now() + LOCK_MS; return; }
+        const fin = () => { busy = false; lockUntil = performance.now() + LOCK_MS; prevY = window.scrollY; };
+        if (!ms || Math.abs(y - y0) < 1) { jump(y); fin(); return; }
         const frame = (now) => {
-          const t = Math.min(1, (now - t0) / TWEEN_MS);
+          const t = Math.min(1, (now - t0) / ms);
           jump(y0 + (y - y0) * ease(t));
-          if (t < 1) requestAnimationFrame(frame);
-          else { busy = false; lockUntil = performance.now() + LOCK_MS; }
+          if (t < 1) requestAnimationFrame(frame); else fin();
         };
         requestAnimationFrame(frame);
       }
@@ -1471,7 +1468,7 @@
       function go(i) {
         if (busy || performance.now() < lockUntil || i < 0 || i >= N) return false;
         show(i);
-        tweenTo(anchor(i));
+        tweenTo(anchor(i), STEP_MS);
         return true;
       }
       const atExit = (dir) => (dir > 0 && idx === N - 1) || (dir < 0 && idx === 0);
@@ -1482,9 +1479,11 @@
         const now = performance.now();
         const gap = now - lastScroll;
         lastScroll = now;
+        const y = window.scrollY, was = prevY, moved = y - was;
+        prevY = y;
         if (busy) return;
         if (!inView()) { show(-1); return; }
-        const y = window.scrollY, a0 = anchor(0), aL = anchor(N - 1);
+        const a0 = anchor(0), aL = anchor(N - 1);
         if (free) {
           show(y <= a0 ? 0 : y >= aL ? N - 1 : nearest());
           clearTimeout(freeTimer); freeTimer = setTimeout(endFree, 220);
@@ -1492,12 +1491,16 @@
         }
         if (y <= a0 + TOL) { show(0); return; }
         if (y >= aL - TOL) { show(N - 1); return; }
-        const cur = idx >= 0 ? idx : 0;
-        if (idx < 0) show(cur);
+        let cur = idx;
+        if (cur < 0) { cur = moved < 0 ? N - 1 : 0; show(cur); }
         const d = y - anchor(cur);
         if (Math.abs(d) < TOL) return;
-        if (gap > GAP_MS) { if (!go(cur + (d > 0 ? 1 : -1))) jump(anchor(cur)); }  // новый жест — один шаг
-        else jump(anchor(cur));                                                      // тот же жест — не пускаем дальше
+        // новый жест, начатый уже внутри блока, — один шаг по направлению движения;
+        // жест, пришедший снаружи (или продолжение инерции), — мягко возвращаем на экран
+        const startedInside = was >= a0 - TOL && was <= aL + TOL;
+        const dir = moved > 0 ? 1 : moved < 0 ? -1 : 0;
+        if (gap > GAP_MS && startedInside && dir && go(cur + dir)) return;
+        tweenTo(anchor(cur), FIX_MS);
       }
       function endFree() {
         free = false; clearTimeout(freeTimer);
@@ -1507,24 +1510,32 @@
         if (y >= anchor(N - 1) - TOL) { show(N - 1); return; }
         const i = nearest();
         show(i);
-        tweenTo(anchor(i));
+        tweenTo(anchor(i), FIX_MS);
       }
       // вызывают переходы по якорям (scrollToContacts и т.п.), чтобы блок не держал страницу
       window.audFree = () => { free = true; clearTimeout(freeTimer); freeTimer = setTimeout(endFree, 400); };
 
       window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(sync); } }, { passive: true });
+      // смена высоты окна (панель браузера на телефоне, поворот) — подтягиваем к своему экрану
+      window.addEventListener('resize', () => {
+        if (busy || !inRange()) return;
+        ensure();
+        const diff = anchor(idx) - window.scrollY;
+        if (Math.abs(diff) > TOL && Math.abs(diff) < stepPx() / 2) { jump(anchor(idx)); prevY = window.scrollY; }
+      });
 
       // колесо / тачпад: один жест = один экран
       window.addEventListener('wheel', (e) => {
         const now = performance.now();
         if (now - lastWheel > GAP_MS) wheelDone = false;
         lastWheel = now;
-        if (e.ctrlKey) return;
+        if (e.ctrlKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
         if (free) endFree();
-        if (!inRange()) { wheelDone = true; return; }  // хвост жеста, начатого снаружи
+        if (!inRange()) { wheelDone = true; return; }   // хвост жеста, начатого снаружи
+        ensure();
         const dir = Math.sign(e.deltaY);
         if (!dir) return;
-        if (atExit(dir) && !busy && !wheelDone) return; // выходим из блока обычным скроллом
+        if (atExit(dir) && !busy && !wheelDone) return;  // выходим из блока обычным скроллом
         e.preventDefault();
         if (busy || wheelDone || Math.abs(e.deltaY) < 2) { wheelDone = true; return; }
         wheelDone = true;
@@ -1534,19 +1545,23 @@
       // свайп: один свайп = один экран
       document.addEventListener('touchstart', (e) => {
         if (free) endFree();
-        touch = e.touches.length === 1 ? { y: e.touches[0].clientY, inside: inRange(), mode: '', dir: 0, done: false } : null;
+        if (e.touches.length !== 1) { touch = null; return; }
+        const inside = inRange();
+        if (inside) ensure();
+        touch = { x: e.touches[0].clientX, y: e.touches[0].clientY, inside, mode: '', dir: 0, done: false };
       }, { passive: true });
       document.addEventListener('touchmove', (e) => {
         if (!touch || !touch.inside || !e.touches.length) return;
-        const dy = e.touches[0].clientY - touch.y;
+        const dx = e.touches[0].clientX - touch.x, dy = e.touches[0].clientY - touch.y;
         if (!touch.mode) {
-          if (Math.abs(dy) < 4) return;
+          if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
+          if (Math.abs(dx) > Math.abs(dy)) { touch.mode = 'native'; return; }   // горизонтальный жест не трогаем
           touch.dir = dy < 0 ? 1 : -1;
           touch.mode = (atExit(touch.dir) && !busy) ? 'native' : 'hijack';
         }
         if (touch.mode !== 'hijack') return;
         if (e.cancelable) e.preventDefault();
-        if (!touch.done && Math.abs(dy) > 28) { touch.done = true; go(idx + touch.dir); }
+        if (!touch.done && Math.abs(dy) > 40) { touch.done = true; go(idx + touch.dir); }
       }, { passive: false });
       const endTouch = () => { touch = null; };
       document.addEventListener('touchend', endTouch, { passive: true });
@@ -1562,6 +1577,7 @@
         else if (e.key === 'ArrowUp' || e.key === 'PageUp') dir = -1;
         else if (e.key === ' ' || e.key === 'Spacebar') dir = e.shiftKey ? -1 : 1;
         if (!dir || !inRange()) return;
+        ensure();
         if (atExit(dir) && !busy) return;
         e.preventDefault();
         if (!e.repeat) go(idx + dir);
