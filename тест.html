@@ -99,48 +99,6 @@
     /* автопрокрутка двигает scrollLeft сама, плавность браузера ей мешает */
     #ready-sets-track.ready-looping { scroll-behavior: auto; }
 
-    /* «Кому подойдет?»: три экрана с фоном на всю ширину; фон и бабл меняются по мере скролла */
-    .aud { position: relative; width: 100%; height: 320vh; height: 320svh; background: #2D2C2A; color: #fff; }
-    .aud-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
-    .aud-slide { position: absolute; inset: 0; opacity: 0; transition: opacity .9s ease; background: #4a3b33; }
-    .aud-slide[data-i="1"] { background: #38424f; }
-    .aud-slide[data-i="2"] { background: #55383a; }
-    .aud-slide.is-active { opacity: 1; }
-    .aud-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); transition: transform 7s ease-out; }
-    .aud-slide.is-active .aud-bg { transform: scale(1); }
-    .aud-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,.12) 38%, rgba(0,0,0,.3) 100%); }
-    .aud-title { position: absolute; left: 0; right: 0; top: 5.5rem; margin: 0; padding: 0 1rem; text-align: center; font-size: 2.25rem; line-height: 1.1; color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,.45); z-index: 3; }
-
-    /* баблы: разные несимметричные формы; радиусы медленно «перетекают» */
-    .aud-bubble { position: absolute; z-index: 2; width: min(88vw, 21.5rem); padding: 2.9rem 2.6rem; box-shadow: 0 24px 60px rgba(0,0,0,.35);
-      border-radius: var(--s1); opacity: 0; transform: var(--from); transition: opacity .7s ease .3s, transform 1s cubic-bezier(.2,.9,.3,1.15) .3s; }
-    .aud-slide.is-active .aud-bubble { opacity: 1; transform: none; animation: audMorph 14s ease-in-out 1.3s infinite alternate; }
-    @keyframes audMorph { from { border-radius: var(--s1); } to { border-radius: var(--s2); } }
-    .aud-bubble p { margin: 0; }
-    .aud-bubble.b1 { left: 4%; top: 24%; background: rgba(245,245,243,.95); color: #1A1A1A;
-      --s1: 63% 37% 54% 46% / 55% 48% 52% 45%; --s2: 42% 58% 38% 62% / 48% 62% 38% 52%; --from: translate(-60px, 30px) scale(.8) rotate(-6deg); }
-    .aud-bubble.b2 { right: 4%; bottom: 9%; background: #FF7A59; color: #1A1A1A;
-      --s1: 38% 62% 47% 53% / 58% 41% 59% 42%; --s2: 55% 45% 62% 38% / 42% 55% 45% 58%; --from: translate(60px, 50px) scale(.8) rotate(5deg); }
-    .aud-bubble.b3 { right: 4%; top: 28%; background: #2D2C2A; color: #fff;
-      --s1: 54% 46% 33% 67% / 41% 59% 41% 59%; --s2: 36% 64% 58% 42% / 60% 40% 55% 45%; --from: translate(40px, -50px) scale(.8) rotate(-4deg); }
-
-    .aud-dots { position: absolute; left: 0; right: 0; bottom: 1.1rem; display: flex; justify-content: center; gap: .5rem; z-index: 3; }
-    .aud-dot { width: .5rem; height: .5rem; border-radius: 999px; background: rgba(255,255,255,.45); transition: width .4s ease, background-color .4s ease; }
-    .aud-dot.is-active { width: 1.5rem; background: #FF7A59; }
-
-    @media (min-width: 768px) {
-      .aud-title { top: 7.5rem; font-size: 3.75rem; }
-      .aud-bubble { padding: 3.4rem 3.2rem; }
-      .aud-bubble.b1 { left: 7%; top: 28%; width: 25rem; }
-      .aud-bubble.b2 { right: 7%; bottom: 10%; width: 29rem; }
-      .aud-bubble.b3 { right: 9%; top: 27%; width: 27rem; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .aud-bg, .aud-slide.is-active .aud-bg { transform: none; transition: none; }
-      .aud-bubble { transform: none; transition: opacity .4s ease; }
-      .aud-slide.is-active .aud-bubble { animation: none; }
-    }
-
     /* костыли и фиксы, когда тейлвинда не хватило */
     body {
       background-color: #F5F5F3;
@@ -303,44 +261,90 @@
     </div>
   </section>
 
-  <!-- блок про ЦА: три экрана с фоном на всю ширину, листаются скроллом (подложка на всю ширину) -->
-  <section id="audience" class="aud" aria-labelledby="aud-title">
-    <div class="aud-stage">
+  <div class="page-col">
 
-      <!-- экран 1: фон + бабл -->
-      <div class="aud-slide" data-i="0">
-        <img src="img/audience/1.jpg" alt="" class="aud-bg" loading="lazy" decoding="async" onerror="this.style.display='none'">
-        <div class="aud-shade"></div>
-        <div class="aud-bubble b1">
-          <h3 class="text-lg desk:text-xl font-display font-bold leading-snug mb-3">Тем, кто ценит время</h3>
-          <p class="text-sm desk:text-base leading-relaxed">Косы и дреды не требуют ежедневного ухода. Проснулась и уже&nbsp;красивая!</p>
-        </div>
-      </div>
-
-      <!-- экран 2: фон + бабл -->
-      <div class="aud-slide" data-i="1">
-        <img src="img/audience/2.jpg" alt="" class="aud-bg" loading="lazy" decoding="async" onerror="this.style.display='none'">
-        <div class="aud-shade"></div>
-        <div class="aud-bubble b2">
-          <h3 class="text-lg desk:text-xl font-display font-bold leading-snug mb-3">Тем, кто выбирает красоту и удобство</h3>
-          <p class="text-sm desk:text-base leading-relaxed">100% уверенности в своей причёске, так как её не испортят дождь, ветер или физическая активность. Да, выглядеть великолепно в любой ситуации — это&nbsp;реально</p>
-        </div>
-      </div>
-
-      <!-- экран 3: фон + бабл -->
-      <div class="aud-slide" data-i="2">
-        <img src="img/audience/3.jpg" alt="" class="aud-bg" loading="lazy" decoding="async" onerror="this.style.display='none'">
-        <div class="aud-shade"></div>
-        <div class="aud-bubble b3">
-          <h3 class="text-lg desk:text-xl font-display font-bold leading-snug mb-3">Тем, кому важно проявляться</h3>
-          <p class="text-sm desk:text-base leading-relaxed">Заплести дреды или косы — это отличный способ заявить о себе, своих принципах и желаниях. Они дополнят уже созданный образ, а также помогут сделать шаг к изменению&nbsp;имиджа</p>
-        </div>
-      </div>
-
-      <h2 id="aud-title" class="aud-title font-display tracking-tight">Кому подойдет?</h2>
-      <div class="aud-dots" aria-hidden="true"><span class="aud-dot"></span><span class="aud-dot"></span><span class="aud-dot"></span></div>
+  <!-- блок про ЦА: экран закрепляется, а при скролле слайды сменяют друг друга (картинка на всю заливку + свой асимметричный баббл) -->
+  <section class="w-full bg-bg-primary relative z-10 text-text-primary">
+    <div class="text-center px-4 pt-16 desk:pt-24 pb-8 desk:pb-12">
+      <h2 class="text-4xl desk:text-6xl font-display tracking-tight">Кому подойдет?</h2>
     </div>
+
+    <!-- высокая обёртка даёт «длину» скролла, внутри липкая сцена -->
+    <div id="aud-wrap" class="relative" style="height: 360svh;">
+      <div class="sticky top-0 w-full overflow-hidden" style="height: 100svh; min-height: 520px;">
+      <article class="aud-slide absolute inset-0 overflow-hidden bg-btn-dark" data-i="0">
+        <img src="img/audience/1.jpg" alt="" loading="eager" decoding="async" class="aud-img absolute inset-0 w-full h-full object-cover">
+        <div class="aud-bubble absolute top-[16%] left-[5%] desk:top-[18%] desk:left-[7%] bg-white text-text-primary w-[80%] max-w-[22rem] desk:max-w-[29rem] px-9 py-11 desk:px-14 desk:py-16 shadow-2xl" style="border-radius: 62% 38% 55% 45% / 48% 58% 42% 52%;">
+          <h3 class="text-xl desk:text-3xl font-display font-bold leading-tight mb-3 desk:mb-4 ">Тем, кто ценит время</h3>
+          <p class="text-sm desk:text-lg leading-relaxed text-text-secondary">Косы и дреды не требуют ежедневного ухода. Проснулась и уже&nbsp;красивая!</p>
+        </div>
+      </article>
+      <article class="aud-slide absolute inset-0 overflow-hidden bg-btn-dark" data-i="1">
+        <img src="img/audience/2.jpg" alt="" loading="lazy" decoding="async" class="aud-img absolute inset-0 w-full h-full object-cover">
+        <div class="aud-bubble absolute top-[34%] right-[4%] desk:top-[28%] desk:right-[7%] bg-accent-orange text-text-primary w-[84%] max-w-[23rem] desk:max-w-[32rem] px-9 py-12 desk:px-16 desk:py-20 shadow-2xl" style="border-radius: 36% 64% 42% 58% / 60% 34% 66% 40%;">
+          <h3 class="text-xl desk:text-3xl font-display font-bold leading-tight mb-3 desk:mb-4 ">Тем, кто выбирает красоту и удобство</h3>
+          <p class="text-sm desk:text-lg leading-relaxed text-text-primary/85">100% уверенности в своей причёске, так как её не испортят дождь, ветер или физическая активность. Да, выглядеть великолепно в любой ситуации — это&nbsp;реально</p>
+        </div>
+      </article>
+      <article class="aud-slide absolute inset-0 overflow-hidden bg-btn-dark" data-i="2">
+        <img src="img/audience/3.jpg" alt="" loading="lazy" decoding="async" class="aud-img absolute inset-0 w-full h-full object-cover">
+        <div class="aud-bubble absolute bottom-[9%] left-[8%] desk:bottom-[10%] desk:left-[12%] bg-btn-dark text-white w-[82%] max-w-[22rem] desk:max-w-[31rem] px-10 py-11 desk:px-16 desk:py-16 shadow-2xl" style="border-radius: 45% 55% 34% 66% / 38% 52% 48% 62%;">
+          <h3 class="text-xl desk:text-3xl font-display font-bold leading-tight mb-3 desk:mb-4 ">Тем, кому важно проявляться</h3>
+          <p class="text-sm desk:text-lg leading-relaxed text-white/80">Заплести дреды или косы — это отличный способ заявить о себе, своих принципах и желаниях. Они дополнят уже созданный образ, а также помогут сделать шаг к изменению&nbsp;имиджа</p>
+        </div>
+      </article>
+
+        <!-- индикатор слайдов -->
+        <div class="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2 z-20" aria-hidden="true">
+          <span class="aud-dot block h-2 w-2 rounded-full bg-white/50 transition-all duration-500"></span>
+          <span class="aud-dot block h-2 w-2 rounded-full bg-white/50 transition-all duration-500"></span>
+          <span class="aud-dot block h-2 w-2 rounded-full bg-white/50 transition-all duration-500"></span>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      /* слайды лежат стопкой, активный проявляется поверх, картинка чуть «отъезжает», баббл всплывает */
+      .aud-slide { opacity: 0; visibility: hidden; transition: opacity .8s ease, visibility 0s linear .8s; z-index: 0; }
+      .aud-slide.is-active { opacity: 1; visibility: visible; transition: opacity .8s ease, visibility 0s; z-index: 1; }
+      .aud-img { transform: scale(1.1); transition: transform 1.6s ease; }
+      .aud-slide.is-active .aud-img { transform: scale(1); }
+      .aud-bubble { opacity: 0; transform: translateY(32px) scale(.92); transition: opacity .6s ease, transform .8s cubic-bezier(.2,.8,.2,1); }
+      .aud-slide.is-active .aud-bubble { opacity: 1; transform: none; transition-delay: .25s; }
+      .aud-dot.is-active { width: 1.5rem; background: #fff; }
+      @media (prefers-reduced-motion: reduce) {
+        .aud-slide, .aud-slide.is-active, .aud-img, .aud-bubble { transition: none !important; }
+        .aud-img { transform: none; }
+        .aud-bubble { transform: none; }
+      }
+    </style>
+    <script>
+      (function () {
+        var wrap = document.getElementById('aud-wrap');
+        if (!wrap) return;
+        var slides = wrap.querySelectorAll('.aud-slide');
+        var dots = wrap.querySelectorAll('.aud-dot');
+        var cur = -1, ticking = false;
+        function update() {
+          ticking = false;
+          var r = wrap.getBoundingClientRect();
+          var total = wrap.offsetHeight - window.innerHeight;
+          var p = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 0;
+          var i = Math.min(slides.length - 1, Math.floor(p * slides.length));
+          if (i === cur) return;
+          cur = i;
+          slides.forEach(function (el, k) { el.classList.toggle('is-active', k === i); });
+          dots.forEach(function (el, k) { el.classList.toggle('is-active', k === i); });
+        }
+        function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+        update();
+      })();
+    </script>
   </section>
+
+  </div><!-- /page-col -->
 
   <!-- витрина готовых комплектов (подложка на всю ширину) -->
   <section class="w-full bg-btn-dark py-16 desk:py-24 relative group/section text-white">
@@ -427,83 +431,83 @@
     </div>
   </section>
 
-  <!-- блок факап... ой, фака -->
-  <section class="w-full bg-bg-primary pb-16 desk:pb-24 relative">
+<!-- блок факап... ой, фака -->
+  <section class="w-full bg-bg-primary relative">
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="text-center mb-6 desk:mb-8">
         <h2 class="text-4xl desk:text-6xl font-display mb-4 tracking-tight text-text-primary">Вопросы и ответы</h2>
       </div>
       
-      <div class="grid grid-cols-1 desk:grid-cols-2 gap-4 desk:gap-6 items-start">
+      <div class="grid grid-cols-1 desk:grid-cols-2 gap-2 desk:gap-3 items-start">
         <!-- Левая колонка -->
-        <div class="flex flex-col gap-4 desk:gap-6">
-          <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden" open>
-            <summary class="flex items-center justify-between p-6 desk:p-8 cursor-pointer font-sans text-base desk:text-lg font-medium text-text-primary select-none">
+        <div class="flex flex-col gap-2 desk:gap-3">
+          <details class="group bg-transparent rounded-[20px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden" open>
+            <summary class="flex items-center justify-between px-5 py-3.5 desk:px-6 desk:py-4 cursor-pointer font-sans text-base desk:text-lg font-medium text-text-primary select-none">
               С ними удобно?
               <span aria-hidden="true" class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
             </summary>
-            <div class="px-6 desk:px-8 pb-6 desk:pb-8 text-text-secondary text-sm desk:text-base leading-relaxed">
+            <div class="px-5 pb-4 desk:px-6 desk:pb-5 text-text-secondary text-sm desk:text-base leading-relaxed">
               <p>С ними — идеально. Не тяжело, не жарко, не тянет, не чешется, спать не мешают — при условии, что всё сделано правильно. <br class="desk:hidden">Все заботы о причёске исчезают на целых 6 недель!</p>
             </div>
           </details>
 
-          <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
-            <summary class="flex items-center justify-between p-6 desk:p-8 cursor-pointer font-sans text-base desk:text-lg font-medium text-text-primary select-none">
+          <details class="group bg-transparent rounded-[20px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
+            <summary class="flex items-center justify-between px-5 py-3.5 desk:px-6 desk:py-4 cursor-pointer font-sans text-base desk:text-lg font-medium text-text-primary select-none">
               Как мыть?
               <span aria-hidden="true" class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
             </summary>
-            <div class="px-6 desk:px-8 pb-6 desk:pb-8 text-text-secondary text-sm desk:text-base leading-relaxed">
+            <div class="px-5 pb-4 desk:px-6 desk:pb-5 text-text-secondary text-sm desk:text-base leading-relaxed">
               <p>Моем 1 раз в 7–10 дней специальной пенкой для мытья заплетенных волос или разбавленным шампунем. Подробную инструкцию по уходу расскажем дважды — при консультации и во время плетения.</p>
             </div>
           </details>
 
-          <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
-            <summary class="flex items-center justify-between p-6 desk:p-8 cursor-pointer font-sans text-base desk:text-lg font-medium text-text-primary select-none">
+          <details class="group bg-transparent rounded-[20px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
+            <summary class="flex items-center justify-between px-5 py-3.5 desk:px-6 desk:py-4 cursor-pointer font-sans text-base desk:text-lg font-medium text-text-primary select-none">
               Вши будут?
               <span aria-hidden="true" class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
             </summary>
-            <div class="px-6 desk:px-8 pb-6 desk:pb-8 text-text-secondary text-sm desk:text-base leading-relaxed">
+            <div class="px-5 pb-4 desk:px-6 desk:pb-5 text-text-secondary text-sm desk:text-base leading-relaxed">
               <p>К сожалению, в комплекте с косами их не будет. Если серьезно, то педикулёз — это контактное заболевание. Насекомые могут только переселиться с зараженной головы, но никак не могут «завестись» самостоятельно. И да, они с намного большим удовольствием живут на волосах, которые часто моют и носят распущенными, чем на косах и дредах из искусственного материала, так как они не могут эффективно размножаться в неестественных условиях.</p>
             </div>
           </details>
         </div>
 
         <!-- Правая колонка -->
-        <div class="flex flex-col gap-4 desk:gap-6">
-          <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
-            <summary class="flex items-center justify-between p-6 desk:p-8 cursor-pointer font-sans text-base desk:text-lg font-medium text-text-primary select-none">
+        <div class="flex flex-col gap-2 desk:gap-3">
+          <details class="group bg-transparent rounded-[20px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
+            <summary class="flex items-center justify-between px-5 py-3.5 desk:px-6 desk:py-4 cursor-pointer font-sans text-base desk:text-lg font-medium text-text-primary select-none">
               Хочу себе что-нибудь заплести, но не знаю, что именно. Как выбрать?
               <span aria-hidden="true" class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
             </summary>
-            <div class="px-6 desk:px-8 pb-6 desk:pb-8 text-text-secondary text-sm desk:text-base leading-relaxed">
+            <div class="px-5 pb-4 desk:px-6 desk:pb-5 text-text-secondary text-sm desk:text-base leading-relaxed">
               <p>Если хочется посмотреть и потрогать вживую разные фактуры, можно прийти к нам в студию на личную консультацию. Всё покажем и расскажем, поможем сориентироваться в этом бесконечном многообразии.</p>
             </div>
           </details>
 
-          <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
-            <summary class="flex items-center justify-between p-6 desk:p-8 cursor-pointer font-sans text-base desk:text-lg font-medium text-text-primary select-none">
+          <details class="group bg-transparent rounded-[20px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
+            <summary class="flex items-center justify-between px-5 py-3.5 desk:px-6 desk:py-4 cursor-pointer font-sans text-base desk:text-lg font-medium text-text-primary select-none">
               Как записаться?
               <span aria-hidden="true" class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
             </summary>
-            <div class="px-6 desk:px-8 pb-6 desk:pb-8 text-text-secondary text-sm desk:text-base leading-relaxed">
+            <div class="px-5 pb-4 desk:px-6 desk:pb-5 text-text-secondary text-sm desk:text-base leading-relaxed">
               <p>Для записи достаточно написать нам любым удобным для Вас способом.</p>
-              <p class="mt-4">Для получения быстрой консультации присылайте:</p>
-              <ol class="list-decimal list-inside mt-2 space-y-2">
+              <p class="mt-3">Для получения быстрой консультации присылайте:</p>
+              <ol class="list-decimal list-inside mt-1.5 space-y-1.5">
                 <li>Фото желаемого результата (можно несколько фото — где-то понравилась длина, где-то цвет, фактура, общий объём прически, сочетания, детали).</li>
                 <li>Фото Ваших волос в распущенном виде со спины.</li>
                 <li>Желаемые даты для заплетения.</li>
               </ol>
-              <p class="mt-4">Исходя из этого мы сможем максимально быстро и точно сориентировать Вас по цене и срокам изготовления комплекта.</p>
-              <p class="mt-4 font-medium text-text-primary">Бронь даты и материала осуществляется по предоплате.</p>
+              <p class="mt-3">Исходя из этого мы сможем максимально быстро и точно сориентировать Вас по цене и срокам изготовления комплекта.</p>
+              <p class="mt-3 font-medium text-text-primary">Бронь даты и материала осуществляется по предоплате.</p>
             </div>
           </details>
 
-          <details class="group bg-transparent rounded-[24px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
-            <summary class="flex items-center justify-between p-6 desk:p-8 cursor-pointer font-sans text-base desk:text-lg font-medium text-text-primary select-none">
+          <details class="group bg-transparent rounded-[20px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
+            <summary class="flex items-center justify-between px-5 py-3.5 desk:px-6 desk:py-4 cursor-pointer font-sans text-base desk:text-lg font-medium text-text-primary select-none">
               Что взять с собой на процедуру?
               <span aria-hidden="true" class="material-icons transition-transform duration-300 group-open:rotate-180">expand_more</span>
             </summary>
-            <div class="px-6 desk:px-8 pb-6 desk:pb-8 text-text-secondary text-sm desk:text-base leading-relaxed">
+            <div class="px-5 pb-4 desk:px-6 desk:pb-5 text-text-secondary text-sm desk:text-base leading-relaxed">
               <p>Плетение занимает в среднем 3 часа, возьмите с собой всё, что может потребоваться Вам в это время — перекус и что-нибудь занятное, чтобы не скучно было сидеть. Если принимаете лекарства по часам, не забудьте и о них.</p>
               <p class="mt-2">Приходить лучше в удобной тянущейся одежде.</p>
             </div>
@@ -516,7 +520,7 @@
   <!-- Заплетаясь у нас, вы получаете -->
   <section id="why-us" class="w-full py-16 desk:py-24 bg-bg-primary overflow-hidden">
     <div class="max-w-[1400px] mx-auto px-4">
-      <h2 class="text-4xl desk:text-6xl font-display mb-12 desk:mb-16 tracking-tight text-center text-text-primary">Заплетаясь у нас, вы получаете&nbsp;—</h2>
+      <h2 class="text-4xl desk:text-6xl font-display mb-6 desk:mb-8 tracking-tight text-center text-text-primary">Заплетаясь у нас, вы получаете&nbsp;—</h2>
 
       <div class="w-full">
         <!-- Мобильная версия (зигзаг) -->
@@ -946,7 +950,6 @@
       // вешаем листенеры на то, что уже в доме
       setupScrollListeners();
       setupReadySetsInfiniteLoop();
-      setupAudience();
       setupHorizontalInteraction();
       setupModalSwipe();
       setupFeatureObserver();
@@ -1392,34 +1395,6 @@
           section.scrollIntoView({ behavior: 'smooth' });
         }, 50);
       }
-    }
-
-    // «Кому подойдет?»: по мере скролла меняется экран (фон + бабл) и точка-индикатор
-    function setupAudience() {
-      const sec = document.getElementById('audience');
-      if (!sec) return;
-      const slides = Array.from(sec.querySelectorAll('.aud-slide'));
-      const dots = Array.from(sec.querySelectorAll('.aud-dot'));
-      let cur = -2, ticking = false;
-      const update = () => {
-        ticking = false;
-        const rect = sec.getBoundingClientRect();
-        const vh = window.innerHeight;
-        const total = sec.offsetHeight - vh;
-        const inView = rect.top < vh * 0.5 && rect.bottom > vh * 0.5; // вне экрана экраны «сбрасываются», чтобы анимация входа играла заново
-        let i = -1;
-        if (inView) {
-          const p = total > 0 ? Math.min(1, Math.max(0, -rect.top / total)) : 0;
-          i = Math.min(slides.length - 1, Math.floor(p * slides.length));
-        }
-        if (i === cur) return;
-        cur = i;
-        slides.forEach((el, k) => el.classList.toggle('is-active', k === i));
-        dots.forEach((el, k) => el.classList.toggle('is-active', k === i));
-      };
-      window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-      window.addEventListener('resize', update);
-      update();
     }
 
     // Бесконечная карусель готовых комплектов с автопрокруткой (мобильная и десктопная версии).
