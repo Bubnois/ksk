@@ -143,6 +143,88 @@
     }
 
 
+    /* «Почему нас выбирают»: стопка карточек с резкими несимметричными формами (одна-две огромные дуги на углах),
+       раскрытие формы при появлении, контурные номера, счётчики, стопка с отъездом, морфинг формы на ховере */
+    .feat-stack { display: flex; flex-direction: column; gap: 1.25rem; padding-bottom: .5rem; }
+    .feat-wrap { position: sticky; top: calc(4.75rem + var(--i) * 14px); width: 92%; transform-origin: 50% 0; will-change: transform; perspective: 900px; }
+    .feat-wrap:nth-child(odd) { margin-right: auto; }
+    .feat-wrap:nth-child(even) { margin-left: auto; }
+    .feat { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; min-height: 22rem;
+      padding: 2.25rem 1.75rem 2rem; background: var(--bg); color: var(--fg); border: 1px solid rgba(0,0,0,.06);
+      border-radius: var(--r1); clip-path: circle(0% at var(--ox, 12%) 100%);
+      transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+      transition: clip-path 1.15s cubic-bezier(.2,.8,.2,1), border-radius .9s cubic-bezier(.2,.8,.2,1), transform .25s ease-out; }
+    .feat.is-in { clip-path: circle(150% at var(--ox, 12%) 100%); }
+    .feat:hover { border-radius: var(--r2); }
+
+    .tone-light  { --bg: #fff;    --fg: #1A1A1A; --muted: #555;                  --chip: rgba(255,122,89,.14); --chipfg: #FF7A59; --tag: #F5F5F3; }
+    .tone-dark   { --bg: #2D2C2A; --fg: #fff;    --muted: rgba(255,255,255,.72); --chip: rgba(255,255,255,.1); --chipfg: #FF7A59; --tag: rgba(255,255,255,.1); }
+    .tone-orange { --bg: #FF7A59; --fg: #1A1A1A; --muted: rgba(26,26,26,.82);    --chip: rgba(0,0,0,.1);       --chipfg: #1A1A1A; --tag: rgba(0,0,0,.1); }
+
+    /* формы: большие дуги на разных углах, у каждой карточки своя; на ховере углы меняются местами */
+    .shape-a { --r1: 64px 8px 64px 8px;                      --r2: 8px 64px 8px 64px; }
+    .shape-b { --r1: 50% 50% 20px 20px / 96px 96px 20px 20px; --r2: 40px 40px 20px 20px / 40px 40px 20px 20px; padding-top: 4.75rem; }
+    .shape-c { --r1: 12px 160px 12px 12px;                   --r2: 160px 12px 12px 12px; }
+    .shape-d { --r1: 12px 12px 160px 12px;                   --r2: 12px 12px 12px 160px; }
+    .shape-d .feat-body { max-width: 86%; }
+    @media (min-width: 768px) {
+      .feat-wrap { top: calc(6rem + var(--i) * 18px); width: 84%; }
+      .feat { min-height: 24rem; padding: 3rem 3.5rem; }
+      .shape-a { --r1: 120px 12px 120px 12px;                  --r2: 12px 120px 12px 120px; }
+      .shape-b { --r1: 50% 50% 24px 24px / 150px 150px 24px 24px; --r2: 60px 60px 24px 24px / 60px 60px 24px 24px; padding-top: 6rem; }
+      .shape-c { --r1: 16px 260px 16px 16px;                   --r2: 260px 16px 16px 16px; }
+      .shape-d { --r1: 16px 16px 260px 16px;                   --r2: 16px 16px 16px 260px; }
+      .feat-body { max-width: 62%; }
+      .rev .feat-body { margin-left: auto; }
+      .shape-d .feat-body { max-width: 58%; }
+    }
+
+    .feat-body { position: relative; z-index: 2; }
+    .feat-chip { width: 3rem; height: 3rem; border-radius: 50%; background: var(--chip); color: var(--chipfg); display: flex; align-items: center; justify-content: center; margin-bottom: 1.1rem; }
+    .feat-chip-icon { width: 1.5rem; height: 1.5rem; font-size: 1.5rem; line-height: 1; }
+    .feat-title { margin: 0 0 .75rem; font-family: 'Comfortaa', cursive, sans-serif; font-weight: 700; font-size: 1.5rem; line-height: 1.15; overflow: hidden; }
+    .feat-title > span { display: block; transform: translateY(110%); transition: transform .9s cubic-bezier(.2,.8,.2,1) .45s; }
+    .feat-text { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.65; opacity: 0; transform: translateY(16px); transition: opacity .7s ease .65s, transform .8s ease .65s; }
+    .is-in .feat-title > span { transform: none; }
+    .is-in .feat-text { opacity: 1; transform: none; }
+    @media (min-width: 768px) { .feat-title { font-size: 2rem; } .feat-text { font-size: 1rem; } }
+
+    .feat-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.25rem 0 0; padding: 0; list-style: none; }
+    .feat-tags li { background: var(--tag); border-radius: 999px; padding: .4rem .85rem; font-size: .8rem; font-weight: 500;
+      opacity: 0; transform: scale(.6); transition: opacity .5s ease calc(.9s + var(--k) * .08s), transform .6s cubic-bezier(.3,1.6,.5,1) calc(.9s + var(--k) * .08s); }
+    .is-in .feat-tags li { opacity: 1; transform: none; }
+    .feat-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; margin-top: 1.4rem; }
+    .feat-stats > div { background: var(--tag); border-radius: 18px; padding: .8rem .9rem;
+      opacity: 0; transform: translateY(14px) scale(.9); transition: opacity .5s ease calc(.9s + var(--k) * .1s), transform .7s cubic-bezier(.3,1.4,.5,1) calc(.9s + var(--k) * .1s); }
+    .is-in .feat-stats > div { opacity: 1; transform: none; }
+    .feat-stats b { display: block; font-family: 'Comfortaa', cursive, sans-serif; font-size: 1.35rem; line-height: 1; white-space: nowrap; }
+    .feat-stats small { display: block; margin-top: .4rem; font-size: .75rem; opacity: .7; }
+    @media (min-width: 768px) { .feat-stats b { font-size: 2rem; } .feat-stats small { font-size: .85rem; } .feat-stats > div { padding: 1.1rem 1.2rem; } }
+
+    /* контурные номера и большая цифра: плывут по скроллу */
+    .feat-num, .feat-big { position: absolute; z-index: 1; font-family: 'Comfortaa', cursive, sans-serif; font-weight: 700; line-height: 1; pointer-events: none; user-select: none;
+      transform: translateY(calc(var(--p, 0) * -56px)); }
+    .feat-num { top: .6rem; right: 1.1rem; font-size: 6.5rem; color: transparent; -webkit-text-stroke: 2px currentColor; opacity: .3; }
+    .rev .feat-num { right: auto; left: 1.1rem; }
+    .shape-c .feat-num { top: auto; bottom: .2rem; right: 1.1rem; }
+    .shape-d .feat-num { right: 1.4rem; }
+    .feat-big { top: .2rem; right: 1.4rem; font-size: 9.5rem; color: #FF7A59; }
+    @media (min-width: 768px) { .feat-num { font-size: 11rem; top: 1rem; right: 2.5rem; } .rev .feat-num { left: 2.5rem; } .shape-c .feat-num { bottom: .5rem; right: 3rem; } .feat-big { font-size: 15rem; right: 3.2rem; } }
+
+    /* бледный значок-подложка: вращается от скролла */
+    .feat-mark { position: absolute; z-index: 0; left: -2.5rem; bottom: -3rem; color: var(--fg); opacity: .07; pointer-events: none;
+      transform: rotate(calc(var(--p, 0) * 70deg)); }
+    .rev .feat-mark { left: auto; right: -2.5rem; }
+    .feat-mark-icon { display: block; width: 12rem; height: 12rem; font-size: 12rem; line-height: 1; }
+    @media (min-width: 768px) { .feat-mark-icon { width: 17rem; height: 17rem; font-size: 17rem; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .feat { clip-path: none; transition: none; }
+      .feat-title > span, .feat-text, .feat-tags li, .feat-stats > div { transform: none; opacity: 1; transition: none; }
+      .feat-wrap { position: static; width: 100%; }
+      .feat-num, .feat-big, .feat-mark { transform: none; }
+    }
+
     /* костыли и фиксы, когда тейлвинда не хватило */
     body {
       background-color: #F5F5F3;
@@ -425,10 +507,10 @@
 
   <!-- блок с фичами студии -->
   <section class="w-full bg-bg-primary py-16 desk:py-24">
-    <div class="max-w-[1400px] mx-auto px-4">
-      <h2 class="text-4xl desk:text-6xl font-display mb-4 text-center tracking-tight">Почему нас выбирают</h2>
+    <div class="page-col px-4">
+      <h2 class="text-4xl desk:text-6xl font-display mb-8 desk:mb-12 text-center tracking-tight">Почему нас выбирают</h2>
       
-      <div id="features-grid" class="grid grid-cols-1 desk:grid-cols-2 gap-4 desk:gap-6">
+      <div id="features-grid" class="feat-stack">
         <!-- сюда js нарендерит фичи -->
       </div>
     </div>
@@ -869,23 +951,30 @@
       {
         title: 'Опыт 9 лет',
         description: 'Мы многое повидали за это время. Знаем, как надо и как не надо делать. С интересом решаем нетипичные задачи',
-        icon: 'history'
+        icon: 'history',
+        tone: 'light', shape: 'a', big: 9
       },
       {
         title: 'Уютная студия',
         description: 'Большая огороженная парковка, хорошая транспортная доступность, удобные кресла, возможность помыть и уложить волосы после расплетения, чай/кофе и печеньки, wi-fi, тёплые пледы и тапочки. У нас можно как отдохнуть, наслаждаясь процессом, так и поработать свою удаленную работу, чтобы не терять время',
         icon: 'weekend',
+        tone: 'dark', shape: 'b',
+        tags: ['Огороженная парковка', 'Wi-Fi', 'Чай/кофе и печеньки', 'Пледы и тапочки', 'Помыть и уложить волосы'],
         svg: '<path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.27 1 2.61 1 4 0 5.52-4.48 10-10 10S2 19.52 2 14c0-1.39.43-2.73 1-4 0 0-1.82-6.42-.42-7 1.39-.58 4.64.26 6.42 2.26.65-.17 1.33-.26 2-.26Z" /><path d="M8 14h.01" /><path d="M16 14h.01" /><path d="M12 17l-1-1h2l-1 1Z" />'
       },
       {
         title: 'Скорость плетения',
         description: 'Мы работаем в 4 руки, что позволяет вплетать комплекты от 2 часов, расплетать причёски за 1 час, а также быстро изготавливать комплекты. Да, больше не придётся ждать своей записи 3–5 недель, как это было раньше',
-        icon: 'speed'
+        icon: 'speed',
+        tone: 'orange', shape: 'c',
+        stats: [{ pre: '', n: 4, suf: '', l: 'руки' }, { pre: 'от ', n: 2, suf: ' ч', l: 'вплетение' }, { pre: '', n: 1, suf: ' ч', l: 'расплетение' }]
       },
       {
         title: 'Индивидуальный подход',
         description: 'При подборе и создании причёски мы всегда отталкиваемся от Ваших предпочтений, образа жизни и цели заплетения. Для нас важно понять, какого именно эффекта Вам хочется достичь, чтобы прическа приносила только положительные эмоции на протяжении всего срока носки',
-        icon: 'favorite'
+        icon: 'favorite',
+        tone: 'light', shape: 'd',
+        tags: ['Ваши предпочтения', 'Образ жизни', 'Цель заплетения']
       }
     ];
 
@@ -1152,56 +1241,98 @@
     // отрисовка преимуществ
     function renderFeatures() {
       const grid = document.getElementById('features-grid');
-      grid.innerHTML = features.map(feature => {
-        const renderIcon = (posClasses, sizeClasses, hoverClasses) => {
-          if (feature.svg) {
-            return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="absolute ${posClasses} ${sizeClasses} text-black/5 transition-all duration-500 ${hoverClasses} group-hover:text-accent-orange/10">${feature.svg}</svg>`;
-          }
-          return `<span aria-hidden="true" class="material-icons absolute ${posClasses} ${sizeClasses} text-black/5 transition-all duration-500 ${hoverClasses} group-hover:text-accent-orange/10">${feature.icon}</span>`;
-        };
-
+      grid.innerHTML = features.map((f, i) => {
+        const icon = (cls) => f.svg
+          ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="${cls}">${f.svg}</svg>`
+          : `<span aria-hidden="true" class="material-icons ${cls}">${f.icon}</span>`;
+        const tags = f.tags ? `<ul class="feat-tags">${f.tags.map((x, k) => `<li style="--k:${k}">${x}</li>`).join('')}</ul>` : '';
+        const stats = f.stats ? `<div class="feat-stats">${f.stats.map((x, k) => `<div style="--k:${k}"><b>${x.pre}<span data-count="${x.n}">${x.n}</span>${x.suf}</b><small>${x.l}</small></div>`).join('')}</div>` : '';
+        const num = f.big
+          ? `<div class="feat-big" aria-hidden="true"><span data-count="${f.big}">${f.big}</span></div>`
+          : `<div class="feat-num" aria-hidden="true">0${i + 1}</div>`;
         return `
-        <div class="feature-card relative w-full bg-bg-primary rounded-[32px] p-6 desk:p-8 border border-black/5 overflow-hidden group transition-colors duration-500" data-bg-default="bg-bg-primary" data-bg-highlight="bg-white">
-        <!-- фоновый паттерн -->
-        <div class="absolute inset-0 overflow-hidden pointer-events-none">
-          ${renderIcon('right-[-2%] top-[-10%]', 'text-[10rem] desk:text-[14rem] w-40 h-40 desk:w-56 desk:h-56', 'group-hover:scale-110')}
-            ${renderIcon('right-[25%] bottom-[-15%]', 'text-[6rem] desk:text-[8rem] w-24 h-24 desk:w-32 desk:h-32', 'group-hover:-translate-y-4')}
-            ${renderIcon('left-[45%] top-[5%]', 'text-[4rem] desk:text-[5rem] w-16 h-16 desk:w-20 desk:h-20', 'group-hover:rotate-12')}
-            ${renderIcon('left-[10%] bottom-[-5%]', 'text-[5rem] desk:text-[7rem] w-20 h-20 desk:w-28 desk:h-28', 'group-hover:-rotate-12')}
-          </div>
-          
-          <div class="relative z-10 flex flex-col gap-4">
-            <h3 class="text-lg desk:text-xl font-display font-bold text-text-primary">${feature.title}</h3>
-            <p class="text-text-secondary text-sm desk:text-base leading-relaxed">
-              ${feature.description}
-            </p>
-          </div>
-        </div>
-      `}).join('');
+        <div class="feat-wrap" style="--i:${i}">
+          <article class="feat tone-${f.tone} shape-${f.shape}${i % 2 ? ' rev' : ''}">
+            <div class="feat-mark" aria-hidden="true">${icon('feat-mark-icon')}</div>
+            ${num}
+            <div class="feat-body">
+              <div class="feat-chip">${icon('feat-chip-icon')}</div>
+              <h3 class="feat-title"><span>${f.title}</span></h3>
+              <p class="feat-text">${f.description}</p>
+              ${tags}${stats}
+            </div>
+          </article>
+        </div>`;
+      }).join('');
     }
 
+    // «Почему нас выбирают»: карточки-стопка. Появляются «раскрытием» формы, цифры считаются, значки и номера
+    // плывут по скроллу, закрытые карточки отъезжают и темнеют, на десктопе карточка слегка наклоняется за курсором
     function setupFeatureObserver() {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          const defaultBg = entry.target.getAttribute('data-bg-default');
-          const highlightBg = entry.target.getAttribute('data-bg-highlight');
-          
-          if (entry.isIntersecting) {
-            entry.target.classList.remove(defaultBg);
-            entry.target.classList.add(highlightBg);
-          } else {
-            entry.target.classList.remove(highlightBg);
-            entry.target.classList.add(defaultBg);
-          }
-        });
-      }, { 
-        rootMargin: '-25% 0px -25% 0px',
-        threshold: 0 
+      const wraps = Array.from(document.querySelectorAll('#features-grid .feat-wrap'));
+      if (!wraps.length) return;
+      const cards = wraps.map(w => w.querySelector('.feat'));
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      cards.forEach((c, i) => c.style.setProperty('--ox', i % 2 ? '88%' : '12%'));
+
+      const countUp = (card) => card.querySelectorAll('[data-count]').forEach(el => {
+        const n = Number(el.dataset.count), t0 = performance.now(), D = 1300;
+        const tick = (now) => {
+          const t = Math.min(1, (now - t0) / D);
+          el.textContent = Math.round(n * (1 - Math.pow(1 - t, 3)));
+          if (t < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
       });
 
-      document.querySelectorAll('.feature-card').forEach(card => {
-        observer.observe(card);
-      });
+      if (reduce || !('IntersectionObserver' in window)) {
+        cards.forEach(c => c.classList.add('is-in'));
+      } else {
+        cards.forEach(c => c.querySelectorAll('[data-count]').forEach(el => { el.textContent = '0'; }));
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (!e.isIntersecting) return;
+            e.target.classList.add('is-in');
+            countUp(e.target);
+            io.unobserve(e.target);
+          });
+        }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+        cards.forEach(c => io.observe(c));
+      }
+      if (reduce) return;
+
+      let ticking = false;
+      function frame() {
+        ticking = false;
+        const H = window.innerHeight;
+        wraps.forEach((w, i) => {
+          const r = cards[i].getBoundingClientRect();
+          if (r.bottom < -300 || r.top > H + 300) return;
+          cards[i].style.setProperty('--p', ((r.top + r.height / 2 - H / 2) / H).toFixed(3));
+          const next = wraps[i + 1];
+          if (!next) return;
+          // насколько следующая карточка уже накрыла эту
+          const stuck = parseFloat(getComputedStyle(next).top) || 0;
+          const q = Math.min(1, Math.max(0, 1 - (next.getBoundingClientRect().top - stuck) / (w.offsetHeight * 0.9)));
+          w.style.transform = q ? `scale(${(1 - q * 0.05).toFixed(4)})` : '';
+          w.style.filter = q ? `brightness(${(1 - q * 0.18).toFixed(3)})` : '';
+        });
+      }
+      const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      frame();
+
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        cards.forEach(card => {
+          card.addEventListener('pointermove', (e) => {
+            const r = card.getBoundingClientRect();
+            card.style.setProperty('--rx', (-((e.clientY - r.top) / r.height - 0.5) * 5).toFixed(2) + 'deg');
+            card.style.setProperty('--ry', (((e.clientX - r.left) / r.width - 0.5) * 6).toFixed(2) + 'deg');
+          });
+          card.addEventListener('pointerleave', () => { card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg'); });
+        });
+      }
     }
 
     // управление состоянием модалки
@@ -1403,7 +1534,8 @@
       }
     }
 
-// «Кому подойдет?»: экраны (фон + бабл) сменяют друг друга по скроллу, строго по одному за жест
+    // «Кому подойдет?»: экраны (фон + бабл) сменяют друг друга по скроллу, строго по одному за жест —
+    // колесо, свайп, клавиши и резкий «бросок» двигают ровно на один экран, пролистнуть лишнее нельзя
     function setupAudience() {
       const sec = document.getElementById('audience');
       if (!sec) return;
@@ -1413,25 +1545,21 @@
       if (!stage || !N) return;
 
       const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const STEP_MS = reduce ? 0 : 550;   // переход на соседний экран
-      const FIX_MS = reduce ? 0 : 240;    // мягкий возврат на экран, если страницу сдвинуло мимо
-      const LOCK_MS = 60;                 // короткая пауза после перехода
-      const GAP_MS = 140;                 // пауза в событиях длиннее этой = новый жест
-      const TOL = 4;
+      const STEP_MS = reduce ? 0 : 600;   // переход на соседний экран
+      const FIX_MS = reduce ? 0 : 260;    // мягкий возврат на экран, если страницу сдвинуло мимо
+      const LOCK_MS = 80;                 // короткая пауза после перехода
+      const GAP_MS = 160;                 // пауза в событиях длиннее этой = новый жест (инерция короче)
+      const TOL = 2;
 
-      let idx = -1;          // показанный экран (-1 — блок вне экрана)
+      let idx = -2;          // показанный экран (-1 — блок вне экрана)
       let busy = false;      // идёт доезд до экрана
       let lockUntil = 0;
-      let free = false, freeTimer = 0;
-      let lastScroll = 0, prevY = window.scrollY;
-      let lastWheel = 0, wheelDone = false, wheelDir = 0, wheelOut = false;
+      let free = false, freeTimer = 0;   // свободный скролл: переход по якорю (кнопка «записаться» и т.п.)
+      let lastScroll = 0, prevY = window.scrollY, lastWheel = 0, wheelDone = false, wheelAcc = 0, wheelDir = 0, tweenId = 0;
       let touch = null, ticking = false;
 
-      // точный расчёт опорных точек с учётом разницы svh/vh на мобилках
-      const secTop = () => sec.getBoundingClientRect().top + window.scrollY;
-      const maxScroll = () => Math.max(1, sec.offsetHeight - (stage.offsetHeight || window.innerHeight));
-      const stepPx = () => maxScroll() / Math.max(1, N - 1);
-      const anchor = (i) => secTop() + i * stepPx();
+      const stepPx = () => stage.offsetHeight || window.innerHeight;
+      const anchor = (i) => sec.getBoundingClientRect().top + window.scrollY + i * stepPx();
       const jump = (y) => window.scrollTo(0, y);
 
       function show(i) {
@@ -1451,35 +1579,35 @@
       function nearest() {
         return Math.max(0, Math.min(N - 1, Math.round((window.scrollY - anchor(0)) / stepPx())));
       }
-      function ensure(dir = 0) {
-        if (idx >= 0 || !inRange()) return;
-        if (dir > 0) show(0);
-        else if (dir < 0) show(N - 1);
-        else show(nearest());
-      }
+      // экран мог не успеть выставиться (вход колесом/касанием раньше события скролла)
+      function ensure() { if (idx < 0 && inRange()) show(nearest()); }
 
       const ease = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
       function tweenTo(y, ms) {
+        const id = ++tweenId;            // новый переход отменяет прежний (можно развернуться на полпути)
         busy = true;
         const y0 = window.scrollY, t0 = performance.now();
         const fin = () => { busy = false; lockUntil = performance.now() + LOCK_MS; prevY = window.scrollY; };
         if (!ms || Math.abs(y - y0) < 1) { jump(y); fin(); return; }
         const frame = (now) => {
+          if (id !== tweenId) return;
           const t = Math.min(1, (now - t0) / ms);
           jump(y0 + (y - y0) * ease(t));
           if (t < 1) requestAnimationFrame(frame); else fin();
         };
         requestAnimationFrame(frame);
       }
-
-      function go(i) {
-        if (busy || performance.now() < lockUntil || i < 0 || i >= N) return false;
+      // один шаг: только на соседний экран; force — осознанный новый жест, он может прервать идущий переход
+      function go(i, force) {
+        if (i < 0 || i >= N) return false;
+        if (!force && (busy || performance.now() < lockUntil)) return false;
         show(i);
         tweenTo(anchor(i), STEP_MS);
         return true;
       }
       const atExit = (dir) => (dir > 0 && idx === N - 1) || (dir < 0 && idx === 0);
 
+      // всё, что не перехвачено (ползунок, инерция «броска», автопрокрутка): держим на текущем экране
       function sync() {
         ticking = false;
         const now = performance.now();
@@ -1489,36 +1617,25 @@
         prevY = y;
         if (busy) return;
         if (!inView()) { show(-1); return; }
-
         const a0 = anchor(0), aL = anchor(N - 1);
         if (free) {
           show(y <= a0 ? 0 : y >= aL ? N - 1 : nearest());
           clearTimeout(freeTimer); freeTimer = setTimeout(endFree, 220);
           return;
         }
-        // Не перехватываем и не тянем назад, пока страница за пределами крайних точек
         if (y <= a0 + TOL) { show(0); return; }
         if (y >= aL - TOL) { show(N - 1); return; }
-
-        const startedInside = was >= a0 - TOL && was <= aL + TOL;
-        if (!startedInside) {
-          // Плавный вход снаружи (сверху или снизу): фиксируемся на крайнем слайде без отскока
-          const entryIdx = was < a0 ? 0 : N - 1;
-          show(entryIdx);
-          tweenTo(anchor(entryIdx), FIX_MS);
-          return;
-        }
-
-        let cur = idx < 0 ? nearest() : idx;
-        show(cur);
+        let cur = idx;
+        if (cur < 0) { cur = moved < 0 ? N - 1 : 0; show(cur); }
         const d = y - anchor(cur);
         if (Math.abs(d) < TOL) return;
-
+        // новый жест, начатый уже внутри блока, — один шаг по направлению движения;
+        // жест, пришедший снаружи (или продолжение инерции), — мягко возвращаем на экран
+        const startedInside = was >= a0 - TOL && was <= aL + TOL;
         const dir = moved > 0 ? 1 : moved < 0 ? -1 : 0;
-        if (gap > GAP_MS && dir && go(cur + dir)) return;
+        if (gap > GAP_MS && startedInside && dir && go(cur + dir)) return;
         tweenTo(anchor(cur), FIX_MS);
       }
-
       function endFree() {
         free = false; clearTimeout(freeTimer);
         if (!inView()) { show(-1); return; }
@@ -1529,9 +1646,11 @@
         show(i);
         tweenTo(anchor(i), FIX_MS);
       }
+      // вызывают переходы по якорям (scrollToContacts и т.п.), чтобы блок не держал страницу
       window.audFree = () => { free = true; clearTimeout(freeTimer); freeTimer = setTimeout(endFree, 400); };
 
       window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(sync); } }, { passive: true });
+      // смена высоты окна (панель браузера на телефоне, поворот) — подтягиваем к своему экрану
       window.addEventListener('resize', () => {
         if (busy || !inRange()) return;
         ensure();
@@ -1539,52 +1658,36 @@
         if (Math.abs(diff) > TOL && Math.abs(diff) < stepPx() / 2) { jump(anchor(idx)); prevY = window.scrollY; }
       });
 
-      // колесо / тачпад
+      // колесо / тачпад: один жест = один экран
       window.addEventListener('wheel', (e) => {
+        if (e.ctrlKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+        const px = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? window.innerHeight : 1);
+        const dir = Math.sign(px);
         const now = performance.now();
-        const dir = Math.sign(e.deltaY);
-        // Сбрасываем блокировку жеста при паузе ИЛИ при смене направления скролла
-        if (now - lastWheel > GAP_MS || (dir && dir !== wheelDir)) {
-          wheelDone = false;
-          wheelOut = false;
-        }
+        // новый жест: пауза в событиях или разворот направления
+        if (now - lastWheel > GAP_MS || (dir && wheelDir && dir !== wheelDir && Math.abs(px) >= 4)) { wheelDone = false; wheelAcc = 0; }
         lastWheel = now;
         if (dir) wheelDir = dir;
-
-        if (e.ctrlKey || Math.abs(e.deltaX) > Math.abs(e.deltaY) || !dir) return;
         if (free) endFree();
+        if (!dir) return;
 
-        if (!inRange()) {
-          wheelOut = true; // Жест начался снаружи блока
-          return;
-        }
+        const y = window.scrollY, a0 = anchor(0), aL = anchor(N - 1);
+        // подъезд снаружи: останавливаем ровно на краю блока, без пролёта и отскока
+        if (px > 0 && y < a0 - TOL && y + px > a0 + TOL) { e.preventDefault(); show(0); jump(a0); prevY = a0; wheelDone = true; return; }
+        if (px < 0 && y > aL + TOL && y + px < aL - TOL) { e.preventDefault(); show(N - 1); jump(aL); prevY = aL; wheelDone = true; return; }
 
-        ensure(dir);
-
-        // Если залетели в блок на инерции снаружи — мягко паркуемся на крайнем слайде (0 или N-1)
-        if (wheelOut) {
-          wheelOut = false;
-          wheelDone = true;
-          e.preventDefault();
-          const entryIdx = dir > 0 ? 0 : N - 1;
-          show(entryIdx);
-          tweenTo(anchor(entryIdx), FIX_MS);
-          return;
-        }
-
-        // Выход из блока наружу обычным нативным скроллом
-        if (atExit(dir) && !busy) {
-          wheelDone = false;
-          return;
-        }
-
+        if (!inRange()) { wheelDone = true; return; }   // хвост жеста, начатого снаружи
+        ensure();
+        if (atExit(dir) && !busy && !wheelDone) return;  // выходим из блока обычным скроллом
         e.preventDefault();
-        if (busy || wheelDone || Math.abs(e.deltaY) < 2) return;
+        if (wheelDone) return;
+        wheelAcc += px;                                  // мелкие дельты тачпада копим, чтобы жест не терялся
+        if (Math.abs(wheelAcc) < 6) return;
         wheelDone = true;
-        go(idx + dir);
+        go(idx + Math.sign(wheelAcc), true);
       }, { passive: false });
 
-      // свайп на тачскринах
+      // свайп: один свайп = один экран
       document.addEventListener('touchstart', (e) => {
         if (free) endFree();
         if (e.touches.length !== 1) { touch = null; return; }
@@ -1592,26 +1695,24 @@
         if (inside) ensure();
         touch = { x: e.touches[0].clientX, y: e.touches[0].clientY, inside, mode: '', dir: 0, done: false };
       }, { passive: true });
-
       document.addEventListener('touchmove', (e) => {
         if (!touch || !touch.inside || !e.touches.length) return;
         const dx = e.touches[0].clientX - touch.x, dy = e.touches[0].clientY - touch.y;
         if (!touch.mode) {
           if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
-          if (Math.abs(dx) > Math.abs(dy)) { touch.mode = 'native'; return; }
+          if (Math.abs(dx) > Math.abs(dy)) { touch.mode = 'native'; return; }   // горизонтальный жест не трогаем
           touch.dir = dy < 0 ? 1 : -1;
           touch.mode = (atExit(touch.dir) && !busy) ? 'native' : 'hijack';
         }
         if (touch.mode !== 'hijack') return;
         if (e.cancelable) e.preventDefault();
-        if (!touch.done && Math.abs(dy) > 36) { touch.done = true; go(idx + touch.dir); }
+        if (!touch.done && Math.abs(dy) > 40) { touch.done = true; go(idx + touch.dir, true); }
       }, { passive: false });
-
       const endTouch = () => { touch = null; };
       document.addEventListener('touchend', endTouch, { passive: true });
       document.addEventListener('touchcancel', endTouch, { passive: true });
 
-      // клавиатура
+      // клавиатура: стрелки, PageUp/PageDown, пробел
       window.addEventListener('keydown', (e) => {
         if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;
         const t = e.target;
@@ -1621,13 +1722,13 @@
         else if (e.key === 'ArrowUp' || e.key === 'PageUp') dir = -1;
         else if (e.key === ' ' || e.key === 'Spacebar') dir = e.shiftKey ? -1 : 1;
         if (!dir || !inRange()) return;
-        ensure(dir);
+        ensure();
         if (atExit(dir) && !busy) return;
         e.preventDefault();
-        if (!e.repeat) go(idx + dir);
+        if (!e.repeat) go(idx + dir, true);
       });
 
-      endFree();
+      endFree();                                  // выставить экран, если страница открылась посреди блока
       window.addEventListener('load', endFree);
     }
 
