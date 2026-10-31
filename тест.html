@@ -124,6 +124,10 @@
     .aud-bubble.b3 { right: 4%; top: 28%; background: #2D2C2A; color: #fff;
       --s1: 54% 46% 33% 67% / 41% 59% 41% 59%; --s2: 36% 64% 58% 42% / 60% 40% 55% 45%; --from: translate(40px, -50px) scale(.8) rotate(-4deg); }
 
+    /* на десктопе баблы живут внутри колонки сайта (как остальные блоки), фон слайдов при этом остаётся на всю ширину */
+    .aud-col { position: absolute; inset: 0; width: 100%; max-width: var(--col); margin: 0 auto; z-index: 2; pointer-events: none; }
+    .aud-col .aud-bubble { pointer-events: auto; }
+
     .aud-dots { position: absolute; left: 0; right: 0; bottom: 1.1rem; display: flex; justify-content: center; gap: .5rem; z-index: 3; }
     .aud-dot { width: .5rem; height: .5rem; border-radius: 999px; background: rgba(255,255,255,.45); transition: width .4s ease, background-color .4s ease; }
     .aud-dot.is-active { width: 1.5rem; background: #FF7A59; }
@@ -312,9 +316,11 @@
       <div class="aud-slide" data-i="0">
         <img src="img/audience/1.jpg" alt="" class="aud-bg" loading="lazy" decoding="async" onerror="this.style.display='none'">
         <div class="aud-shade"></div>
-        <div class="aud-bubble b1">
-          <h3 class="text-lg desk:text-xl font-display font-bold leading-snug mb-3">Тем, кто ценит время</h3>
-          <p class="text-sm desk:text-base leading-relaxed">Косы и дреды не требуют ежедневного ухода. Проснулась и уже&nbsp;красивая!</p>
+        <div class="aud-col">
+          <div class="aud-bubble b1">
+            <h3 class="text-lg desk:text-xl font-display font-bold leading-snug mb-3">Тем, кто ценит время</h3>
+            <p class="text-sm desk:text-base leading-relaxed">Косы и дреды не требуют ежедневного ухода. Проснулась и уже&nbsp;красивая!</p>
+          </div>
         </div>
       </div>
 
@@ -322,9 +328,11 @@
       <div class="aud-slide" data-i="1">
         <img src="img/audience/2.jpg" alt="" class="aud-bg" loading="lazy" decoding="async" onerror="this.style.display='none'">
         <div class="aud-shade"></div>
-        <div class="aud-bubble b2">
-          <h3 class="text-lg desk:text-xl font-display font-bold leading-snug mb-3">Тем, кто выбирает красоту и удобство</h3>
-          <p class="text-sm desk:text-base leading-relaxed">100% уверенности в своей причёске, так как её не испортят дождь, ветер или физическая активность. Да, выглядеть великолепно в любой ситуации — это&nbsp;реально</p>
+        <div class="aud-col">
+          <div class="aud-bubble b2">
+            <h3 class="text-lg desk:text-xl font-display font-bold leading-snug mb-3">Тем, кто выбирает красоту и удобство</h3>
+            <p class="text-sm desk:text-base leading-relaxed">100% уверенности в своей причёске, так как её не испортят дождь, ветер или физическая активность. Да, выглядеть великолепно в любой ситуации — это&nbsp;реально</p>
+          </div>
         </div>
       </div>
 
@@ -332,9 +340,11 @@
       <div class="aud-slide" data-i="2">
         <img src="img/audience/3.jpg" alt="" class="aud-bg" loading="lazy" decoding="async" onerror="this.style.display='none'">
         <div class="aud-shade"></div>
-        <div class="aud-bubble b3">
-          <h3 class="text-lg desk:text-xl font-display font-bold leading-snug mb-3">Тем, кому важно проявляться</h3>
-          <p class="text-sm desk:text-base leading-relaxed">Заплести дреды или косы — это отличный способ заявить о себе, своих принципах и желаниях. Они дополнят уже созданный образ, а также помогут сделать шаг к изменению&nbsp;имиджа</p>
+        <div class="aud-col">
+          <div class="aud-bubble b3">
+            <h3 class="text-lg desk:text-xl font-display font-bold leading-snug mb-3">Тем, кому важно проявляться</h3>
+            <p class="text-sm desk:text-base leading-relaxed">Заплести дреды или косы — это отличный способ заявить о себе, своих принципах и желаниях. Они дополнят уже созданный образ, а также помогут сделать шаг к изменению&nbsp;имиджа</p>
+          </div>
         </div>
       </div>
 
