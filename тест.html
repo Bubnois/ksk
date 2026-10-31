@@ -144,7 +144,7 @@
 
 
     /* «Почему нас выбирают»: ряды «фото + текст». Фото в резких несимметричных формах (листок, купол, дуга, чаша),
-       форма «раскрывается» шторкой, значок-печать с вращающимся текстом, цифры считаются, фото плывёт по скроллу */
+       форма «раскрывается» шторкой, фото плывёт по скроллу */
     .why-list { display: flex; flex-direction: column; gap: 4.5rem; }
     .why-row { display: flex; flex-direction: column; gap: 1.75rem; }
     .why-photo { position: relative; width: 86%; }
@@ -163,47 +163,12 @@
     .ph-c { --r1: 18px 220px 18px 18px; --r2: 220px 18px 18px 18px; }
     .ph-d { --r1: 18px 18px 50% 50% / 18px 18px 34% 34%; --r2: 18px 18px 120px 120px; }
 
-    /* значок-печать: кольцо с текстом крутится, число в центре; выпрыгивает при появлении */
-    .why-badge { position: absolute; z-index: 3; width: 6.4rem; height: 6.4rem; transform: translateY(calc(var(--p, 0) * -24px)); }
-    .ph-a .why-badge { top: -.7rem; right: -.5rem; }
-    .ph-b .why-badge { bottom: 1.4rem; left: -.6rem; }
-    .ph-c .why-badge { bottom: -.7rem; left: -.5rem; }
-    .ph-d .why-badge { top: -.7rem; left: -.5rem; }
-    .why-badge-in { position: relative; width: 100%; height: 100%; border-radius: 50%; background: var(--bb); color: var(--bf);
-      box-shadow: 0 10px 26px -10px rgba(0,0,0,.45); transform: scale(0) rotate(-60deg);
-      transition: transform 1s cubic-bezier(.3,1.7,.5,1) 1s; }
-    .is-in .why-badge-in { transform: none; }
-    .bd-orange { --bb: #FF7A59; --bf: #1A1A1A; }
-    .bd-dark   { --bb: #2D2C2A; --bf: #fff; }
-    .bd-white  { --bb: #fff;    --bf: #1A1A1A; }
-    .why-ring { position: absolute; inset: 0; width: 100%; height: 100%; animation: whySpin 24s linear infinite; }
-    .why-row.rev .why-ring { animation-direction: reverse; }
-    .why-ring text { fill: currentColor; font: 700 10.5px 'Comfortaa', cursive, sans-serif; }
-    .why-core { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font: 700 2.1rem/1 'Comfortaa', cursive, sans-serif; }
-    .why-core-icon { width: 2rem; height: 2rem; font-size: 2rem; line-height: 1; }
-    @keyframes whySpin { to { transform: rotate(360deg); } }
-
     .why-text { padding: 0 .25rem; }
-    .why-eyebrow { display: flex; align-items: center; gap: .75rem; font: 700 .85rem/1 'Comfortaa', cursive, sans-serif; color: #FF7A59; margin-bottom: 1rem;
-      opacity: 0; transform: translateX(-12px); transition: opacity .6s ease .5s, transform .7s ease .5s; }
-    .why-eyebrow::after { content: ''; height: 2px; width: 0; background: #FF7A59; transition: width .9s cubic-bezier(.2,.8,.2,1) .7s; }
-    .is-in .why-eyebrow { opacity: 1; transform: none; }
-    .is-in .why-eyebrow::after { width: 3.2rem; }
     .why-title { margin: 0 0 .85rem; overflow: hidden; font-family: 'Comfortaa', cursive, sans-serif; font-weight: 700; font-size: 1.75rem; line-height: 1.15; letter-spacing: -.01em; }
-    .why-title > span { display: block; transform: translateY(110%); transition: transform .95s cubic-bezier(.2,.8,.2,1) .6s; }
+    .why-title > span { display: block; transform: translateY(110%); transition: transform .95s cubic-bezier(.2,.8,.2,1) .4s; }
     .is-in .why-title > span { transform: none; }
-    .why-desc { margin: 0; color: #555; font-size: .95rem; line-height: 1.7; opacity: 0; transform: translateY(16px); transition: opacity .8s ease .85s, transform .9s ease .85s; }
+    .why-desc { margin: 0; color: #555; font-size: .95rem; line-height: 1.7; opacity: 0; transform: translateY(16px); transition: opacity .8s ease .6s, transform .9s ease .6s; }
     .is-in .why-desc { opacity: 1; transform: none; }
-    .why-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.25rem 0 0; padding: 0; list-style: none; }
-    .why-tags li { background: #fff; border: 1px solid rgba(0,0,0,.06); border-radius: 999px; padding: .4rem .9rem; font-size: .8rem; font-weight: 500;
-      opacity: 0; transform: scale(.6); transition: opacity .5s ease calc(1.1s + var(--k) * .08s), transform .6s cubic-bezier(.3,1.6,.5,1) calc(1.1s + var(--k) * .08s); }
-    .is-in .why-tags li { opacity: 1; transform: none; }
-    .why-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; margin-top: 1.4rem; }
-    .why-stats > div { background: #fff; border: 1px solid rgba(0,0,0,.06); border-radius: 20px; padding: .85rem .9rem;
-      opacity: 0; transform: translateY(14px) scale(.9); transition: opacity .5s ease calc(1.1s + var(--k) * .1s), transform .7s cubic-bezier(.3,1.4,.5,1) calc(1.1s + var(--k) * .1s); }
-    .is-in .why-stats > div { opacity: 1; transform: none; }
-    .why-stats b { display: block; font: 700 1.4rem/1 'Comfortaa', cursive, sans-serif; white-space: nowrap; color: #FF7A59; }
-    .why-stats small { display: block; margin-top: .4rem; font-size: .75rem; color: #555; }
 
     @media (min-width: 768px) { .why-photo { width: 70%; } .why-title { font-size: 2.1rem; } .why-desc { font-size: 1rem; } }
     @media (min-width: 1000px) {
@@ -213,19 +178,13 @@
       .why-photo { width: 46%; flex: none; margin: 0 !important; }
       .why-text { flex: 1; padding: 0; }
       .why-title { font-size: 2.5rem; }
-      .why-badge { width: 7.6rem; height: 7.6rem; }
-      .why-core { font-size: 2.6rem; }
-      .why-stats b { font-size: 1.9rem; }
       .ph-a { --r1: 220px 24px 220px 24px; --r2: 24px 220px 24px 220px; }
       .ph-c { --r1: 24px 300px 24px 24px;  --r2: 300px 24px 24px 24px; }
     }
     @media (prefers-reduced-motion: reduce) {
       .why-frame { clip-path: none; transition: none; }
       .why-frame img { transform: none; }
-      .why-badge, .why-badge-in { transform: none; transition: none; }
-      .why-ring { animation: none; }
-      .why-eyebrow, .why-title > span, .why-desc, .why-tags li, .why-stats > div { opacity: 1; transform: none; transition: none; }
-      .why-eyebrow::after { width: 3.2rem; transition: none; }
+      .why-title > span, .why-desc { opacity: 1; transform: none; transition: none; }
     }
 
     /* костыли и фиксы, когда тейлвинда не хватило */
@@ -954,30 +913,22 @@
       {
         title: 'Опыт 9 лет',
         description: 'Мы многое повидали за это время. Знаем, как надо и как не надо делать. С интересом решаем нетипичные задачи',
-        icon: 'history',
-        photo: 'img/kits/1.jpg', shape: 'a', badge: 'orange', core: 9
+        photo: 'img/kits/1.jpg', shape: 'a'
       },
       {
         title: 'Уютная студия',
         description: 'Большая огороженная парковка, хорошая транспортная доступность, удобные кресла, возможность помыть и уложить волосы после расплетения, чай/кофе и печеньки, wi-fi, тёплые пледы и тапочки. У нас можно как отдохнуть, наслаждаясь процессом, так и поработать свою удаленную работу, чтобы не терять время',
-        icon: 'weekend',
-        photo: 'img/studio/1.jpg', shape: 'b', badge: 'dark',
-        tags: ['Огороженная парковка', 'Wi-Fi', 'Чай/кофе и печеньки', 'Пледы и тапочки', 'Помыть и уложить волосы'],
-        svg: '<path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.27 1 2.61 1 4 0 5.52-4.48 10-10 10S2 19.52 2 14c0-1.39.43-2.73 1-4 0 0-1.82-6.42-.42-7 1.39-.58 4.64.26 6.42 2.26.65-.17 1.33-.26 2-.26Z" /><path d="M8 14h.01" /><path d="M16 14h.01" /><path d="M12 17l-1-1h2l-1 1Z" />'
+        photo: 'img/studio/1.jpg', shape: 'b'
       },
       {
         title: 'Скорость плетения',
         description: 'Мы работаем в 4 руки, что позволяет вплетать комплекты от 2 часов, расплетать причёски за 1 час, а также быстро изготавливать комплекты. Да, больше не придётся ждать своей записи 3–5 недель, как это было раньше',
-        icon: 'speed',
-        photo: 'img/studio/2.jpg', shape: 'c', badge: 'white', core: 4,
-        stats: [{ pre: '', n: 4, suf: '', l: 'руки' }, { pre: 'от ', n: 2, suf: ' ч', l: 'вплетение' }, { pre: '', n: 1, suf: ' ч', l: 'расплетение' }]
+        photo: 'img/studio/2.jpg', shape: 'c'
       },
       {
         title: 'Индивидуальный подход',
         description: 'При подборе и создании причёски мы всегда отталкиваемся от Ваших предпочтений, образа жизни и цели заплетения. Для нас важно понять, какого именно эффекта Вам хочется достичь, чтобы прическа приносила только положительные эмоции на протяжении всего срока носки',
-        icon: 'favorite',
-        photo: 'img/audience/3.jpg', shape: 'd', badge: 'orange',
-        tags: ['Ваши предпочтения', 'Образ жизни', 'Цель заплетения']
+        photo: 'img/audience/3.jpg', shape: 'd'
       }
     ];
 
@@ -1244,61 +1195,33 @@
     // отрисовка преимуществ
     function renderFeatures() {
       const grid = document.getElementById('features-grid');
-      grid.innerHTML = features.map((f, i) => {
-        const icon = (cls) => f.svg
-          ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="${cls}">${f.svg}</svg>`
-          : `<span aria-hidden="true" class="material-icons ${cls}">${f.icon}</span>`;
-        const word = f.title.toUpperCase();
-        const ring = (word + ' • ').repeat(Math.max(1, Math.round(26 / (word.length + 3))));
-        const core = f.core ? `<span data-count="${f.core}">${f.core}</span>` : icon('why-core-icon');
-        const tags = f.tags ? `<ul class="why-tags">${f.tags.map((x, k) => `<li style="--k:${k}">${x}</li>`).join('')}</ul>` : '';
-        const stats = f.stats ? `<div class="why-stats">${f.stats.map((x, k) => `<div style="--k:${k}"><b>${x.pre}<span data-count="${x.n}">${x.n}</span>${x.suf}</b><small>${x.l}</small></div>`).join('')}</div>` : '';
-        return `
+      grid.innerHTML = features.map((f, i) => `
         <article class="why-row${i % 2 ? ' rev' : ''}">
           <div class="why-photo ph-${f.shape}">
             <div class="why-frame"><img src="${f.photo}" alt="${f.title}" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
-            <div class="why-badge bd-${f.badge}" aria-hidden="true"><div class="why-badge-in">
-              <svg viewBox="0 0 120 120" class="why-ring"><defs><path id="why-ring-${i}" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs><text><textPath href="#why-ring-${i}" textLength="288" lengthAdjust="spacing">${ring}</textPath></text></svg>
-              <span class="why-core">${core}</span>
-            </div></div>
           </div>
           <div class="why-text">
-            <div class="why-eyebrow">0${i + 1}</div>
             <h3 class="why-title"><span>${f.title}</span></h3>
             <p class="why-desc">${f.description}</p>
-            ${tags}${stats}
           </div>
-        </article>`;
-      }).join('');
+        </article>`).join('');
     }
 
-    // «Почему нас выбирают»: фото в несимметричных формах «раскрываются» при появлении, цифры считаются,
-    // фото и значки плывут по скроллу, форма фото на ховере перекручивается
+    // «Почему нас выбирают»: фото в несимметричных формах «раскрываются» при появлении,
+    // фото плывёт по скроллу, форма фото на ховере перекручивается
     function setupFeatureObserver() {
       const rows = Array.from(document.querySelectorAll('#features-grid .why-row'));
       if (!rows.length) return;
       const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      const countUp = (row) => row.querySelectorAll('[data-count]').forEach(el => {
-        const n = Number(el.dataset.count), t0 = performance.now(), D = 1300;
-        const tick = (now) => {
-          const t = Math.min(1, (now - t0) / D);
-          el.textContent = Math.round(n * (1 - Math.pow(1 - t, 3)));
-          if (t < 1) requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
-      });
-
       if (reduce || !('IntersectionObserver' in window)) {
         rows.forEach(r => r.classList.add('is-in'));
         return;
       }
-      rows.forEach(r => r.querySelectorAll('[data-count]').forEach(el => { el.textContent = '0'; }));
       const io = new IntersectionObserver((entries) => {
         entries.forEach(e => {
           if (!e.isIntersecting) return;
           e.target.classList.add('is-in');
-          countUp(e.target);
           io.unobserve(e.target);
         });
       }, { rootMargin: '0px 0px -12% 0px', threshold: 0.15 });
