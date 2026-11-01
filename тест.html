@@ -602,16 +602,16 @@
               <img src="img/studio/1.jpg" alt="" class="w-full h-full object-cover rounded-r-[32px] shadow-sm" loading="lazy" decoding="async" />
             </div>
             <div class="flex flex-col gap-2 justify-center items-start flex-grow pr-4">
-              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full">
+              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full [text-wrap:balance]" data-fit>
                 Многоразовый комплект отличного качества
               </div>
-              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full">
+              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full [text-wrap:balance]" data-fit>
                 Повышенное внимание окружающих
               </div>
-              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full">
+              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full [text-wrap:balance]" data-fit>
                 Безлимит на комплименты
               </div>
-              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full">
+              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full [text-wrap:balance]" data-fit>
                 Уверенность в своём внешнем виде
               </div>
             </div>
@@ -620,16 +620,16 @@
           <!-- Ряд 2: 4 Баббла (лево) + Фото (право) -->
           <div class="flex gap-4 items-stretch overflow-hidden">
             <div class="flex flex-col gap-2 justify-center items-end flex-grow pl-4">
-              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full">
+              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full [text-wrap:balance]" data-fit>
                 Новый опыт и новое ощущение себя
               </div>
-              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full">
+              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full [text-wrap:balance]" data-fit>
                 Свободу от ежедневного ухода за волосами
               </div>
-              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full">
+              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full [text-wrap:balance]" data-fit>
                 Прическу, созданную с учетом пожеланий
               </div>
-              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full">
+              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full [text-wrap:balance]" data-fit>
                 Экономию времени и денег
               </div>
             </div>
@@ -1021,6 +1021,7 @@
       setupScrollListeners();
       setupReadySetsInfiniteLoop();
       setupAudience();
+      setupBubbleFit();
       setupHorizontalInteraction();
       setupModalSwipe();
       setupFeatureObserver();
@@ -1488,6 +1489,32 @@
       window.addEventListener('resize', onScroll);
       window.addEventListener('load', onScroll);
       update();
+    }
+
+    // «Заплетаясь у нас…»: на мобильных текст в баббле переносится, и CSS-ширина «по содержимому» всё равно
+    // остаётся равной ширине колонки. Поэтому после вёрстки сжимаем баббл до самой длинной строки текста.
+    function setupBubbleFit() {
+      const bubbles = Array.from(document.querySelectorAll('#why-us [data-fit]'));
+      if (!bubbles.length || !document.createRange) return;
+      let ticking = false;
+      function fit() {
+        ticking = false;
+        bubbles.forEach(b => b.style.width = '');                     // сначала сбрасываем, чтобы мерить естественный перенос
+        bubbles.forEach(b => {
+          if (b.offsetParent === null) return;                        // скрыт (десктопная вёрстка)
+          const cs = getComputedStyle(b);
+          const range = document.createRange();
+          range.selectNodeContents(b);
+          const text = range.getBoundingClientRect().width;           // ширина самой длинной строки
+          const extra = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight) + parseFloat(cs.borderLeftWidth) + parseFloat(cs.borderRightWidth);
+          b.style.width = Math.ceil(text + extra + 1) + 'px';
+        });
+      }
+      const schedule = () => { if (!ticking) { ticking = true; requestAnimationFrame(fit); } };
+      window.addEventListener('resize', schedule);
+      window.addEventListener('load', schedule);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(schedule);
+      fit();
     }
 
     // Бесконечная карусель готовых комплектов с автопрокруткой (мобильная и десктопная версии).
