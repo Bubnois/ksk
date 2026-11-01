@@ -1443,7 +1443,8 @@
     }
 
     // «Кому подойдет?»: экраны (фон + бабл) сменяют друг друга по скроллу, строго по одному за жест —
-    // колесо, свайп, клавиши и резкий «бросок» двигают ровно на один экран, пролистнуть лишнее нельзя
+    // колесо, свайп, клавиши и резкий «бросок» двигают ровно на один экран, пролистнуть лишнее нельзя.
+    // Выход из блока — тоже один шаг (ровно на экран за край блока), поэтому страницу не уносит инерцией
     function setupAudience() {
       const sec = document.getElementById('audience');
       if (!sec) return;
@@ -1458,6 +1459,7 @@
       const LOCK_MS = 80;                 // короткая пауза после перехода
       const GAP_MS = 160;                 // пауза в событиях длиннее этой = новый жест (инерция короче)
       const TOL = 2;
+      const QUIET_MS = 400;               // после выхода гасим хвост жеста, пока события идут без паузы дольше этого
 
       let idx = -2;          // показанный экран (-1 — блок вне экрана)
       let busy = false;      // идёт доезд до экрана
@@ -1465,6 +1467,7 @@
       let free = false, freeTimer = 0;   // свободный скролл: переход по якорю (кнопка «записаться» и т.п.)
       let lastScroll = 0, prevY = window.scrollY, lastWheel = 0, wheelDone = false, wheelAcc = 0, wheelDir = 0, tweenId = 0;
       let touch = null, ticking = false;
+      let leaving = false, exitDir = 0, quietUntil = 0;   // шаг выхода из блока и «тишина» после него
 
       const stepPx = () => stage.offsetHeight || window.innerHeight;
       const anchor = (i) => sec.getBoundingClientRect().top + window.scrollY + i * stepPx();
@@ -1491,11 +1494,11 @@
       function ensure() { if (idx < 0 && inRange()) show(nearest()); }
 
       const ease = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-      function tweenTo(y, ms) {
+      function tweenTo(y, ms, done) {
         const id = ++tweenId;            // новый переход отменяет прежний (можно развернуться на полпути)
         busy = true;
         const y0 = window.scrollY, t0 = performance.now();
-        const fin = () => { busy = false; lockUntil = performance.now() + LOCK_MS; prevY = window.scrollY; };
+        const fin = () => { busy = false; lockUntil = performance.now() + LOCK_MS; prevY = window.scrollY; if (done) done(); };
         if (!ms || Math.abs(y - y0) < 1) { jump(y); fin(); return; }
         const frame = (now) => {
           if (id !== tweenId) return;
@@ -1505,15 +1508,22 @@
         };
         requestAnimationFrame(frame);
       }
-      // один шаг: только на соседний экран; force — осознанный новый жест, он может прервать идущий переход
+      // один шаг: на соседний экран или (за краем списка) выход из блока; force — осознанный новый жест
       function go(i, force) {
-        if (i < 0 || i >= N) return false;
         if (!force && (busy || performance.now() < lockUntil)) return false;
+        if (i < 0 || i >= N) return leave(i < 0 ? -1 : 1);
         show(i);
         tweenTo(anchor(i), STEP_MS);
         return true;
       }
-      const atExit = (dir) => (dir > 0 && idx === N - 1) || (dir < 0 && idx === 0);
+      // выход: ровно на экран за край блока (верх следующей/низ предыдущей секции у края окна), остаток жеста гасим
+      function leave(dir) {
+        leaving = true; exitDir = dir;
+        tweenTo(dir > 0 ? anchor(N - 1) + stepPx() : anchor(0) - stepPx(), STEP_MS, () => {
+          leaving = false; quietUntil = performance.now() + QUIET_MS;
+        });
+        return true;
+      }
 
       // всё, что не перехвачено (ползунок, инерция «броска», автопрокрутка): держим на текущем экране
       function sync() {
@@ -1541,7 +1551,8 @@
         // жест, пришедший снаружи (или продолжение инерции), — мягко возвращаем на экран
         const startedInside = was >= a0 - TOL && was <= aL + TOL;
         const dir = moved > 0 ? 1 : moved < 0 ? -1 : 0;
-        if (gap > GAP_MS && startedInside && dir && go(cur + dir)) return;
+        const t = cur + dir;
+        if (gap > GAP_MS && startedInside && dir && t >= 0 && t < N && go(t)) return;
         tweenTo(anchor(cur), FIX_MS);
       }
       function endFree() {
@@ -1578,6 +1589,8 @@
         if (dir) wheelDir = dir;
         if (free) endFree();
         if (!dir) return;
+        // идёт выход из блока и сразу после него: хвост жеста (инерцию) не пускаем в страницу
+        if (leaving || (now < quietUntil && dir === exitDir)) { e.preventDefault(); wheelDone = true; quietUntil = now + QUIET_MS; return; }
 
         const y = window.scrollY, a0 = anchor(0), aL = anchor(N - 1);
         // подъезд снаружи: останавливаем ровно на краю блока, без пролёта и отскока
@@ -1586,7 +1599,6 @@
 
         if (!inRange()) { wheelDone = true; return; }   // хвост жеста, начатого снаружи
         ensure();
-        if (atExit(dir) && !busy && !wheelDone) return;  // выходим из блока обычным скроллом
         e.preventDefault();
         if (wheelDone) return;
         wheelAcc += px;                                  // мелкие дельты тачпада копим, чтобы жест не терялся
@@ -1610,7 +1622,7 @@
           if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
           if (Math.abs(dx) > Math.abs(dy)) { touch.mode = 'native'; return; }   // горизонтальный жест не трогаем
           touch.dir = dy < 0 ? 1 : -1;
-          touch.mode = (atExit(touch.dir) && !busy) ? 'native' : 'hijack';
+          touch.mode = 'hijack';
         }
         if (touch.mode !== 'hijack') return;
         if (e.cancelable) e.preventDefault();
@@ -1631,7 +1643,6 @@
         else if (e.key === ' ' || e.key === 'Spacebar') dir = e.shiftKey ? -1 : 1;
         if (!dir || !inRange()) return;
         ensure();
-        if (atExit(dir) && !busy) return;
         e.preventDefault();
         if (!e.repeat) go(idx + dir, true);
       });
