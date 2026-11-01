@@ -100,12 +100,13 @@
     #ready-sets-track.ready-looping { scroll-behavior: auto; }
 
     /* «Кому подойдет?»: три экрана с фоном на всю ширину; фон и бабл меняются по мере скролла */
-    .aud { position: relative; width: 100%; height: 300vh; height: 300svh; background: #2D2C2A; color: #fff; }
+    .aud { position: relative; width: 100%; height: 400vh; height: 400svh; background: #2D2C2A; color: #fff; }
     .aud-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
-    .aud-slide { position: absolute; inset: 0; opacity: 0; transition: opacity .9s ease; background: #4a3b33; }
+    /* уходящий слайд остаётся под приходящим, пока тот не проявится, затем исчезает — без «провала» в середине кроссфейда */
+    .aud-slide { position: absolute; inset: 0; opacity: 0; z-index: 0; background: #4a3b33; contain: paint; transition: opacity 0s linear .95s; }
     .aud-slide[data-i="1"] { background: #38424f; }
     .aud-slide[data-i="2"] { background: #55383a; }
-    .aud-slide.is-active { opacity: 1; }
+    .aud-slide.is-active { opacity: 1; z-index: 1; transition: opacity .9s ease; }
     .aud-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); transition: transform 7s ease-out; }
     .aud-slide.is-active .aud-bg { transform: scale(1); }
     .aud-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,.12) 38%, rgba(0,0,0,.3) 100%); }
@@ -114,8 +115,8 @@
     /* баблы: разные несимметричные формы; радиусы медленно «перетекают».
        Все три стоят примерно в одном месте у нижнего края, чтобы не закрывать лица на фото */
     .aud-bubble { position: absolute; z-index: 2; left: 0; right: 0; bottom: 6%; margin: 0 auto; width: min(88vw, 21.5rem); padding: 2.9rem 2.6rem; box-shadow: 0 24px 60px rgba(0,0,0,.35);
-      border-radius: var(--s1); opacity: 0; transform: var(--from); transition: opacity .7s ease .3s, transform 1s cubic-bezier(.2,.9,.3,1.15) .3s; }
-    .aud-slide.is-active .aud-bubble { opacity: 1; transform: none; animation: audMorph 14s ease-in-out 1.3s infinite alternate; }
+      border-radius: var(--s1); opacity: 0; transform: var(--from); transition: opacity .35s ease, transform .35s ease; }
+    .aud-slide.is-active .aud-bubble { opacity: 1; transform: none; transition: opacity .7s ease .3s, transform 1s cubic-bezier(.2,.9,.3,1.15) .3s; animation: audMorph 14s ease-in-out 1.3s infinite alternate; }
     @keyframes audMorph { from { border-radius: var(--s1); } to { border-radius: var(--s2); } }
     .aud-bubble p { margin: 0; }
     .aud-bubble.b1 { background: rgba(245,245,243,.95); color: #1A1A1A;
@@ -1424,12 +1425,10 @@
 
     // плавные переходы по якорям
     function scrollToServices() {
-      if (window.audFree) window.audFree();
       document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
     }
 
     function scrollToContacts() {
-      if (window.audFree) window.audFree();
       const modal = document.getElementById('service-modal');
       if (modal && !modal.classList.contains('hidden')) {
         closeServiceModal();
@@ -1444,9 +1443,10 @@
       }
     }
 
-    // «Кому подойдет?»: экраны (фон + бабл) сменяют друг друга по скроллу, строго по одному за жест —
-    // колесо, свайп, клавиши и резкий «бросок» двигают ровно на один экран, пролистнуть лишнее нельзя.
-    // Выход из блока — тоже один шаг (ровно на экран за край блока), поэтому страницу не уносит инерцией
+    // «Кому подойдет?»: слайды сменяют друг друга по скроллу. Никакого перехвата колеса, касаний и клавиш и
+    // никаких «доездов» скроллом: страница прокручивается нативно, а слайд лишь следует за положением блока.
+    // Каждый слайд «владеет» своим отрезком прокрутки (по высоте экрана), у границ — запас, чтобы не мигало.
+    // Если прокрутили быстро, показ догоняет по одному слайду с минимальной выдержкой — ни один не пролетает незамеченным.
     function setupAudience() {
       const sec = document.getElementById('audience');
       if (!sec) return;
@@ -1456,206 +1456,49 @@
       if (!stage || !N) return;
 
       const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const STEP_MS = reduce ? 0 : 850;   // переход на соседний экран
-      const FIX_MS = reduce ? 0 : 450;    // мягкий возврат на экран, если страницу сдвинуло мимо
-      const ENTER_MS = reduce ? 0 : 550;  // мягкая остановка на краю при входе в блок
-      const EXIT_MS = reduce ? 0 : 1100;  // выход из блока на экран за край
-      const LOCK_MS = 80;                 // короткая пауза после перехода
-      const GAP_MS = 160;                 // пауза в событиях длиннее этой = новый жест (инерция короче)
-      const TOL = 2;
-      const QUIET_MS = 400;               // после выхода гасим хвост жеста, пока события идут без паузы дольше этого
+      const DWELL = reduce ? 0 : 700;   // минимум, сколько слайд держится, прежде чем уступить следующему
+      const HYST = 0.06;                // запас на границе слайдов (доля отрезка), чтобы не мигало от дрожания скролла
 
-      let idx = -2;          // показанный экран (-1 — блок вне экрана)
-      let busy = false;      // идёт доезд до экрана
-      let lockUntil = 0;
-      let free = false, freeTimer = 0;   // свободный скролл: переход по якорю (кнопка «записаться» и т.п.)
-      let lastScroll = 0, prevY = window.scrollY, lastWheel = 0, wheelDone = false, wheelAcc = 0, wheelDir = 0, tweenId = 0;
-      let touch = null, ticking = false;
-      let leaving = false, entering = false, exitDir = 0, quietUntil = 0;   // шаг выхода из блока и «тишина» после него
+      let shown = -2;                   // что показано сейчас (-1 — ничего, блок вне экрана)
+      let target = -1;                  // что должно быть показано по положению скролла
+      let lastChange = 0, timer = 0, ticking = false;
 
-      const stepPx = () => stage.offsetHeight || window.innerHeight;
-      const anchor = (i) => sec.getBoundingClientRect().top + window.scrollY + i * stepPx();
-      const jump = (y) => window.scrollTo(0, y);
-
-      function show(i) {
-        if (i === idx) return;
-        idx = i;
+      function apply(i) {
+        shown = i;
+        lastChange = performance.now();
         slides.forEach((el, k) => el.classList.toggle('is-active', k === i));
       }
-      function inView() {
-        const r = sec.getBoundingClientRect(), vh = window.innerHeight;
-        return r.top < vh * 0.5 && r.bottom > vh * 0.5;
-      }
-      function inRange() {
-        if (!inView()) return false;
-        const y = window.scrollY;
-        return y >= anchor(0) - TOL && y <= anchor(N - 1) + TOL;
-      }
-      function nearest() {
-        return Math.max(0, Math.min(N - 1, Math.round((window.scrollY - anchor(0)) / stepPx())));
-      }
-      // экран мог не успеть выставиться (вход колесом/касанием раньше события скролла)
-      function ensure() { if (idx < 0 && inRange()) show(nearest()); }
 
-      const ease = (t) => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;   // мягкий разгон и торможение
-      function tweenTo(y, ms, done) {
-        const id = ++tweenId;            // новый переход отменяет прежний (можно развернуться на полпути)
-        busy = true;
-        const y0 = window.scrollY, t0 = performance.now();
-        const fin = () => { busy = false; lockUntil = performance.now() + LOCK_MS; prevY = window.scrollY; if (done) done(); };
-        if (!ms || Math.abs(y - y0) < 1) { jump(y); fin(); return; }
-        const frame = (now) => {
-          if (id !== tweenId) return;
-          const t = Math.min(1, (now - t0) / ms);
-          jump(y0 + (y - y0) * ease(t));
-          if (t < 1) requestAnimationFrame(frame); else fin();
-        };
-        requestAnimationFrame(frame);
-      }
-      // один шаг: на соседний экран или (за краем списка) выход из блока; force — осознанный новый жест
-      function go(i, force) {
-        if (!force && (busy || performance.now() < lockUntil)) return false;
-        if (i < 0 || i >= N) return leave(i < 0 ? -1 : 1);
-        show(i);
-        tweenTo(anchor(i), STEP_MS);
-        return true;
-      }
-      // вход: плавно доезжаем до края блока (вместо мгновенного прыжка), остаток жеста гасим
-      function settle(y) { entering = true; tweenTo(y, ENTER_MS, () => { entering = false; }); }
-      // выход: ровно на экран за край блока (верх следующей/низ предыдущей секции у края окна), остаток жеста гасим
-      function leave(dir) {
-        leaving = true; exitDir = dir;
-        tweenTo(dir > 0 ? anchor(N - 1) + stepPx() : anchor(0) - stepPx(), EXIT_MS, () => {
-          leaving = false; quietUntil = performance.now() + QUIET_MS;
-        });
-        return true;
+      // подтягиваем показ к цели: не больше одного слайда за раз и не чаще, чем раз в DWELL
+      function pump() {
+        clearTimeout(timer); timer = 0;
+        if (target < 0) { if (shown !== -1) apply(-1); return; }      // блок вне экрана — гасим
+        if (shown < 0) { apply(target); return; }                      // только вошли — сразу нужный слайд
+        if (shown === target) return;
+        const wait = DWELL - (performance.now() - lastChange);
+        if (wait > 0) { timer = setTimeout(pump, wait); return; }
+        apply(shown + Math.sign(target - shown));
+        if (shown !== target) timer = setTimeout(pump, DWELL);
       }
 
-      // всё, что не перехвачено (ползунок, инерция «броска», автопрокрутка): держим на текущем экране
-      function sync() {
+      function measure() {
         ticking = false;
-        const now = performance.now();
-        const gap = now - lastScroll;
-        lastScroll = now;
-        const y = window.scrollY, was = prevY, moved = y - was;
-        prevY = y;
-        if (busy) return;
-        if (!inView()) { show(-1); return; }
-        const a0 = anchor(0), aL = anchor(N - 1);
-        if (free) {
-          show(y <= a0 ? 0 : y >= aL ? N - 1 : nearest());
-          clearTimeout(freeTimer); freeTimer = setTimeout(endFree, 220);
-          return;
-        }
-        if (y <= a0 + TOL) { show(0); return; }
-        if (y >= aL - TOL) { show(N - 1); return; }
-        let cur = idx;
-        if (cur < 0) { cur = moved < 0 ? N - 1 : 0; show(cur); }
-        const d = y - anchor(cur);
-        if (Math.abs(d) < TOL) return;
-        // новый жест, начатый уже внутри блока, — один шаг по направлению движения;
-        // жест, пришедший снаружи (или продолжение инерции), — мягко возвращаем на экран
-        const startedInside = was >= a0 - TOL && was <= aL + TOL;
-        const dir = moved > 0 ? 1 : moved < 0 ? -1 : 0;
-        const t = cur + dir;
-        if (gap > GAP_MS && startedInside && dir && t >= 0 && t < N && go(t)) return;
-        tweenTo(anchor(cur), FIX_MS);
+        const r = sec.getBoundingClientRect(), vh = window.innerHeight;
+        // блок хоть сколько-нибудь на экране (с небольшим запасом), иначе сбрасываем
+        if (!(r.top < vh * 0.9 && r.bottom > vh * 0.1)) { if (target !== -1) { target = -1; pump(); } return; }
+        const range = Math.max(1, r.height - stage.offsetHeight);       // сколько блок «залипает»
+        const raw = Math.min(N - 0.001, Math.max(0, (-r.top / range) * N));
+        let t = target < 0 ? Math.floor(raw) : target;
+        while (t < N - 1 && raw > t + 1 + HYST) t++;
+        while (t > 0 && raw < t - HYST) t--;
+        if (t !== target) { target = t; pump(); }
       }
-      function endFree() {
-        free = false; clearTimeout(freeTimer);
-        if (!inView()) { show(-1); return; }
-        const y = window.scrollY;
-        if (y <= anchor(0) + TOL) { show(0); return; }
-        if (y >= anchor(N - 1) - TOL) { show(N - 1); return; }
-        const i = nearest();
-        show(i);
-        tweenTo(anchor(i), FIX_MS);
-      }
-      // вызывают переходы по якорям (scrollToContacts и т.п.), чтобы блок не держал страницу
-      window.audFree = () => { free = true; clearTimeout(freeTimer); freeTimer = setTimeout(endFree, 400); };
 
-      window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(sync); } }, { passive: true });
-      // смена высоты окна (панель браузера на телефоне, поворот) — подтягиваем к своему экрану
-      window.addEventListener('resize', () => {
-        if (busy || !inRange()) return;
-        ensure();
-        const diff = anchor(idx) - window.scrollY;
-        if (Math.abs(diff) > TOL && Math.abs(diff) < stepPx() / 2) { jump(anchor(idx)); prevY = window.scrollY; }
-      });
-
-      // колесо / тачпад: один жест = один экран
-      window.addEventListener('wheel', (e) => {
-        if (e.ctrlKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
-        const px = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? window.innerHeight : 1);
-        const dir = Math.sign(px);
-        const now = performance.now();
-        // новый жест: пауза в событиях или разворот направления
-        if (now - lastWheel > GAP_MS || (dir && wheelDir && dir !== wheelDir && Math.abs(px) >= 4)) { wheelDone = false; wheelAcc = 0; }
-        lastWheel = now;
-        if (dir) wheelDir = dir;
-        if (free) endFree();
-        if (!dir) return;
-        // идёт выход из блока и сразу после него: хвост жеста (инерцию) не пускаем в страницу
-        if (entering) { e.preventDefault(); wheelDone = true; return; }
-        if (leaving || (now < quietUntil && dir === exitDir)) { e.preventDefault(); wheelDone = true; quietUntil = now + QUIET_MS; return; }
-
-        const y = window.scrollY, a0 = anchor(0), aL = anchor(N - 1);
-        // подъезд снаружи: останавливаем ровно на краю блока, без пролёта и отскока
-        if (px > 0 && y < a0 - TOL && y + px > a0 + TOL) { e.preventDefault(); show(0); settle(a0); wheelDone = true; return; }
-        if (px < 0 && y > aL + TOL && y + px < aL - TOL) { e.preventDefault(); show(N - 1); settle(aL); wheelDone = true; return; }
-
-        if (!inRange()) { wheelDone = true; return; }   // хвост жеста, начатого снаружи
-        ensure();
-        e.preventDefault();
-        if (wheelDone) return;
-        wheelAcc += px;                                  // мелкие дельты тачпада копим, чтобы жест не терялся
-        if (Math.abs(wheelAcc) < 6) return;
-        wheelDone = true;
-        go(idx + Math.sign(wheelAcc), true);
-      }, { passive: false });
-
-      // свайп: один свайп = один экран
-      document.addEventListener('touchstart', (e) => {
-        if (free) endFree();
-        if (e.touches.length !== 1) { touch = null; return; }
-        const inside = inRange();
-        if (inside) ensure();
-        touch = { x: e.touches[0].clientX, y: e.touches[0].clientY, inside, mode: '', dir: 0, done: false };
-      }, { passive: true });
-      document.addEventListener('touchmove', (e) => {
-        if (!touch || !touch.inside || !e.touches.length) return;
-        const dx = e.touches[0].clientX - touch.x, dy = e.touches[0].clientY - touch.y;
-        if (!touch.mode) {
-          if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
-          if (Math.abs(dx) > Math.abs(dy)) { touch.mode = 'native'; return; }   // горизонтальный жест не трогаем
-          touch.dir = dy < 0 ? 1 : -1;
-          touch.mode = 'hijack';
-        }
-        if (touch.mode !== 'hijack') return;
-        if (e.cancelable) e.preventDefault();
-        if (!touch.done && Math.abs(dy) > 40) { touch.done = true; go(idx + touch.dir, true); }
-      }, { passive: false });
-      const endTouch = () => { touch = null; };
-      document.addEventListener('touchend', endTouch, { passive: true });
-      document.addEventListener('touchcancel', endTouch, { passive: true });
-
-      // клавиатура: стрелки, PageUp/PageDown, пробел
-      window.addEventListener('keydown', (e) => {
-        if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;
-        const t = e.target;
-        if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT|BUTTON|SUMMARY|A|VIDEO)$/.test(t.tagName))) return;
-        let dir = 0;
-        if (e.key === 'ArrowDown' || e.key === 'PageDown') dir = 1;
-        else if (e.key === 'ArrowUp' || e.key === 'PageUp') dir = -1;
-        else if (e.key === ' ' || e.key === 'Spacebar') dir = e.shiftKey ? -1 : 1;
-        if (!dir || !inRange()) return;
-        ensure();
-        e.preventDefault();
-        if (!e.repeat) go(idx + dir, true);
-      });
-
-      endFree();                                  // выставить экран, если страница открылась посреди блока
-      window.addEventListener('load', endFree);
+      const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(measure); } };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      window.addEventListener('load', onScroll);
+      measure();
     }
 
     // Бесконечная карусель готовых комплектов с автопрокруткой (мобильная и десктопная версии).
