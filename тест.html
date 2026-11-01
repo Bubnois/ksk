@@ -100,25 +100,31 @@
     #ready-sets-track.ready-looping { scroll-behavior: auto; }
 
     /* «Кому подойдет?»: три экрана подряд при обычном скролле. Актуальный (на середине окна) светлый,
-       остальные затенены; заголовок «прилипает» сверху и остаётся поверх всех */
+       остальные затенены (на стыке затенение сходится плавно, без жёсткой границы). Заголовок «прилипает» сверху,
+       пока блок на экране, и гаснет, когда слайды кончились; баббл виден только у актуального слайда. */
     .aud { position: relative; width: 100%; background: #2D2C2A; color: #fff; }
-    .aud-stage { position: relative; }
-    .aud-titlebar { position: sticky; top: 0; height: 0; z-index: 5; }
-    .aud-slide { position: relative; height: 90vh; height: 90svh; min-height: 520px; overflow: hidden; background: #4a3b33; contain: paint; }
-    .aud-slide[data-i="1"] { background: #38424f; }
-    .aud-slide[data-i="2"] { background: #55383a; }
+    .aud-stage { position: relative; display: flow-root; }
+    .aud-titlebar { position: sticky; top: 5.5rem; z-index: 5; height: 3.5rem; margin-top: 5.5rem; pointer-events: none; }
+    .aud-slides { margin-top: -9rem; }
+    .aud-slide { position: relative; height: 90vh; height: 90svh; min-height: 520px; overflow: hidden; background: #2D2C2A; contain: paint; }
     .aud-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); transition: transform 7s ease-out; }
     .aud-slide.is-current .aud-bg { transform: scale(1); }
-    .aud-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,.12) 38%, rgba(0,0,0,.3) 100%); }
+    .aud-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,.1) 40%, rgba(0,0,0,.45) 100%); }
+    /* затенение неактуальных; у актуального по краям остаётся такое же затенение, поэтому у стыка нет резкой границы */
     .aud-dim { position: absolute; inset: 0; z-index: 4; background: #1B1A18; opacity: .7; pointer-events: none; transition: opacity .7s ease; }
     .aud-slide.is-current .aud-dim { opacity: 0; }
-    .aud-title { position: absolute; left: 0; right: 0; top: 5.5rem; margin: 0; padding: 0 1rem; text-align: center; font-size: 2.25rem; line-height: 1.1; color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,.45); }
+    .aud-edge { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; transition: opacity .7s ease;
+      background: linear-gradient(180deg, rgba(27,26,24,.7) 0%, rgba(27,26,24,0) 18%, rgba(27,26,24,0) 82%, rgba(27,26,24,.7) 100%); }
+    .aud-slide.is-current .aud-edge { opacity: 1; }
+    .aud-title { margin: 0; padding: 0 1rem; text-align: center; font-size: 2.25rem; line-height: 1.1; color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,.45);
+      opacity: 0; transition: opacity .6s ease; }
+    .aud.is-live .aud-title { opacity: 1; }
 
-    /* баблы: разные несимметричные формы; радиусы медленно «перетекают» у актуального слайда.
-       Все три стоят примерно в одном месте у нижнего края, чтобы не закрывать лица на фото */
+    /* баблы: разные несимметричные формы; у актуального слайда появляются с лёгкой анимацией и «перетекают»,
+       у неактуального плавно прячутся. Все три стоят в одном месте у нижнего края, чтобы не закрывать лица */
     .aud-bubble { position: absolute; z-index: 2; left: 0; right: 0; bottom: 6%; margin: 0 auto; width: min(88vw, 21.5rem); padding: 2.9rem 2.6rem; box-shadow: 0 24px 60px rgba(0,0,0,.35);
-      border-radius: var(--s1); transform: scale(.94); transition: transform .9s cubic-bezier(.2,.9,.3,1.15); }
-    .aud-slide.is-current .aud-bubble { transform: none; animation: audMorph 14s ease-in-out .6s infinite alternate; }
+      border-radius: var(--s1); opacity: 0; transform: translateY(26px) scale(.94); transition: opacity .4s ease, transform .5s ease; }
+    .aud-slide.is-current .aud-bubble { opacity: 1; transform: none; transition: opacity .7s ease .15s, transform 1s cubic-bezier(.2,.9,.3,1.15) .15s; animation: audMorph 14s ease-in-out 1s infinite alternate; }
     @keyframes audMorph { from { border-radius: var(--s1); } to { border-radius: var(--s2); } }
     .aud-bubble p { margin: 0; }
     .aud-bubble.b1 { background: rgba(245,245,243,.95); color: #1A1A1A; --s1: 63% 37% 54% 46% / 55% 48% 52% 45%; --s2: 42% 58% 38% 62% / 48% 62% 38% 52%; }
@@ -130,16 +136,18 @@
     .aud-col .aud-bubble { pointer-events: auto; }
 
     @media (min-width: 768px) {
-      .aud-title { top: 7.5rem; font-size: 3.75rem; }
+      .aud-titlebar { top: 7.5rem; height: 5rem; margin-top: 7.5rem; }
+      .aud-slides { margin-top: -12.5rem; }
+      .aud-title { font-size: 3.75rem; }
       .aud-bubble { padding: 3.4rem 3.2rem; bottom: 7%; }
       .aud-bubble.b1 { width: 25rem; }
       .aud-bubble.b2 { width: 29rem; }
       .aud-bubble.b3 { width: 27rem; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .aud-bg, .aud-slide.is-current .aud-bg, .aud-bubble, .aud-dim { transition: none; }
+      .aud-bg, .aud-slide.is-current .aud-bg, .aud-bubble, .aud-dim, .aud-edge, .aud-title { transition: none; }
       .aud-bg { transform: none; }
-      .aud-bubble { transform: none; }
+      .aud-bubble, .aud-slide.is-current .aud-bubble { transform: none; }
       .aud-slide.is-current .aud-bubble { animation: none; }
     }
 
@@ -149,7 +157,7 @@
        на ховере чуть приближается. */
     .why-list { display: flex; flex-direction: column; gap: 3.5rem; }
     .why-item { --r: 28px; --nw: 64%; }
-    .why-media { position: relative; overflow: hidden; aspect-ratio: 4 / 5; border-radius: var(--r); background: #CFC8BE; }
+    .why-media { position: relative; overflow: hidden; aspect-ratio: 4 / 5; border-radius: var(--r); background: #CFC8BE; transition: border-radius .9s cubic-bezier(.2,.8,.2,1); }
     .why-item:nth-child(even) .why-media { aspect-ratio: 1 / 1.08; }
     .why-img { position: absolute; inset: 0; overflow: hidden; transition: transform 1s cubic-bezier(.2,.8,.2,1); }
     .why-img img { position: absolute; left: 0; top: -8%; width: 100%; height: 116%; object-fit: cover;
@@ -157,17 +165,24 @@
 
     /* вырез: цвет страницы, скруглён верхний «внутренний» угол */
     .why-notch { position: absolute; bottom: 0; left: 0; width: var(--nw); box-sizing: border-box;
-      padding: 1.15rem 1.25rem .8rem .25rem; background: #F5F5F3; border-top-right-radius: var(--r); }
+      padding: 1.5rem 1.5rem 1.25rem 1.25rem; background: #F5F5F3; border-top-right-radius: var(--r);
+      transform-origin: 0 100%; transition: transform .9s cubic-bezier(.2,.8,.2,1); }
     .why-notch::before, .why-notch::after { content: ''; position: absolute; pointer-events: none;
       background: radial-gradient(circle at 100% 0, transparent calc(var(--r) - .5px), #F5F5F3 var(--r)); }
     .why-notch::before { left: 0; bottom: calc(100% - 1px); width: var(--r); height: calc(var(--r) + 1px); }   /* скругляет угол фото над вырезом */
     .why-notch::after  { left: calc(100% - 1px); bottom: 0; width: calc(var(--r) + 1px); height: var(--r); }   /* скругляет угол фото у дна рядом с вырезом */
-    .why-item.rev .why-notch { left: auto; right: 0; padding: 1.15rem .25rem .8rem 1.25rem; border-top-right-radius: 0; border-top-left-radius: var(--r); }
+    .why-item.rev .why-notch { left: auto; right: 0; padding: 1.5rem 1.25rem 1.25rem 1.5rem; border-top-right-radius: 0; border-top-left-radius: var(--r); transform-origin: 100% 100%; }
     .why-item.rev .why-notch::before, .why-item.rev .why-notch::after { background: radial-gradient(circle at 0 0, transparent calc(var(--r) - .5px), #F5F5F3 var(--r)); }
     .why-item.rev .why-notch::before { left: auto; right: 0; }
     .why-item.rev .why-notch::after  { left: auto; right: calc(100% - 1px); }
 
-    .why-desc { margin: 1.1rem 0 0; padding: 0 .25rem; }
+    .why-desc { margin: 1.25rem 0 0; padding: 0 1.25rem; }
+
+    .why-notch h3 { margin: 0; transition: opacity .5s ease .35s; }
+    /* до морфинга — обычный прямоугольник с мелким скруглением; вырез «вырастает» из угла, когда карточка доскроллена до середины экрана */
+    .why-item.pre:not(.is-shaped) .why-media { border-radius: 14px; }
+    .why-item.pre:not(.is-shaped) .why-notch { transform: scale(0); }
+    .why-item.pre:not(.is-shaped) .why-notch h3 { opacity: 0; transition-delay: 0s; }
 
     @media (hover: hover) and (pointer: fine) {
       .why-item:hover .why-img { transform: scale(1.035); }
@@ -175,14 +190,16 @@
     @media (min-width: 768px) {
       .why-item { --r: 34px; }
       .why-list { gap: 4.5rem; max-width: 34rem; margin: 0 auto; }
-      .why-notch { padding-top: 1.4rem; padding-bottom: 1rem; }
+      .why-notch { padding: 1.9rem 2rem 1.6rem 1.5rem; }
+      .why-item.rev .why-notch { padding: 1.9rem 1.5rem 1.6rem 2rem; }
+      .why-desc { padding: 0 1.5rem; }
     }
     @media (min-width: 1100px) {
       .why-list { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem 3rem; max-width: none; align-items: start; padding-bottom: 3.5rem; }
       .why-item:nth-child(even) { transform: translateY(3.5rem); }
     }
     @media (prefers-reduced-motion: reduce) {
-      .why-img { transition: none; }
+      .why-img, .why-media, .why-notch, .why-notch h3 { transition: none; }
       .why-img img { transform: none; }
     }
 
@@ -352,12 +369,14 @@
   <section id="audience" class="aud" aria-labelledby="aud-title">
     <div class="aud-stage">
       <div class="aud-titlebar"><h2 id="aud-title" class="aud-title font-display tracking-tight">Кому подойдет?</h2></div>
+      <div class="aud-slides">
 
       <!-- экран 1: фон + бабл -->
       <div class="aud-slide" data-i="0">
         <img src="img/audience/1.jpg" alt="" class="aud-bg" loading="lazy" decoding="async" onerror="this.style.display='none'">
         <div class="aud-shade"></div>
         <div class="aud-dim"></div>
+        <div class="aud-edge"></div>
         <div class="aud-col">
           <div class="aud-bubble b1">
             <h3 class="text-lg desk:text-xl font-display font-bold leading-snug mb-3">Тем, кто ценит время</h3>
@@ -371,6 +390,7 @@
         <img src="img/audience/2.jpg" alt="" class="aud-bg" loading="lazy" decoding="async" onerror="this.style.display='none'">
         <div class="aud-shade"></div>
         <div class="aud-dim"></div>
+        <div class="aud-edge"></div>
         <div class="aud-col">
           <div class="aud-bubble b2">
             <h3 class="text-lg desk:text-xl font-display font-bold leading-snug mb-3">Тем, кто выбирает красоту и удобство</h3>
@@ -384,6 +404,7 @@
         <img src="img/audience/3.jpg" alt="" class="aud-bg" loading="lazy" decoding="async" onerror="this.style.display='none'">
         <div class="aud-shade"></div>
         <div class="aud-dim"></div>
+        <div class="aud-edge"></div>
         <div class="aud-col">
           <div class="aud-bubble b3">
             <h3 class="text-lg desk:text-xl font-display font-bold leading-snug mb-3">Тем, кому важно проявляться</h3>
@@ -392,6 +413,7 @@
         </div>
       </div>
 
+      </div>
     </div>
   </section>
 
@@ -579,36 +601,36 @@
             <div class="w-[45%] shrink-0">
               <img src="img/studio/1.jpg" alt="" class="w-full h-full object-cover rounded-r-[32px] shadow-sm" loading="lazy" decoding="async" />
             </div>
-            <div class="flex flex-col gap-2 justify-center flex-grow pr-4">
-              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug">
-                Многоразовый комплект отличного качества&nbsp;✨
+            <div class="flex flex-col gap-2 justify-center items-start flex-grow pr-4">
+              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full">
+                Многоразовый комплект отличного качества
               </div>
-              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug">
-                Повышенное внимание окружающих&nbsp;🤩
+              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full">
+                Повышенное внимание окружающих
               </div>
-              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug">
-                Безлимит на комплименты&nbsp;🥰
+              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full">
+                Безлимит на комплименты
               </div>
-              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug">
-                Уверенность в своём внешнем виде&nbsp;👑
+              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full">
+                Уверенность в своём внешнем виде
               </div>
             </div>
           </div>
 
           <!-- Ряд 2: 4 Баббла (лево) + Фото (право) -->
           <div class="flex gap-4 items-stretch overflow-hidden">
-            <div class="flex flex-col gap-2 justify-center flex-grow pl-4">
-              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug">
-                Новый опыт и новое ощущение себя&nbsp;🦋
+            <div class="flex flex-col gap-2 justify-center items-end flex-grow pl-4">
+              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full">
+                Новый опыт и новое ощущение себя
               </div>
-              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug">
-                Свободу от ежедневного ухода за волосами&nbsp;🕊️
+              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full">
+                Свободу от ежедневного ухода за волосами
               </div>
-              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug">
-                Прическу, созданную с учетом пожеланий&nbsp;💇‍♀️
+              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full">
+                Прическу, созданную с учетом пожеланий
               </div>
-              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug">
-                Экономию времени и денег&nbsp;💸
+              <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full">
+                Экономию времени и денег
               </div>
             </div>
             <div class="w-[45%] shrink-0">
@@ -624,36 +646,36 @@
             <div class="w-[46%] relative rounded-[32px] overflow-hidden shrink-0">
               <img src="img/studio/1.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
             </div>
-            <div class="flex flex-col gap-3 justify-between flex-grow">
-              <div class="bg-white border border-black/5 rounded-[24px] px-7 py-5 text-base text-text-primary leading-snug">
-                Прическу, созданную с учетом Ваших пожеланий и особенностей&nbsp;💇‍♀️
+            <div class="flex flex-col gap-3 justify-between items-start flex-grow">
+              <div class="bg-white border border-black/5 rounded-[24px] px-7 py-5 text-base text-text-primary leading-snug w-fit max-w-full">
+                Прическу, созданную с учетом Ваших пожеланий и особенностей
               </div>
-              <div class="bg-white border border-black/5 rounded-[24px] px-7 py-5 text-base text-text-primary leading-snug ml-8">
-                Многоразовый комплект отличного качества&nbsp;✨
+              <div class="bg-white border border-black/5 rounded-[24px] px-7 py-5 text-base text-text-primary leading-snug ml-8 w-fit max-w-full">
+                Многоразовый комплект отличного качества
               </div>
-              <div class="bg-white border border-black/5 rounded-[24px] px-7 py-5 text-base text-text-primary leading-snug ml-4">
-                Повышенное внимание окружающих&nbsp;🤩
+              <div class="bg-white border border-black/5 rounded-[24px] px-7 py-5 text-base text-text-primary leading-snug ml-4 w-fit max-w-full">
+                Повышенное внимание окружающих
               </div>
-              <div class="bg-white border border-black/5 rounded-[24px] px-7 py-5 text-base text-text-primary leading-snug ml-12">
-                Безлимит на комплименты&nbsp;🥰
+              <div class="bg-white border border-black/5 rounded-[24px] px-7 py-5 text-base text-text-primary leading-snug ml-12 w-fit max-w-full">
+                Безлимит на комплименты
               </div>
             </div>
           </div>
 
           <!-- Ряд 2: Бабблы (лево) + Фото (право) -->
           <div class="flex gap-6 items-stretch">
-            <div class="flex flex-col gap-3 justify-between flex-grow text-right">
-              <div class="bg-white border border-black/5 rounded-[24px] px-7 py-5 text-base text-text-primary leading-snug mr-12">
-                Уверенность в своём внешнем виде&nbsp;👑
+            <div class="flex flex-col gap-3 justify-between items-end flex-grow text-right">
+              <div class="bg-white border border-black/5 rounded-[24px] px-7 py-5 text-base text-text-primary leading-snug mr-12 w-fit max-w-full">
+                Уверенность в своём внешнем виде
               </div>
-              <div class="bg-white border border-black/5 rounded-[24px] px-7 py-5 text-base text-text-primary leading-snug mr-4">
-                Новый опыт и новое ощущение себя&nbsp;🦋
+              <div class="bg-white border border-black/5 rounded-[24px] px-7 py-5 text-base text-text-primary leading-snug mr-4 w-fit max-w-full">
+                Новый опыт и новое ощущение себя
               </div>
-              <div class="bg-white border border-black/5 rounded-[24px] px-7 py-5 text-base text-text-primary leading-snug mr-8">
-                Свободу от ежедневного ухода за волосами&nbsp;🕊️
+              <div class="bg-white border border-black/5 rounded-[24px] px-7 py-5 text-base text-text-primary leading-snug mr-8 w-fit max-w-full">
+                Свободу от ежедневного ухода за волосами
               </div>
-              <div class="bg-white border border-black/5 rounded-[24px] px-7 py-5 text-base text-text-primary leading-snug">
-                Экономию времени и денег&nbsp;💸
+              <div class="bg-white border border-black/5 rounded-[24px] px-7 py-5 text-base text-text-primary leading-snug w-fit max-w-full">
+                Экономию времени и денег
               </div>
             </div>
             <div class="w-[46%] relative rounded-[32px] overflow-hidden shrink-0">
@@ -919,12 +941,12 @@
       },
       {
         title: 'Уютная студия',
-        description: 'Хорошая транспортная доступность, удобные кресла, возможность помыть и уложить волосы после расплетения, чай/кофе и печеньки, Wi-Fi, тёплые пледы и тапочки. У нас можно как отдохнуть, наслаждаясь процессом, так и поработать свою удаленную работу',
+        description: 'Большая огороженная парковка, хорошая транспортная доступность, удобные кресла, возможность помыть и уложить волосы после расплетения, чай/кофе и печеньки, wi-fi, тёплые пледы и тапочки. У нас можно как отдохнуть, наслаждаясь процессом, так и поработать свою удаленную работу, чтобы не терять время',
         photo: 'img/studio/1.jpg', shape: 'b'
       },
       {
         title: 'Скорость плетения',
-        description: 'Мы работаем в 4 руки, что позволяет вплетать комплекты от 2 часов, расплетать причёски за 1 час, а также быстро изготавливать комплекты',
+        description: 'Мы работаем в 4 руки, что позволяет вплетать комплекты от 2 часов, расплетать причёски за 1 час, а также быстро изготавливать комплекты. Да, больше не придётся ждать своей записи 3–5 недель, как это было раньше',
         photo: 'img/studio/2.jpg', shape: 'c'
       },
       {
@@ -1210,11 +1232,22 @@
         </article>`).join('');
     }
 
-    // «Почему нас выбирают»: фото чуть плывёт по скроллу (параллакс)
+    // «Почему нас выбирают»: когда карточку доскроллили до середины экрана, обычный прямоугольник превращается
+    // в карточку с вырезом (морфинг); ушла с экрана — сбрасывается и сыграет снова. Фото чуть плывёт по скроллу.
     function setupFeatureObserver() {
       const items = Array.from(document.querySelectorAll('#features-grid .why-item'));
       if (!items.length) return;
-      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) return;
+
+      if ('IntersectionObserver' in window) {
+        items.forEach(it => it.classList.add('pre'));
+        const band = new IntersectionObserver((entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-shaped'); }),
+          { rootMargin: '-35% 0px -35% 0px' });
+        const gone = new IntersectionObserver((entries) => entries.forEach(e => { if (!e.isIntersecting) e.target.classList.remove('is-shaped'); }));
+        items.forEach(it => { band.observe(it); gone.observe(it); });
+      }
+
       let ticking = false;
       function frame() {
         ticking = false;
@@ -1429,10 +1462,12 @@
     }
 
     // «Кому подойдет?»: три экрана идут по порядку при обычном скролле. Актуальным считается тот, что
-    // на середине окна: он светлый, остальные затенены (всё остальное делает CSS).
+    // на середине окна: он светлый, остальные затенены; пока актуален какой-то слайд, виден и заголовок
+    // (всё остальное делает CSS).
     function setupAudience() {
+      const sec = document.getElementById('audience');
       const slides = Array.from(document.querySelectorAll('#audience .aud-slide'));
-      if (!slides.length) return;
+      if (!sec || !slides.length) return;
       let current = -2, ticking = false;
 
       function update() {
@@ -1446,6 +1481,7 @@
         if (idx === current) return;
         current = idx;
         slides.forEach((el, k) => el.classList.toggle('is-current', k === idx));
+        sec.classList.toggle('is-live', idx >= 0);
       }
       const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
       window.addEventListener('scroll', onScroll, { passive: true });
