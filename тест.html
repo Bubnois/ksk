@@ -145,28 +145,24 @@
 
     /* «Почему нас выбирают»: ряды «фото + текст». Фото в резких несимметричных формах (листок, купол, дуга, чаша).
        Подзаголовок вписан в низ фото по геометрии формы. Когда фото доскролливают до середины экрана,
-       форма проигрывает морфинг (через «пузырь» в новую форму); фото чуть плывёт по скроллу */
+       форма проигрывает морфинг в противоположную; фото чуть плывёт по скроллу */
     .why-list { display: flex; flex-direction: column; gap: 4.5rem; }
     .why-row { display: flex; flex-direction: column; gap: 1.5rem; }
     .why-photo { position: relative; width: 86%; }
     .why-row:nth-child(odd) .why-photo { margin-right: auto; }
     .why-row:nth-child(even) .why-photo { margin-left: auto; }
     .why-frame { position: relative; overflow: hidden; aspect-ratio: 4 / 5; background: #7A7067; border-radius: var(--r1); }
-    .why-frame.is-morphed { animation: whyMorph 1.9s cubic-bezier(.45,.05,.25,1) forwards; }
-    @keyframes whyMorph {
-      0%   { border-radius: var(--r1); transform: scale(1); }
-      45%  { border-radius: var(--rm); transform: scale(1.035); }
-      100% { border-radius: var(--r2); transform: scale(1); }
-    }
+    .why-frame.is-morphed { animation: whyMorph 1.4s cubic-bezier(.2,.8,.2,1) forwards; }
+    @keyframes whyMorph { from { border-radius: var(--r1); } to { border-radius: var(--r2); } }
     .why-frame img { position: absolute; left: 0; top: -9%; width: 100%; height: 118%; object-fit: cover;
       transform: translateY(calc(var(--p, 0) * -5%)); will-change: transform; }
     .why-frame::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
       background: linear-gradient(to top, rgba(20,18,16,.7) 0%, rgba(20,18,16,.28) 30%, rgba(20,18,16,0) 56%); }
 
-    .ph-a { --r1: 150px 18px 150px 18px;                    --rm: 44% 56% 30% 30% / 36% 30% 28% 28%; --r2: 18px 150px 18px 150px; }
-    .ph-b { --r1: 50% 50% 28px 28px / 34% 34% 28px 28px;    --rm: 58% 42% 20% 20% / 30% 36% 20% 20%; --r2: 120px 120px 28px 28px; }
-    .ph-c { --r1: 18px 220px 18px 18px;                     --rm: 40% 60% 20% 20% / 38% 32% 20% 20%; --r2: 220px 18px 18px 18px; }
-    .ph-d { --r1: 18px 18px 50% 50% / 18px 18px 34% 34%;    --rm: 52% 48% 44% 56% / 32% 38% 34% 36%; --r2: 18px 18px 120px 120px; }
+    .ph-a { --r1: 150px 18px 150px 18px; --r2: 18px 150px 18px 150px; }
+    .ph-b { --r1: 50% 50% 28px 28px / 34% 34% 28px 28px; --r2: 120px 120px 28px 28px; }
+    .ph-c { --r1: 18px 220px 18px 18px; --r2: 220px 18px 18px 18px; }
+    .ph-d { --r1: 18px 18px 50% 50% / 18px 18px 34% 34%; --r2: 18px 18px 120px 120px; }
 
     /* подзаголовок: всегда внизу фото; положение и выравнивание подобраны под изгибы формы (и до, и после морфинга) */
     .why-cap { position: absolute; z-index: 2; margin: 0; color: #fff; text-shadow: 0 1px 14px rgba(0,0,0,.35); }
