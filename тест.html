@@ -143,125 +143,47 @@
       .aud-slide.is-current .aud-bubble { animation: none; }
     }
 
-    /* «Почему нас выбирают» — editorial bento */
-    .why-list {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-    .why-card {
-      position: relative;
-      min-height: 430px;
-      overflow: hidden;
-      isolation: isolate;
-      border-radius: 28px;
-      background: #302e2b;
-      color: #fff;
-      box-shadow: 0 14px 40px rgba(34,29,25,.08);
-    }
-    .why-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      background: linear-gradient(180deg, rgba(12,11,10,.04) 15%, rgba(12,11,10,.18) 45%, rgba(12,11,10,.88) 100%);
-      pointer-events: none;
-    }
-    .why-card-media {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      overflow: hidden;
-      background: #81776e;
-    }
-    .why-card-media img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 1s cubic-bezier(.2,.7,.2,1);
-    }
-    .why-card:hover .why-card-media img { transform: scale(1.055); }
-    .why-card-content {
-      position: absolute;
-      z-index: 2;
-      left: 22px;
-      right: 22px;
-      bottom: 24px;
-    }
-    .why-card-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-      color: rgba(255,255,255,.78);
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-    }
-    .why-card-kicker::before {
-      content: "";
-      width: 22px;
-      height: 1px;
-      background: #ff7a59;
-    }
-    .why-card h3 {
-      max-width: 13ch;
-      margin: 0 0 10px;
-      font-family: Comfortaa, cursive;
-      font-size: clamp(25px, 5vw, 38px);
-      line-height: 1.08;
-      letter-spacing: -.045em;
-    }
-    .why-card p {
-      max-width: 43ch;
-      margin: 0;
-      color: rgba(255,255,255,.84);
-      font-size: 14px;
-      line-height: 1.65;
-    }
-    .why-card-number {
-      position: absolute;
-      z-index: 2;
-      top: 18px;
-      left: 20px;
-      color: rgba(255,255,255,.86);
-      font-size: 11px;
-      letter-spacing: .12em;
-      font-weight: 600;
-    }
-    .why-card:nth-child(2) { background: #c5b8ad; }
-    .why-card:nth-child(2)::after {
-      background: linear-gradient(180deg, rgba(12,11,10,.02) 20%, rgba(12,11,10,.12) 48%, rgba(12,11,10,.82) 100%);
-    }
-    .why-card:nth-child(3) { background: #4b4944; }
-    .why-card:nth-child(4) { background: #a86f5b; }
-    .why-card:nth-child(1) { min-height: 500px; }
-    .why-card:nth-child(1) h3 { max-width: 10ch; }
-    .why-card:nth-child(2) h3 { max-width: 12ch; }
-    .why-card:nth-child(3) h3 { max-width: 11ch; }
-    .why-card:nth-child(4) h3 { max-width: 12ch; }
+    /* «Почему нас выбирают»: фото с «вырезом» в нижнем углу. Внутри выреза — заголовок,
+       описание ниже. Все углы скруглены, в том числе вогнутые (их дорисовывают псевдоэлементы-«уголки»).
+       Вырез чередуется: слева, справа; правая колонка на десктопе сдвинута вниз. Фото плывёт по скролу,
+       на ховере чуть приближается. */
+    .why-list { display: flex; flex-direction: column; gap: 3.5rem; }
+    .why-item { --r: 28px; --nw: 64%; }
+    .why-media { position: relative; overflow: hidden; aspect-ratio: 4 / 5; border-radius: var(--r); background: #CFC8BE; }
+    .why-item:nth-child(even) .why-media { aspect-ratio: 1 / 1.08; }
+    .why-img { position: absolute; inset: 0; overflow: hidden; transition: transform 1s cubic-bezier(.2,.8,.2,1); }
+    .why-img img { position: absolute; left: 0; top: -8%; width: 100%; height: 116%; object-fit: cover;
+      transform: translateY(calc(var(--p, 0) * -4%)); will-change: transform; }
 
-    @media (min-width: 700px) {
-      .why-list {
-        grid-template-columns: 1.08fr .92fr;
-        grid-template-rows: 390px 390px;
-        gap: 18px;
-      }
-      .why-card { min-height: 0; border-radius: 34px; }
-      .why-card:nth-child(1) { grid-row: span 2; }
-      .why-card:nth-child(1) .why-card-content { left: 34px; right: 34px; bottom: 36px; }
-      .why-card-content { left: 26px; right: 26px; bottom: 28px; }
-      .why-card p { font-size: 14px; }
+    /* вырез: цвет страницы, скруглён верхний «внутренний» угол */
+    .why-notch { position: absolute; bottom: 0; left: 0; width: var(--nw); box-sizing: border-box;
+      padding: 1.15rem 1.25rem .8rem .25rem; background: #F5F5F3; border-top-right-radius: var(--r); }
+    .why-notch::before, .why-notch::after { content: ''; position: absolute; pointer-events: none;
+      background: radial-gradient(circle at 100% 0, transparent calc(var(--r) - .5px), #F5F5F3 var(--r)); }
+    .why-notch::before { left: 0; bottom: calc(100% - 1px); width: var(--r); height: calc(var(--r) + 1px); }   /* скругляет угол фото над вырезом */
+    .why-notch::after  { left: calc(100% - 1px); bottom: 0; width: calc(var(--r) + 1px); height: var(--r); }   /* скругляет угол фото у дна рядом с вырезом */
+    .why-item.rev .why-notch { left: auto; right: 0; padding: 1.15rem .25rem .8rem 1.25rem; border-top-right-radius: 0; border-top-left-radius: var(--r); }
+    .why-item.rev .why-notch::before, .why-item.rev .why-notch::after { background: radial-gradient(circle at 0 0, transparent calc(var(--r) - .5px), #F5F5F3 var(--r)); }
+    .why-item.rev .why-notch::before { left: auto; right: 0; }
+    .why-item.rev .why-notch::after  { left: auto; right: calc(100% - 1px); }
+
+    .why-desc { margin: 1.1rem 0 0; padding: 0 .25rem; }
+
+    @media (hover: hover) and (pointer: fine) {
+      .why-item:hover .why-img { transform: scale(1.035); }
+    }
+    @media (min-width: 768px) {
+      .why-item { --r: 34px; }
+      .why-list { gap: 4.5rem; max-width: 34rem; margin: 0 auto; }
+      .why-notch { padding-top: 1.4rem; padding-bottom: 1rem; }
     }
     @media (min-width: 1100px) {
-      .why-list { grid-template-rows: 420px 420px; gap: 22px; }
-      .why-card:nth-child(1) .why-card-content { left: 42px; bottom: 42px; }
-      .why-card-content { left: 32px; right: 32px; bottom: 32px; }
-      .why-card-number { top: 24px; left: 26px; }
+      .why-list { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem 3rem; max-width: none; align-items: start; padding-bottom: 3.5rem; }
+      .why-item:nth-child(even) { transform: translateY(3.5rem); }
     }
     @media (prefers-reduced-motion: reduce) {
-      .why-card-media img { transition: none; }
+      .why-img { transition: none; }
+      .why-img img { transform: none; }
     }
 
     /* костыли и фиксы, когда тейлвинда не хватило */
@@ -550,11 +472,7 @@
   <!-- блок с фичами студии -->
   <section class="w-full bg-bg-primary py-16 desk:py-24">
     <div class="page-col px-4">
-      <div class="text-center mb-8 desk:mb-12">
-        <p class="text-[10px] desk:text-xs uppercase tracking-[.24em] font-semibold text-accent-orange mb-4">КОСКИНА · С 2017 ГОДА</p>
-        <h2 class="text-4xl desk:text-6xl font-display mb-4 tracking-tight">Почему нас выбирают</h2>
-        <p class="max-w-xl mx-auto text-sm desk:text-base leading-relaxed text-text-secondary">Красота — это важно. Но не меньше важны комфорт, качество и внимание к деталям.</p>
-      </div>
+      <h2 class="text-4xl desk:text-6xl font-display mb-8 desk:mb-12 text-center tracking-tight">Почему нас выбирают</h2>
       
       <div id="features-grid" class="why-list">
         <!-- сюда js нарендерит фичи -->
@@ -1001,12 +919,12 @@
       },
       {
         title: 'Уютная студия',
-        description: 'Большая огороженная парковка, хорошая транспортная доступность, удобные кресла, возможность помыть и уложить волосы после расплетения, чай/кофе и печеньки, wi-fi, тёплые пледы и тапочки. У нас можно как отдохнуть, наслаждаясь процессом, так и поработать свою удаленную работу, чтобы не терять время',
+        description: 'Хорошая транспортная доступность, удобные кресла, возможность помыть и уложить волосы после расплетения, чай/кофе и печеньки, Wi-Fi, тёплые пледы и тапочки. У нас можно как отдохнуть, наслаждаясь процессом, так и поработать свою удаленную работу',
         photo: 'img/studio/1.jpg', shape: 'b'
       },
       {
         title: 'Скорость плетения',
-        description: 'Мы работаем в 4 руки, что позволяет вплетать комплекты от 2 часов, расплетать причёски за 1 час, а также быстро изготавливать комплекты. Да, больше не придётся ждать своей записи 3–5 недель, как это было раньше',
+        description: 'Мы работаем в 4 руки, что позволяет вплетать комплекты от 2 часов, расплетать причёски за 1 час, а также быстро изготавливать комплекты',
         photo: 'img/studio/2.jpg', shape: 'c'
       },
       {
@@ -1276,50 +1194,35 @@
       track.innerHTML = html;
     }
 
-    // Отрисовка преимуществ: крупные фото-карточки в редакционной bento-сетке
+    // отрисовка преимуществ
     function renderFeatures() {
       const grid = document.getElementById('features-grid');
+      const widths = [64, 60, 66, 62];   // ширина выреза у каждой карточки чуть разная
       grid.innerHTML = features.map((f, i) => `
-        <article class="why-card">
-          <div class="why-card-media">
-            <img src="${f.photo}" alt="${f.title}" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <article class="why-item${i % 2 ? ' rev' : ''}" style="--nw:${widths[i % 4]}%">
+          <div class="why-media">
+            <div class="why-img"><img src="${f.photo}" alt="${f.title}" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+            <div class="why-notch">
+              <h3 class="font-display font-bold text-xl desk:text-2xl leading-tight text-text-primary">${f.title}</h3>
+            </div>
           </div>
-          <span class="why-card-number">0${i + 1} / 04</span>
-          <div class="why-card-content">
-            <span class="why-card-kicker">ПРЕИМУЩЕСТВО ${String(i + 1).padStart(2, '0')}</span>
-            <h3>${f.title}</h3>
-            <p>${f.description}</p>
-          </div>
+          <p class="why-desc text-text-secondary text-sm desk:text-base leading-relaxed">${f.description}</p>
         </article>`).join('');
     }
 
-    // «Почему нас выбирают»: когда фото доскроллили до середины экрана — форма проигрывает морфинг
-    // (уйдя с экрана, форма сбрасывается и сыграет снова); фото чуть плывёт по скроллу
+    // «Почему нас выбирают»: фото чуть плывёт по скроллу (параллакс)
     function setupFeatureObserver() {
-      const rows = Array.from(document.querySelectorAll('#features-grid .why-row'));
-      if (!rows.length) return;
-      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reduce) { rows.forEach(r => r.querySelector('.why-frame').classList.add('is-morphed')); return; }
-
-      if ('IntersectionObserver' in window) {
-        // «полоса» в середине экрана: фото пересекло её — запускаем морфинг
-        const band = new IntersectionObserver((entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-morphed'); }),
-          { rootMargin: '-40% 0px -40% 0px' });
-        // фото целиком ушло с экрана — сбрасываем, чтобы в следующий раз сыграло опять
-        const gone = new IntersectionObserver((entries) => entries.forEach(e => { if (!e.isIntersecting) e.target.classList.remove('is-morphed'); }));
-        rows.forEach(r => { const f = r.querySelector('.why-frame'); band.observe(f); gone.observe(f); });
-      } else {
-        rows.forEach(r => r.querySelector('.why-frame').classList.add('is-morphed'));
-      }
-
+      const items = Array.from(document.querySelectorAll('#features-grid .why-item'));
+      if (!items.length) return;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       let ticking = false;
       function frame() {
         ticking = false;
         const H = window.innerHeight;
-        rows.forEach(r => {
-          const b = r.getBoundingClientRect();
+        items.forEach(it => {
+          const b = it.getBoundingClientRect();
           if (b.bottom < -200 || b.top > H + 200) return;
-          r.style.setProperty('--p', ((b.top + b.height / 2 - H / 2) / H).toFixed(3));
+          it.style.setProperty('--p', ((b.top + b.height / 2 - H / 2) / H).toFixed(3));
         });
       }
       const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } };
