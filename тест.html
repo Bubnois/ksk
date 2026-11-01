@@ -143,48 +143,53 @@
     }
 
 
-    /* «Почему нас выбирают»: ряды «фото + текст». Фото в резких несимметричных формах (листок, купол, дуга, чаша),
-       форма «раскрывается» шторкой, фото плывёт по скроллу */
+    /* «Почему нас выбирают»: ряды «фото + текст». Фото в резких несимметричных формах (листок, купол, дуга, чаша).
+       Подзаголовок вписан в низ фото по геометрии формы. Когда фото доскролливают до середины экрана,
+       форма проигрывает морфинг (через «пузырь» в новую форму); фото чуть плывёт по скроллу */
     .why-list { display: flex; flex-direction: column; gap: 4.5rem; }
-    .why-row { display: flex; flex-direction: column; gap: 1.75rem; }
+    .why-row { display: flex; flex-direction: column; gap: 1.5rem; }
     .why-photo { position: relative; width: 86%; }
     .why-row:nth-child(odd) .why-photo { margin-right: auto; }
     .why-row:nth-child(even) .why-photo { margin-left: auto; }
-    .why-frame { position: relative; overflow: hidden; aspect-ratio: 4 / 5; background: #E6DFD6; border-radius: var(--r1);
-      clip-path: inset(100% 0 0 0);
-      transition: clip-path 1.25s cubic-bezier(.7,0,.2,1), border-radius .9s cubic-bezier(.2,.8,.2,1); }
-    .is-in .why-frame { clip-path: inset(0 0 0 0); }
-    .why-photo:hover .why-frame { border-radius: var(--r2); }
+    .why-frame { position: relative; overflow: hidden; aspect-ratio: 4 / 5; background: #7A7067; border-radius: var(--r1); }
+    .why-frame.is-morphed { animation: whyMorph 1.9s cubic-bezier(.45,.05,.25,1) forwards; }
+    @keyframes whyMorph {
+      0%   { border-radius: var(--r1); transform: scale(1); }
+      45%  { border-radius: var(--rm); transform: scale(1.035); }
+      100% { border-radius: var(--r2); transform: scale(1); }
+    }
     .why-frame img { position: absolute; left: 0; top: -9%; width: 100%; height: 118%; object-fit: cover;
       transform: translateY(calc(var(--p, 0) * -5%)); will-change: transform; }
+    .why-frame::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: linear-gradient(to top, rgba(20,18,16,.7) 0%, rgba(20,18,16,.28) 30%, rgba(20,18,16,0) 56%); }
 
-    .ph-a { --r1: 150px 18px 150px 18px; --r2: 18px 150px 18px 150px; }
-    .ph-b { --r1: 50% 50% 28px 28px / 34% 34% 28px 28px; --r2: 120px 120px 28px 28px; }
-    .ph-c { --r1: 18px 220px 18px 18px; --r2: 220px 18px 18px 18px; }
-    .ph-d { --r1: 18px 18px 50% 50% / 18px 18px 34% 34%; --r2: 18px 18px 120px 120px; }
+    .ph-a { --r1: 150px 18px 150px 18px;                    --rm: 44% 56% 30% 30% / 36% 30% 28% 28%; --r2: 18px 150px 18px 150px; }
+    .ph-b { --r1: 50% 50% 28px 28px / 34% 34% 28px 28px;    --rm: 58% 42% 20% 20% / 30% 36% 20% 20%; --r2: 120px 120px 28px 28px; }
+    .ph-c { --r1: 18px 220px 18px 18px;                     --rm: 40% 60% 20% 20% / 38% 32% 20% 20%; --r2: 220px 18px 18px 18px; }
+    .ph-d { --r1: 18px 18px 50% 50% / 18px 18px 34% 34%;    --rm: 52% 48% 44% 56% / 32% 38% 34% 36%; --r2: 18px 18px 120px 120px; }
+
+    /* подзаголовок: всегда внизу фото; положение и выравнивание подобраны под изгибы формы (и до, и после морфинга) */
+    .why-cap { position: absolute; z-index: 2; margin: 0; color: #fff; text-shadow: 0 1px 14px rgba(0,0,0,.35); }
+    .ph-a .why-cap { left: 20%; right: 20%; bottom: 8%;  text-align: center; }   /* листок: безопасная середина */
+    .ph-b .why-cap { left: 8%;  right: 30%; bottom: 7%;  text-align: left; }     /* купол: низ ровный — к левому краю */
+    .ph-c .why-cap { left: 30%; right: 8%;  bottom: 7%;  text-align: right; }    /* дуга: низ ровный — к правому краю */
+    .ph-d .why-cap { left: 16%; right: 16%; bottom: 13%; text-align: center; }   /* чаша: низ скруглён — по центру и выше */
 
     .why-text { padding: 0 .25rem; }
-    .why-title { margin: 0 0 .85rem; overflow: hidden; font-family: 'Comfortaa', cursive, sans-serif; font-weight: 700; font-size: 1.75rem; line-height: 1.15; letter-spacing: -.01em; }
-    .why-title > span { display: block; transform: translateY(110%); transition: transform .95s cubic-bezier(.2,.8,.2,1) .4s; }
-    .is-in .why-title > span { transform: none; }
-    .why-desc { margin: 0; color: #555; font-size: .95rem; line-height: 1.7; opacity: 0; transform: translateY(16px); transition: opacity .8s ease .6s, transform .9s ease .6s; }
-    .is-in .why-desc { opacity: 1; transform: none; }
 
-    @media (min-width: 768px) { .why-photo { width: 70%; } .why-title { font-size: 2.1rem; } .why-desc { font-size: 1rem; } }
+    @media (min-width: 768px) { .why-photo { width: 70%; } }
     @media (min-width: 1000px) {
       .why-list { gap: 7rem; }
       .why-row { flex-direction: row; align-items: center; gap: 4rem; }
       .why-row.rev { flex-direction: row-reverse; }
       .why-photo { width: 46%; flex: none; margin: 0 !important; }
       .why-text { flex: 1; padding: 0; }
-      .why-title { font-size: 2.5rem; }
       .ph-a { --r1: 220px 24px 220px 24px; --r2: 24px 220px 24px 220px; }
       .ph-c { --r1: 24px 300px 24px 24px;  --r2: 300px 24px 24px 24px; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .why-frame { clip-path: none; transition: none; }
+      .why-frame.is-morphed { animation: none; border-radius: var(--r2); }
       .why-frame img { transform: none; }
-      .why-title > span, .why-desc { opacity: 1; transform: none; transition: none; }
     }
 
     /* костыли и фиксы, когда тейлвинда не хватило */
@@ -1198,34 +1203,35 @@
       grid.innerHTML = features.map((f, i) => `
         <article class="why-row${i % 2 ? ' rev' : ''}">
           <div class="why-photo ph-${f.shape}">
-            <div class="why-frame"><img src="${f.photo}" alt="${f.title}" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+            <div class="why-frame">
+              <img src="${f.photo}" alt="${f.title}" loading="lazy" decoding="async" onerror="this.style.display='none'">
+              <h3 class="why-cap text-lg desk:text-xl font-display font-bold leading-snug">${f.title}</h3>
+            </div>
           </div>
           <div class="why-text">
-            <h3 class="why-title"><span>${f.title}</span></h3>
-            <p class="why-desc">${f.description}</p>
+            <p class="why-desc text-text-secondary text-sm desk:text-base leading-relaxed">${f.description}</p>
           </div>
         </article>`).join('');
     }
 
-    // «Почему нас выбирают»: фото в несимметричных формах «раскрываются» при появлении,
-    // фото плывёт по скроллу, форма фото на ховере перекручивается
+    // «Почему нас выбирают»: когда фото доскроллили до середины экрана — форма проигрывает морфинг
+    // (уйдя с экрана, форма сбрасывается и сыграет снова); фото чуть плывёт по скроллу
     function setupFeatureObserver() {
       const rows = Array.from(document.querySelectorAll('#features-grid .why-row'));
       if (!rows.length) return;
       const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) { rows.forEach(r => r.querySelector('.why-frame').classList.add('is-morphed')); return; }
 
-      if (reduce || !('IntersectionObserver' in window)) {
-        rows.forEach(r => r.classList.add('is-in'));
-        return;
+      if ('IntersectionObserver' in window) {
+        // «полоса» в середине экрана: фото пересекло её — запускаем морфинг
+        const band = new IntersectionObserver((entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-morphed'); }),
+          { rootMargin: '-40% 0px -40% 0px' });
+        // фото целиком ушло с экрана — сбрасываем, чтобы в следующий раз сыграло опять
+        const gone = new IntersectionObserver((entries) => entries.forEach(e => { if (!e.isIntersecting) e.target.classList.remove('is-morphed'); }));
+        rows.forEach(r => { const f = r.querySelector('.why-frame'); band.observe(f); gone.observe(f); });
+      } else {
+        rows.forEach(r => r.querySelector('.why-frame').classList.add('is-morphed'));
       }
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (!e.isIntersecting) return;
-          e.target.classList.add('is-in');
-          io.unobserve(e.target);
-        });
-      }, { rootMargin: '0px 0px -12% 0px', threshold: 0.15 });
-      rows.forEach(r => io.observe(r));
 
       let ticking = false;
       function frame() {
@@ -1454,8 +1460,10 @@
       if (!stage || !N) return;
 
       const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const STEP_MS = reduce ? 0 : 600;   // переход на соседний экран
-      const FIX_MS = reduce ? 0 : 260;    // мягкий возврат на экран, если страницу сдвинуло мимо
+      const STEP_MS = reduce ? 0 : 850;   // переход на соседний экран
+      const FIX_MS = reduce ? 0 : 450;    // мягкий возврат на экран, если страницу сдвинуло мимо
+      const ENTER_MS = reduce ? 0 : 550;  // мягкая остановка на краю при входе в блок
+      const EXIT_MS = reduce ? 0 : 1100;  // выход из блока на экран за край
       const LOCK_MS = 80;                 // короткая пауза после перехода
       const GAP_MS = 160;                 // пауза в событиях длиннее этой = новый жест (инерция короче)
       const TOL = 2;
@@ -1467,7 +1475,7 @@
       let free = false, freeTimer = 0;   // свободный скролл: переход по якорю (кнопка «записаться» и т.п.)
       let lastScroll = 0, prevY = window.scrollY, lastWheel = 0, wheelDone = false, wheelAcc = 0, wheelDir = 0, tweenId = 0;
       let touch = null, ticking = false;
-      let leaving = false, exitDir = 0, quietUntil = 0;   // шаг выхода из блока и «тишина» после него
+      let leaving = false, entering = false, exitDir = 0, quietUntil = 0;   // шаг выхода из блока и «тишина» после него
 
       const stepPx = () => stage.offsetHeight || window.innerHeight;
       const anchor = (i) => sec.getBoundingClientRect().top + window.scrollY + i * stepPx();
@@ -1493,7 +1501,7 @@
       // экран мог не успеть выставиться (вход колесом/касанием раньше события скролла)
       function ensure() { if (idx < 0 && inRange()) show(nearest()); }
 
-      const ease = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      const ease = (t) => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;   // мягкий разгон и торможение
       function tweenTo(y, ms, done) {
         const id = ++tweenId;            // новый переход отменяет прежний (можно развернуться на полпути)
         busy = true;
@@ -1516,10 +1524,12 @@
         tweenTo(anchor(i), STEP_MS);
         return true;
       }
+      // вход: плавно доезжаем до края блока (вместо мгновенного прыжка), остаток жеста гасим
+      function settle(y) { entering = true; tweenTo(y, ENTER_MS, () => { entering = false; }); }
       // выход: ровно на экран за край блока (верх следующей/низ предыдущей секции у края окна), остаток жеста гасим
       function leave(dir) {
         leaving = true; exitDir = dir;
-        tweenTo(dir > 0 ? anchor(N - 1) + stepPx() : anchor(0) - stepPx(), STEP_MS, () => {
+        tweenTo(dir > 0 ? anchor(N - 1) + stepPx() : anchor(0) - stepPx(), EXIT_MS, () => {
           leaving = false; quietUntil = performance.now() + QUIET_MS;
         });
         return true;
@@ -1590,12 +1600,13 @@
         if (free) endFree();
         if (!dir) return;
         // идёт выход из блока и сразу после него: хвост жеста (инерцию) не пускаем в страницу
+        if (entering) { e.preventDefault(); wheelDone = true; return; }
         if (leaving || (now < quietUntil && dir === exitDir)) { e.preventDefault(); wheelDone = true; quietUntil = now + QUIET_MS; return; }
 
         const y = window.scrollY, a0 = anchor(0), aL = anchor(N - 1);
         // подъезд снаружи: останавливаем ровно на краю блока, без пролёта и отскока
-        if (px > 0 && y < a0 - TOL && y + px > a0 + TOL) { e.preventDefault(); show(0); jump(a0); prevY = a0; wheelDone = true; return; }
-        if (px < 0 && y > aL + TOL && y + px < aL - TOL) { e.preventDefault(); show(N - 1); jump(aL); prevY = aL; wheelDone = true; return; }
+        if (px > 0 && y < a0 - TOL && y + px > a0 + TOL) { e.preventDefault(); show(0); settle(a0); wheelDone = true; return; }
+        if (px < 0 && y > aL + TOL && y + px < aL - TOL) { e.preventDefault(); show(N - 1); settle(aL); wheelDone = true; return; }
 
         if (!inRange()) { wheelDone = true; return; }   // хвост жеста, начатого снаружи
         ensure();
