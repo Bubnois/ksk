@@ -160,7 +160,7 @@
     .why-media { position: relative; overflow: hidden; aspect-ratio: 4 / 5; border-radius: var(--r); background: #CFC8BE; transition: border-radius .9s cubic-bezier(.2,.8,.2,1); }
     .why-item:nth-child(even) .why-media { aspect-ratio: 1 / 1.08; }
     .why-img { position: absolute; inset: 0; overflow: hidden; transition: transform 1s cubic-bezier(.2,.8,.2,1); }
-    .why-img img { position: absolute; left: 0; top: -8%; width: 100%; height: 116%; object-fit: cover;
+    .why-img:not(.why-grid) img { position: absolute; left: 0; top: -8%; width: 100%; height: 116%; object-fit: cover;
       transform: translateY(calc(var(--p, 0) * -4%)); will-change: transform; }
 
     /* вырез: цвет страницы, скруглён верхний «внутренний» угол */
@@ -177,6 +177,25 @@
     .why-item.rev .why-notch::after  { left: auto; right: calc(100% - 1px); }
 
     .why-desc { margin: 1.25rem 0 0; padding: 0 1.25rem; }
+
+    /* «Уютная студия»: сетка из трёх кликабельных фото (слева два, справа одно высокое), тонкие просветы цвета страницы */
+    .why-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1.25fr 1fr; gap: 6px; background: #F5F5F3; }
+    .why-tile { position: relative; display: block; overflow: hidden; padding: 0; border: 0; border-radius: 14px; background: #CFC8BE; cursor: zoom-in; }
+    .why-tile.t0 { grid-column: 1; grid-row: 1; }
+    .why-tile.t1 { grid-column: 2; grid-row: 1 / span 2; }
+    .why-tile.t2 { grid-column: 1; grid-row: 2; }
+    .why-tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.06);
+      transition: opacity 1s ease, transform 1.6s ease; }
+    .why-tile img.on { opacity: 1; transform: scale(1); }
+    .why-tile:focus-visible { outline: 2px solid #FF7A59; outline-offset: -3px; }
+    @media (hover: hover) and (pointer: fine) { .why-tile:hover img.on { transform: scale(1.04); } }
+    @media (prefers-reduced-motion: reduce) { .why-tile img { transition: none; transform: none; } }
+
+    /* модалка с фото студии: только фото, без описания (та же модалка, что у услуг) */
+    #service-modal.photo-only #modal-info { display: none; }
+    #service-modal.photo-only .modal-card { max-width: min(94vw, 44rem) !important; height: auto !important; }
+    #service-modal.photo-only #modal-carousel-container { width: 100% !important; height: min(82vh, 780px) !important; aspect-ratio: auto !important; }
+    #service-modal.photo-only #modal-image { object-fit: contain; }
 
     .why-notch h3 { margin: 0; transition: opacity .5s ease .35s; }
     /* до морфинга — обычный прямоугольник с мелким скруглением; вырез «вырастает» из угла, когда карточка доскроллена до середины экрана */
@@ -836,7 +855,7 @@
         </div>
 
         <!-- описание и цена (размер текста как на всём сайте: text-sm desk:text-base) -->
-        <div class="w-full desk:w-1/2 desk:h-full p-6 desk:p-10 flex flex-col bg-bg-primary overflow-visible desk:overflow-y-auto hide-scrollbar">
+        <div id="modal-info" class="w-full desk:w-1/2 desk:h-full p-6 desk:p-10 flex flex-col bg-bg-primary overflow-visible desk:overflow-y-auto hide-scrollbar">
           <h2 id="modal-title" class="text-2xl desk:text-3xl font-display mb-4 pr-12 text-accent-orange leading-tight"></h2>
           
           <div id="modal-details" class="text-sm desk:text-base text-text-secondary mb-8 leading-relaxed whitespace-pre-wrap"></div>
@@ -942,7 +961,7 @@
       {
         title: 'Уютная студия',
         description: 'Большая огороженная парковка, хорошая транспортная доступность, удобные кресла, возможность помыть и уложить волосы после расплетения, чай/кофе и печеньки, wi-fi, тёплые пледы и тапочки. У нас можно как отдохнуть, наслаждаясь процессом, так и поработать свою удаленную работу, чтобы не терять время',
-        photo: 'img/studio/1.jpg', shape: 'b'
+        photo: 'img/studio/1.jpg', gallery: 'studio', shape: 'b'
       },
       {
         title: 'Скорость плетения',
@@ -1025,6 +1044,7 @@
       setupHorizontalInteraction();
       setupModalSwipe();
       setupFeatureObserver();
+      setupStudioGrid();
       
       // форсим апдейт высоты, чтобы верстка не поехала
       setTimeout(() => {
@@ -1220,11 +1240,13 @@
     // отрисовка преимуществ
     function renderFeatures() {
       const grid = document.getElementById('features-grid');
-      const widths = [64, 60, 66, 62];   // ширина выреза у каждой карточки чуть разная
+      const widths = [64, 50, 66, 62];   // ширина выреза у каждой карточки чуть разная
       grid.innerHTML = features.map((f, i) => `
-        <article class="why-item${i % 2 ? ' rev' : ''}" style="--nw:${widths[i % 4]}%">
+        <article class="why-item${i % 2 ? ' rev' : ''}${f.gallery ? ' has-gallery' : ''}" style="--nw:${widths[i % 4]}%">
           <div class="why-media">
-            <div class="why-img"><img src="${f.photo}" alt="${f.title}" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+            ${f.gallery
+              ? `<div class="why-img why-grid" data-gallery="${f.gallery}">${[0, 1, 2].map(k => `<button type="button" class="why-tile t${k}" aria-label="Открыть фото: ${f.title}"><img alt="" decoding="async"></button>`).join('')}</div>`
+              : `<div class="why-img"><img src="${f.photo}" alt="${f.title}" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>`}
             <div class="why-notch">
               <h3 class="font-display font-bold text-xl desk:text-2xl leading-tight text-text-primary">${f.title}</h3>
             </div>
@@ -1278,6 +1300,7 @@
       document.getElementById('modal-title').textContent = service.title;
       document.getElementById('modal-details').innerHTML = service.details;
       document.getElementById('modal-price').textContent = service.price;
+      document.getElementById('service-modal').classList.remove('photo-only');
       
       // чистим стейт и прошлую картинку, чтобы не мелькала чужая
       currentServiceImages = [];
@@ -1515,6 +1538,82 @@
       window.addEventListener('load', schedule);
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(schedule);
       fit();
+    }
+
+    // «Уютная студия»: коллаж из трёх фото из папки img/studio. Клик открывает ту же модалку, что и у услуг,
+    // но только с фото (галерея, точки, свайпы, «назад» закрывает).
+    const STUDIO_FOLDER = 'studio';
+
+    async function loadStudioPool() {
+      if (galleryCache[STUDIO_FOLDER] && galleryCache[STUDIO_FOLDER].length) return galleryCache[STUDIO_FOLDER].slice();
+      const found = [];
+      for (let start = 1; start <= 40; start += 5) {
+        const batch = await Promise.all([0, 1, 2, 3, 4].map(async k => {
+          const url = await findImage(STUDIO_FOLDER, start + k);
+          return url ? { i: start + k, url } : null;
+        }));
+        const hits = batch.filter(Boolean);
+        if (!hits.length) break;
+        found.push(...hits);
+      }
+      found.sort((a, b) => a.i - b.i);
+      const pool = found.map(f => f.url);
+      if (pool.length) galleryCache[STUDIO_FOLDER] = pool.slice();
+      return pool;
+    }
+
+    function setupStudioGrid() {
+      const grid = document.querySelector('.why-grid');
+      if (!grid) return;
+      const tiles = Array.from(grid.querySelectorAll('.why-tile'));
+      const fallback = (features.find(f => f.gallery) || {}).photo;
+
+      loadStudioPool().then(found => {
+        const pool = found.length ? found : (fallback ? [fallback] : []);
+        if (!pool.length) return;
+        tiles.forEach((tile, k) => {
+          const img = tile.querySelector('img');
+          const url = pool[k % pool.length];
+          tile.dataset.url = url;
+          img.onload = () => img.classList.add('on');
+          img.src = url;
+          if (img.complete && img.naturalWidth) img.classList.add('on');
+        });
+      });
+
+      grid.addEventListener('click', (e) => {
+        const tile = e.target.closest('.why-tile');
+        if (tile && tile.dataset.url) openStudioModal(tile.dataset.url);
+      });
+    }
+
+    // открыть общую модалку на выбранном фото студии: только фото, без описания
+    function openStudioModal(url) {
+      const f = features.find(x => x.gallery) || {};
+      const cached = galleryCache[STUDIO_FOLDER];
+      const pool = cached && cached.length ? cached : [url];
+      galleryCache[STUDIO_FOLDER] = pool;
+      currentServiceIndex = -1;
+      currentCarouselIndex = Math.max(0, pool.indexOf(url));
+
+      document.getElementById('modal-title').textContent = f.title || '';   // для скринридеров, на экране панель скрыта
+      document.getElementById('service-modal').classList.add('photo-only');
+
+      currentServiceImages = [];
+      const prevImg = document.getElementById('modal-image');
+      prevImg.classList.add('opacity-0');
+      prevImg.removeAttribute('src');
+      document.getElementById('modal-loader').classList.remove('hidden');
+      renderModalDots();
+      lastFocused = document.activeElement;
+
+      document.getElementById('service-modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      if (getHash() !== 'студия') window.history.pushState({ modalOpen: true }, '', '#студия');
+      else window.history.replaceState({ modalOpen: true }, '', '#студия');
+
+      discoverServiceImages(STUDIO_FOLDER);       // из кэша: сразу покажет выбранное фото
+      document.querySelector('#service-modal button[aria-label="Закрыть"]').focus();
     }
 
     // Бесконечная карусель готовых комплектов с автопрокруткой (мобильная и десктопная версии).
