@@ -37,7 +37,7 @@ a{color:inherit}
 .hdr-c p{margin:0}.hdr-c a{color:inherit;text-decoration:none}.hdr-c a:hover{color:#fff}
 .hr{gap:.5rem}.btn{border:0;cursor:pointer}
 .vid{position:relative;height:70vh;background:var(--dark);border-radius:0 0 40px 40px;overflow:hidden}
-.vid video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vid video,.vid>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .vid::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.4)}
 .intro{width:100%;overflow-x:hidden;margin:3rem 0 2rem;padding:0 1rem;display:flex;flex-direction:column;align-items:center}
 .ttl{font-weight:400;font-size:2.25rem;line-height:1;letter-spacing:-.025em;text-align:center;margin:0}
@@ -72,7 +72,7 @@ a{color:inherit}
 .why-item:nth-child(even) .why-media{aspect-ratio:1/1.08}
 .why-img{position:absolute;inset:0;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;overflow-y:hidden;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
 .why-img::-webkit-scrollbar{display:none}
-.why-img img{flex:0 0 100%;width:100%;height:116%;object-fit:cover;scroll-snap-align:center;transform:translateY(calc(var(--p,0) * -3.448% - 6.897%));will-change:transform}
+.why-img img,.why-img video{flex:0 0 100%;width:100%;height:116%;object-fit:cover;scroll-snap-align:center;transform:translateY(calc(var(--p,0) * -3.448% - 6.897%));will-change:transform}
 .dots{position:absolute;top:14px;right:16px;display:flex;gap:6px;z-index:2;pointer-events:none}
 .dots i{width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.55);box-shadow:0 0 4px rgba(0,0,0,.3);transition:width .3s}
 .dots i.on{width:16px;background:#fff}
@@ -194,7 +194,7 @@ a{color:inherit}
   </div>
 </header>
 
-<div class="col vid"><video autoplay loop muted playsinline aria-hidden="true"><source src="img/head.mp4" type="video/mp4"></video></div>
+<div class="col vid"><img src="art_page/head.jpg" alt="" aria-hidden="true" loading="eager"></div>
 
 <div class="intro">
   <h1 class="ttl">
@@ -211,12 +211,12 @@ a{color:inherit}
 <section class="blk f" id="braids">
 <h2 class="bh">Брейды</h2>
 <div class="why-list multi">
-<article class="why-item" data-folder="braids" data-n="6" style="--nw:80%">
-<div class="why-media"><div class="why-img"><img src="img/braids/1.jpg" alt="Брейды без добавления материала — студия брейдинга «Коскина», Омск" loading="lazy"></div><div class="why-notch"><h3>Без добавления материала</h3></div></div>
+<article class="why-item" data-folder="art_page/braids-wo" data-n="6" style="--nw:80%">
+<div class="why-media"><div class="why-img"><img src="art_page/braids-wo/1.jpg" alt="Брейды без добавления материала — студия брейдинга «Коскина», Омск" loading="lazy"></div><div class="why-notch"><h3>Без добавления материала</h3></div></div>
 <div class="why-desc"><p>Гладкие косы по голове. Их количество может быть разным — от двух штук (боксерские косы) до множества мелких кос. От количества брейдов зависит не только визуал, но и срок носки прически: чем больше заплетено кос, тем они мельче и прическа дольше сохраняет опрятный вид. Чем меньше кос, тем быстрее появятся на поверхности свои короткие волоски.</p></div>
 </article>
-<article class="why-item rev" data-folder="braidsm" data-n="6" style="--nw:80%">
-<div class="why-media"><div class="why-img"><img src="img/braidsm/1.jpg" alt="Брейды с добавлением материала — студия брейдинга «Коскина», Омск" loading="lazy"></div><div class="why-notch"><h3>С добавлением материала</h3></div></div>
+<article class="why-item rev" data-folder="art_page/braids-w" data-n="6" style="--nw:80%">
+<div class="why-media"><div class="why-img"><img src="art_page/braids-w/1.jpg" alt="Брейды с добавлением материала — студия брейдинга «Коскина», Омск" loading="lazy"></div><div class="why-notch"><h3>С добавлением материала</h3></div></div>
 <div class="why-desc"><p>Эти косы можно плести как из своих волос, так и с добавлением материала (в цвет своих волос или любого другого цвета). Ещё добавление материала позволяет продлить срок носки прически, так как канекалон дополнительно фиксирует волосы, и сделать косы более объёмными.</p><p>Такое плетение — отличный вариант попробовать что-то новое без радикальных перемен. Срок носки — от двух дней до четырёх недель.</p></div>
 </article>
 </div>
@@ -225,16 +225,16 @@ a{color:inherit}
 <h2 class="bh">Афрокосы</h2>
 <p class="bi">Афрокосы бывают двух видов, которые похожи визуально, но отличаются по своей сути:</p>
 <div class="why-list multi">
-<article class="why-item" data-folder="tochkos" data-n="6" style="--nw:80%">
-<div class="why-media"><div class="why-img"><img src="img/tochkos/1.jpg" alt="Классические точечные косы — студия брейдинга «Коскина», Омск" loading="lazy"></div><div class="why-notch"><h3>Классические точечные косы</h3></div></div>
+<article class="why-item" data-folder="art_page/a-1" data-n="6" style="--nw:80%">
+<div class="why-media"><div class="why-img"><img src="art_page/a-1/1.jpg" alt="Классические точечные косы — студия брейдинга «Коскина», Омск" loading="lazy"></div><div class="why-notch"><h3>Классические точечные косы</h3></div></div>
 <div class="why-desc"><p>Плетутся на месте из ваших волос с добавлением материала. Продолжительность плетения в среднем 6–8 часов и зависит от желаемого количества и длины кос (косы не могут быть короче своих волос). Материал в этом виде плетения одноразовый, использовать его повторно не получится. Рекомендованный срок одной носки — от 3 до 6 недель, в зависимости от количества кос и структуры ваших волос.</p></div>
 </article>
-<article class="why-item rev" data-folder="dekos" data-n="6" style="--nw:44%">
-<div class="why-media"><div class="why-img"><img src="img/dekos/1.jpg" alt="ДЕ косы — студия брейдинга «Коскина», Омск" loading="lazy"></div><div class="why-notch"><h3>ДЕ косы</h3></div></div>
+<article class="why-item rev" data-folder="art_page/a-2" data-n="6" style="--nw:44%">
+<div class="why-media"><div class="why-img"><img src="art_page/a-2/1.jpg" alt="ДЕ косы — студия брейдинга «Коскина», Омск" loading="lazy"></div><div class="why-notch"><h3>ДЕ косы</h3></div></div>
 <div class="why-desc"><p>Заранее подготовленный комплект кос, который просто приплетается к вашим волосам. Его можно вплетать повторно неоднократно, а цвет, толщина и длина кос могут быть любыми, даже короче, чем ваши волосы. Каждая косичка складывается пополам, и вокруг одной половинки оплетаются волосы — это позволяет хорошо перекрыть свои волосы и проборы на голове, а также даёт дополнительный прикорневой объём. Рекомендованный срок одной носки — от 3 до 6 недель, в зависимости от количества кос и структуры ваших волос.</p></div>
 </article>
-<article class="why-item" data-folder="senegal" data-n="6" style="--nw:64%">
-<div class="why-media"><div class="why-img"><img src="img/senegal/1.jpg" alt="Сенегальские косы — студия брейдинга «Коскина», Омск" loading="lazy"></div><div class="why-notch"><h3>Сенегальские косы</h3></div></div>
+<article class="why-item" data-folder="art_page/a-3" data-n="6" style="--nw:64%">
+<div class="why-media"><div class="why-img"><img src="art_page/a-3/1.jpg" alt="Сенегальские косы — студия брейдинга «Коскина», Омск" loading="lazy"></div><div class="why-notch"><h3>Сенегальские косы</h3></div></div>
 <div class="why-desc"><p>Очень красивая разновидность кос, по виду похожая на жгуты. Можно плести как в технике классических точечных кос, так и ДЕ кос. Могут быть как тонкими, так и очень объёмными.</p></div>
 </article>
 </div>
@@ -243,7 +243,7 @@ a{color:inherit}
 <section class="blk" id="sphinx">
 <h2 class="bh">Сфинкс</h2>
 <div class="why-list">
-<article class="why-item nn rev" data-folder="sphinx" data-n="6" style="--nw:44%">
+<article class="why-item nn rev" data-folder="img/sphinx" data-n="6" style="--nw:44%">
 <div class="why-media"><div class="why-img"><img src="img/sphinx/1.jpg" alt="Сфинкс — студия брейдинга «Коскина», Омск" loading="lazy"></div></div>
 <div class="why-desc"><p>Комбинированная прическа, состоящая из брейдов на макушке и висках и точечного плетения на затылке. Затылок можно заплести в косы или дреды разных фактур, в зависимости от того, какого эффекта хочется достичь и какой нужен объём.</p></div>
 </article>
@@ -252,7 +252,7 @@ a{color:inherit}
 <section class="blk" id="loose">
 <h2 class="bh">С распущенными концами</h2>
 <div class="why-list">
-<article class="why-item nn" data-folder="lostkos" data-n="6" style="--nw:80%">
+<article class="why-item nn" data-folder="img/lostkos" data-n="6" style="--nw:80%">
 <div class="why-media"><div class="why-img"><img src="img/lostkos/1.jpg" alt="Косы и дреды с распущенными концами — студия брейдинга «Коскина», Омск" loading="lazy"></div></div>
 <div class="why-desc"><p>Ещё одна трендовая комбинация фактур. В прикорневой зоне могут быть как косы, так и дреды. Концы могут быть как завитыми, так и прямыми. Цвет, длина и толщина кос могут быть любыми.</p></div>
 </article>
@@ -261,8 +261,8 @@ a{color:inherit}
 <section class="blk" id="de-dredy">
 <h2 class="bh">ДЕ дреды</h2>
 <div class="why-list">
-<article class="why-item nn rev" data-folder="sdre" data-n="6" style="--nw:44%">
-<div class="why-media"><div class="why-img"><img src="img/sdre/1.jpg" alt="ДЕ дреды — студия брейдинга «Коскина», Омск" loading="lazy"></div></div>
+<article class="why-item nn rev" data-folder="art_page/de" data-n="6" style="--nw:44%">
+<div class="why-media"><div class="why-img"><img src="art_page/de/1.jpg" alt="ДЕ дреды — студия брейдинга «Коскина», Омск" loading="lazy"></div></div>
 <div class="why-desc"><p>Комплект дредов, по своей сути идентичный ДЕ косам: у каждой заготовки два кончика, и они просто приплетаются к вашим волосам без вреда для них. Безопасные дреды могут быть самых разнообразных фактур — от строгих и сдержанных гладких дредов до аутентичных фактурных. Ассортимент дредов так велик, что мы точно сможем подобрать что-то наиболее подходящее именно вашим предпочтениям. Все оттенки мы смешиваем вручную, поэтому цвет может быть любым, как и длина дредов и их толщина. Носим 4–6 недель, комплект можно вплетать повторно неоднократно.</p></div>
 </article>
 </div>
@@ -270,8 +270,8 @@ a{color:inherit}
 <section class="blk" id="se-dredy">
 <h2 class="bh">СЕ дреды и косы</h2>
 <div class="why-list">
-<article class="why-item nn" data-folder="sekos" data-n="6" style="--nw:66%">
-<div class="why-media"><div class="why-img"><img src="img/sekos/1.jpg" alt="СЕ дреды и СЕ косы — студия брейдинга «Коскина», Омск" loading="lazy"></div></div>
+<article class="why-item nn" data-folder="art_page/se" data-n="6" style="--nw:66%">
+<div class="why-media"><div class="why-img"><img src="art_page/se/1.jpg" alt="СЕ дреды и СЕ косы — студия брейдинга «Коскина», Омск" loading="lazy"></div></div>
 <div class="why-desc"><p>Дреды и косы с одним концом, которые не складываются пополам при заплетении, а значит, дают меньший объём, более схожий с натуральными дредами. Чаще всего мы добавляем такие дреды к комплектам ДЕ дредов, чтобы создать красивый силуэт и уменьшить вес прически. Однако были случаи, когда и вся голова заплеталась только СЕ дредами — это тоже выглядит красиво, но важно отметить, что в такой технике плетения будет видна разметка (проборы на коже головы).</p></div>
 </article>
 </div>
@@ -281,16 +281,16 @@ a{color:inherit}
 <h2 class="bh">Локоны</h2>
 <p class="bi">Точечное вплетение кудрей. Выполняем в разных техниках, в зависимости от того, какого эффекта хочется достичь. От наших кудряшек не чешется голова.</p>
 <div class="why-list multi">
-<article class="why-item rev" data-folder="karkas" data-n="6" style="--nw:66%">
-<div class="why-media"><div class="why-img"><img src="img/karkas/1.jpg" alt="Локоны а-ля каркас — студия брейдинга «Коскина», Омск" loading="lazy"></div><div class="why-notch"><h3>Локоны а-ля каркас</h3></div></div>
+<article class="why-item rev" data-folder="art_page/l-1" data-n="6" style="--nw:66%">
+<div class="why-media"><div class="why-img"><img src="art_page/l-1/1.jpg" alt="Локоны а-ля каркас — студия брейдинга «Коскина», Омск" loading="lazy"></div><div class="why-notch"><h3>Локоны а-ля каркас</h3></div></div>
 <div class="why-desc"><p>Распущенные локоны сразу от корня. Создают объёмную прическу, полностью перекрывают свои волосы при том, что плетутся точечно.</p></div>
 </article>
-<article class="why-item" data-folder="dolli" data-n="6" style="--nw:69%">
-<div class="why-media"><div class="why-img"><img src="img/dolli/1.jpg" alt="Локоны долли/пуш-ап — студия брейдинга «Коскина», Омск" loading="lazy"></div><div class="why-notch"><h3>Локоны долли/пуш-ап</h3></div></div>
+<article class="why-item" data-folder="art_page/l-2" data-n="6" style="--nw:69%">
+<div class="why-media"><div class="why-img"><img src="art_page/l-2/1.jpg" alt="Локоны долли/пуш-ап — студия брейдинга «Коскина», Омск" loading="lazy"></div><div class="why-notch"><h3>Локоны долли/пуш-ап</h3></div></div>
 <div class="why-desc"><p>В основании сформирована пышная мягкая серединка, которая похожа на фактуру кудрей. Создают средний объём.</p></div>
 </article>
-<article class="why-item rev" data-folder="dredolok" data-n="6" style="--nw:48%">
-<div class="why-media"><div class="why-img"><img src="img/dredolok/1.jpg" alt="Дредолоконы — студия брейдинга «Коскина», Омск" loading="lazy"></div><div class="why-notch"><h3>Дредолоконы</h3></div></div>
+<article class="why-item rev" data-folder="art_page/l-3" data-n="6" style="--nw:48%">
+<div class="why-media"><div class="why-img"><img src="art_page/l-3/1.jpg" alt="Дредолоконы — студия брейдинга «Коскина», Омск" loading="lazy"></div><div class="why-notch"><h3>Дредолоконы</h3></div></div>
 <div class="why-desc"><p>В основании сформирован дред небольшой длины (5–15 см), который отличается от фактуры кудрей. Создают небольшой объём. Комплект можно вплетать повторно неоднократно. Рекомендуемый срок одной нóски 4–6 недель.</p></div>
 </article>
 </div>
@@ -299,7 +299,7 @@ a{color:inherit}
 <section class="blk" id="natural">
 <h2 class="bh">Натуральные дреды</h2>
 <div class="why-list">
-<article class="why-item nn" data-folder="ndre" data-n="6" style="--nw:64%">
+<article class="why-item nn" data-folder="img/ndre" data-n="6" style="--nw:64%">
 <div class="why-media"><div class="why-img"><img src="img/ndre/1.jpg" alt="Натуральные дреды — студия брейдинга «Коскина», Омск" loading="lazy"></div></div>
 <div class="why-desc"><p>Формируются с помощью крючка и предварительного начёса прямо из своих волос. Такую прическу стоит выбирать, если вы уверены, что отношения с ней — надолго, так как к привычному нам виду они приходят только со временем. Этот процесс занимает 4–6 месяцев, в зависимости от структуры волос. Затем, по мере отрастания корней, требуется коррекция — выросшие волосы необходимо тоже сформировать в дреды, обычно это делается 2–4 раза в год.</p></div>
 </article>
@@ -308,7 +308,7 @@ a{color:inherit}
 <section class="blk" id="grown">
 <h2 class="bh">Наращивание волос</h2>
 <div class="why-list">
-<article class="why-item nn rev" data-folder="grown" data-n="6" style="--nw:64%">
+<article class="why-item nn rev" data-folder="img/grown" data-n="6" style="--nw:64%">
 <div class="why-media"><div class="why-img"><img src="img/grown/1.jpg" alt="Наращивание волос — студия брейдинга «Коскина», Омск" loading="lazy"></div></div>
 <div class="why-desc"><p>Позволяет увеличить длину волос, не влияет на прикорневой объём. Также можно нарастить один ряд, чтобы создать эффект скрытого окрашивания и/или загущения концов. Наращивание выполняется искусственным материалом, по внешнему виду и физическим свойствам максимально приближенным к натуральным волосам. Рекомендуемый срок одной нóски 4–6 недель. В отличие от других причесок материал не получится использовать повторно.</p><p>Уход: расчёсывать 3–5 раз в день, после каждого мытья выпрямлять утюжком (концы можно выпрямлять каждый день).</p></div>
 </article>
@@ -317,8 +317,8 @@ a{color:inherit}
 <section class="blk" id="others">
 <h2 class="bh">Другие прически</h2>
 <div class="why-list">
-<article class="why-item nn" data-folder="others" data-n="6" style="--nw:59%">
-<div class="why-media"><div class="why-img"><img src="img/others/1.jpg" alt="Другие прически — студия брейдинга «Коскина», Омск" loading="lazy"></div></div>
+<article class="why-item nn video-item" style="--nw:59%">
+<div class="why-media"><div class="why-img"><video src="img/others/1.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Другие прически — студия брейдинга «Коскина», Омск"></video></div></div>
 <div class="why-desc"><p>Афрохвосты, водопады, боксерские косы и любые другие плетения с канекалоном. Мы открыты к экспериментам и новым идеям, не стесняйтесь спрашивать — мы делаем любые другие виды плетений с использованием канекалона.</p></div>
 </article>
 </div>
@@ -387,7 +387,9 @@ function scrollToContacts(){
 }
 // карусели в карточках: добираем фото 2..n, битые убираем, точки по числу фото
 document.querySelectorAll('.why-item').forEach(function(it){
-  var box=it.querySelector('.why-img'),f=it.dataset.folder,n=+it.dataset.n||1,alt=box.querySelector('img').alt;
+  var box=it.querySelector('.why-img');
+  if(it.classList.contains('video-item'))return;
+  var f=it.dataset.folder,n=+it.dataset.n||1,alt=box.querySelector('img').alt;
   var dots=document.createElement('div');dots.className='dots';dots.setAttribute('aria-hidden','true');
   it.querySelector('.why-media').appendChild(dots);
   function mark(){var i=Math.round(box.scrollLeft/(box.clientWidth||1));Array.prototype.forEach.call(dots.children,function(d,k){d.classList.toggle('on',k===i)})}
@@ -404,7 +406,7 @@ document.querySelectorAll('.why-item').forEach(function(it){
       var nx=Array.prototype.find.call(box.querySelectorAll('img'),function(x){return +(x.dataset.k||1)>k});
       box.insertBefore(im,nx||null);sync();
     };
-    im.src='img/'+f+'/'+k+'.jpg';
+    im.src=f+'/'+k+'.jpg';
   })(k);
   box.addEventListener('scroll',mark,{passive:true});
   sync();
