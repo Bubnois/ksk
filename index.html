@@ -99,56 +99,45 @@
     /* автопрокрутка двигает scrollLeft сама, плавность браузера ей мешает */
     #ready-sets-track.ready-looping { scroll-behavior: auto; }
 
-    /* «Кому подойдет?»: три экрана подряд при обычном скролле. Актуальный (на середине окна) светлый,
-       остальные затенены (на стыке затенение сходится плавно, без жёсткой границы). Заголовок «прилипает» сверху,
-       пока блок на экране, и гаснет, когда слайды кончились; баббл виден только у актуального слайда. */
+    /* «Кому подойдет?»: три фото идут подряд при обычном скролле, а подзаголовки с текстом «прилипают» к одной
+       точке экрана и передают эстафету: пока фото едет мимо, его текст держится на месте, затем уезжает вверх,
+       а текст следующего фото уже подъехал и занимает то же место. Подложек и бабблов нет: читаемость дают
+       затемнение самого фото и тень текста. Актуальное фото (на середине окна) светлое, остальные затенены
+       (на стыке затенение сходится плавно). Заголовок «Кому подойдет?» прилипает сверху, пока блок на экране. */
     .aud { position: relative; width: 100%; background: #2D2C2A; color: #fff; }
     .aud-stage { position: relative; display: flow-root; }
-    .aud-titlebar { position: sticky; top: 5.5rem; z-index: 5; height: 3.5rem; margin-top: 5.5rem; pointer-events: none; }
-    .aud-slides { margin-top: -9rem; }
-    .aud-slide { position: relative; height: 90vh; height: 90svh; min-height: 520px; overflow: hidden; background: #2D2C2A; contain: paint; }
+    .aud-titlebar { position: sticky; top: 5.5rem; z-index: 6; height: 3.5rem; margin-top: 5.5rem; margin-bottom: 4rem; pointer-events: none; }
+    /* высота экрана с запасом: пока фото едет, текст успевает постоять на месте */
+    .aud-item { position: relative; height: 115vh; height: 115svh; min-height: 680px; }
+    .aud-slide { position: absolute; inset: 0; overflow: hidden; background: #2D2C2A; contain: paint; }
     .aud-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); transition: transform 7s ease-out; }
     .aud-slide.is-current .aud-bg { transform: scale(1); }
-    .aud-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,.1) 40%, rgba(0,0,0,.45) 100%); }
+    .aud-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,.3) 45%, rgba(0,0,0,.5) 100%); }
     /* затенение неактуальных; у актуального по краям остаётся такое же затенение, поэтому у стыка нет резкой границы */
     .aud-dim { position: absolute; inset: 0; z-index: 4; background: #1B1A18; opacity: .7; pointer-events: none; transition: opacity .7s ease; }
     .aud-slide.is-current .aud-dim { opacity: 0; }
     .aud-edge { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; transition: opacity .7s ease;
       background: linear-gradient(180deg, rgba(27,26,24,.7) 0%, rgba(27,26,24,0) 18%, rgba(27,26,24,0) 82%, rgba(27,26,24,.7) 100%); }
     .aud-slide.is-current .aud-edge { opacity: 1; }
-    .aud-title { margin: 0; padding: 0 1rem; text-align: center; font-size: 2.25rem; line-height: 1.1; color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,.45);
-      opacity: 0; transition: opacity .6s ease; }
-    .aud.is-live .aud-title { opacity: 1; }
+    .aud-title { margin: 0; padding: 0 1rem; text-align: center; font-size: 2.25rem; line-height: 1.1; color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,.45); }
 
-    /* баблы: разные несимметричные формы; у актуального слайда появляются с лёгкой анимацией и «перетекают»,
-       у неактуального плавно прячутся. Все три стоят в одном месте у нижнего края, чтобы не закрывать лица */
-    .aud-bubble { position: absolute; z-index: 2; left: 0; right: 0; bottom: 6%; margin: 0 auto; width: min(88vw, 21.5rem); padding: 2.9rem 2.6rem; box-shadow: 0 24px 60px rgba(0,0,0,.35);
-      border-radius: var(--s1); opacity: 0; transform: translateY(26px) scale(.94); transition: opacity .4s ease, transform .5s ease; }
-    .aud-slide.is-current .aud-bubble { opacity: 1; transform: none; transition: opacity .7s ease .15s, transform 1s cubic-bezier(.2,.9,.3,1.15) .15s; animation: audMorph 14s ease-in-out 1s infinite alternate; }
-    @keyframes audMorph { from { border-radius: var(--s1); } to { border-radius: var(--s2); } }
-    .aud-bubble p { margin: 0; }
-    .aud-bubble.b1 { background: rgba(245,245,243,.95); color: #1A1A1A; --s1: 63% 37% 54% 46% / 55% 48% 52% 45%; --s2: 42% 58% 38% 62% / 48% 62% 38% 52%; }
-    .aud-bubble.b2 { background: #FF7A59; color: #1A1A1A; --s1: 38% 62% 47% 53% / 58% 41% 59% 42%; --s2: 55% 45% 62% 38% / 42% 55% 45% 58%; }
-    .aud-bubble.b3 { background: #2D2C2A; color: #fff; --s1: 54% 46% 33% 67% / 41% 59% 41% 59%; --s2: 36% 64% 58% 42% / 60% 40% 55% 45%; }
-
-    /* на десктопе баблы живут внутри колонки сайта (как остальные блоки), фон слайдов при этом остаётся на всю ширину */
-    .aud-col { position: absolute; inset: 0; width: 100%; max-width: var(--col); margin: 0 auto; z-index: 2; pointer-events: none; }
-    .aud-col .aud-bubble { pointer-events: auto; }
+    /* колонка текста тянется на всю высоту экрана-фото: внутри неё текст и «прилипает» (sticky) */
+    .aud-col { position: relative; z-index: 5; height: 100%; width: 100%; max-width: var(--col); margin: 0 auto; padding: 0 1.25rem; box-sizing: border-box; pointer-events: none; }
+    .aud-text { position: sticky; top: 38vh; top: 38svh; max-width: 21rem; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.35), 0 2px 28px rgba(0,0,0,.55); }
+    .aud-text h3 { margin: 0 0 .75rem; font-size: 1.625rem; line-height: 1.2; }
+    .aud-text p { margin: 0; font-size: .9375rem; line-height: 1.6; color: rgba(255,255,255,.92); }
 
     @media (min-width: 768px) {
-      .aud-titlebar { top: 7.5rem; height: 5rem; margin-top: 7.5rem; }
-      .aud-slides { margin-top: -12.5rem; }
+      .aud-titlebar { top: 7.5rem; height: 5rem; margin-top: 7.5rem; margin-bottom: 5rem; }
       .aud-title { font-size: 3.75rem; }
-      .aud-bubble { padding: 3.4rem 3.2rem; bottom: 7%; }
-      .aud-bubble.b1 { width: 25rem; }
-      .aud-bubble.b2 { width: 29rem; }
-      .aud-bubble.b3 { width: 27rem; }
+      .aud-col { padding: 0 2rem; }
+      .aud-text { max-width: 30rem; }
+      .aud-text h3 { font-size: 2.25rem; margin-bottom: 1rem; }
+      .aud-text p { font-size: 1.0625rem; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .aud-bg, .aud-slide.is-current .aud-bg, .aud-bubble, .aud-dim, .aud-edge, .aud-title { transition: none; }
+      .aud-bg, .aud-slide.is-current .aud-bg, .aud-dim, .aud-edge { transition: none; }
       .aud-bg { transform: none; }
-      .aud-bubble, .aud-slide.is-current .aud-bubble { transform: none; }
-      .aud-slide.is-current .aud-bubble { animation: none; }
     }
 
     /* «Почему нас выбирают»: фото с «вырезом» в нижнем углу. Внутри выреза — заголовок,
@@ -390,44 +379,50 @@
       <div class="aud-titlebar"><h2 id="aud-title" class="aud-title font-display tracking-tight">Кому подойдет?</h2></div>
       <div class="aud-slides">
 
-      <!-- экран 1: фон + бабл -->
-      <div class="aud-slide" data-i="0">
-        <img src="img/audience/1.jpg" alt="" class="aud-bg" loading="lazy" decoding="async" onerror="this.style.display='none'">
-        <div class="aud-shade"></div>
-        <div class="aud-dim"></div>
-        <div class="aud-edge"></div>
+      <!-- экран 1: фото скроллится, текст прилипает и передаёт эстафету следующему -->
+      <div class="aud-item">
+        <div class="aud-slide" data-i="0">
+          <img src="img/audience/1.jpg" alt="" class="aud-bg" loading="lazy" decoding="async" onerror="this.style.display='none'">
+          <div class="aud-shade"></div>
+          <div class="aud-dim"></div>
+          <div class="aud-edge"></div>
+        </div>
         <div class="aud-col">
-          <div class="aud-bubble b1">
-            <h3 class="text-lg desk:text-xl font-display font-bold leading-snug mb-3">Тем, кто ценит время</h3>
-            <p class="text-sm desk:text-base leading-relaxed">Косы и дреды не требуют ежедневного ухода. Проснулась и уже&nbsp;красивая!</p>
+          <div class="aud-text">
+            <h3 class="font-display font-bold">Тем, кто ценит время</h3>
+            <p>Косы и дреды не требуют ежедневного ухода. Проснулась и уже&nbsp;красивая!</p>
           </div>
         </div>
       </div>
 
-      <!-- экран 2: фон + бабл -->
-      <div class="aud-slide" data-i="1">
-        <img src="img/audience/2.jpg" alt="" class="aud-bg" loading="lazy" decoding="async" onerror="this.style.display='none'">
-        <div class="aud-shade"></div>
-        <div class="aud-dim"></div>
-        <div class="aud-edge"></div>
+      <!-- экран 2: фото скроллится, текст прилипает и передаёт эстафету следующему -->
+      <div class="aud-item">
+        <div class="aud-slide" data-i="1">
+          <img src="img/audience/2.jpg" alt="" class="aud-bg" loading="lazy" decoding="async" onerror="this.style.display='none'">
+          <div class="aud-shade"></div>
+          <div class="aud-dim"></div>
+          <div class="aud-edge"></div>
+        </div>
         <div class="aud-col">
-          <div class="aud-bubble b2">
-            <h3 class="text-lg desk:text-xl font-display font-bold leading-snug mb-3">Тем, кто выбирает красоту и удобство</h3>
-            <p class="text-sm desk:text-base leading-relaxed">100% уверенности в своей причёске, так как её не испортят дождь, ветер или физическая активность. Да, выглядеть великолепно в любой ситуации — это&nbsp;реально</p>
+          <div class="aud-text">
+            <h3 class="font-display font-bold">Тем, кто выбирает красоту и удобство</h3>
+            <p>100% уверенности в своей причёске, так как её не испортят дождь, ветер или физическая активность. Да, выглядеть великолепно в любой ситуации — это&nbsp;реально</p>
           </div>
         </div>
       </div>
 
-      <!-- экран 3: фон + бабл -->
-      <div class="aud-slide" data-i="2">
-        <img src="img/audience/3.jpg" alt="" class="aud-bg" loading="lazy" decoding="async" onerror="this.style.display='none'">
-        <div class="aud-shade"></div>
-        <div class="aud-dim"></div>
-        <div class="aud-edge"></div>
+      <!-- экран 3: фото скроллится, текст прилипает и передаёт эстафету следующему -->
+      <div class="aud-item">
+        <div class="aud-slide" data-i="2">
+          <img src="img/audience/3.jpg" alt="" class="aud-bg" loading="lazy" decoding="async" onerror="this.style.display='none'">
+          <div class="aud-shade"></div>
+          <div class="aud-dim"></div>
+          <div class="aud-edge"></div>
+        </div>
         <div class="aud-col">
-          <div class="aud-bubble b3">
-            <h3 class="text-lg desk:text-xl font-display font-bold leading-snug mb-3">Тем, кому важно проявляться</h3>
-            <p class="text-sm desk:text-base leading-relaxed">Заплести дреды или косы — это отличный способ заявить о себе, своих принципах и желаниях. Они дополнят уже созданный образ, а также помогут сделать шаг к изменению&nbsp;имиджа</p>
+          <div class="aud-text">
+            <h3 class="font-display font-bold">Тем, кому важно проявляться</h3>
+            <p>Заплести дреды или косы — это отличный способ заявить о себе, своих принципах и желаниях. Они дополнят уже созданный образ, а также помогут сделать шаг к изменению&nbsp;имиджа</p>
           </div>
         </div>
       </div>
@@ -956,7 +951,7 @@
       {
         title: 'Опыт 9 лет',
         description: 'Мы многое повидали за это время. Знаем, как надо и как не надо делать. С интересом решаем нетипичные задачи',
-        photo: 'img/kits/1.jpg', shape: 'a'
+        photo: 'img/we/1.jpg', shape: 'a'
       },
       {
         title: 'Уютная студия',
@@ -966,12 +961,12 @@
       {
         title: 'Скорость плетения',
         description: 'Мы работаем в 4 руки, что позволяет вплетать комплекты от 2 часов, расплетать причёски за 1 час, а также быстро изготавливать комплекты. Да, больше не придётся ждать своей записи 3–5 недель, как это было раньше',
-        photo: 'img/studio/2.jpg', shape: 'c'
+        photo: 'img/we/2.jpg', shape: 'c'
       },
       {
         title: 'Индивидуальный подход',
         description: 'При подборе и создании причёски мы всегда отталкиваемся от Ваших предпочтений, образа жизни и цели заплетения. Для нас важно понять, какого именно эффекта Вам хочется достичь, чтобы прическа приносила только положительные эмоции на протяжении всего срока носки',
-        photo: 'img/audience/3.jpg', shape: 'd'
+        photo: 'img/we/3.jpg', shape: 'd'
       }
     ];
 
@@ -1484,17 +1479,30 @@
       }
     }
 
-    // «Кому подойдет?»: три экрана идут по порядку при обычном скролле. Актуальным считается тот, что
-    // на середине окна: он светлый, остальные затенены; пока актуален какой-то слайд, виден и заголовок
-    // (всё остальное делает CSS).
+    // «Кому подойдет?»: три фото идут по порядку при обычном скролле, текст к ним прилипает средствами CSS (sticky).
+    // Актуальным считается фото на середине окна: оно светлое, остальные затенены; пока актуально какое-то
+    // фото, виден и заголовок блока.
     function setupAudience() {
       const sec = document.getElementById('audience');
       const slides = Array.from(document.querySelectorAll('#audience .aud-slide'));
       if (!sec || !slides.length) return;
+      const titlebar = document.querySelector('#audience .aud-titlebar');
+      const texts = Array.from(document.querySelectorAll('#audience .aud-text'));
       let current = -2, ticking = false;
+
+      // текст уезжает вверх под закреплённый заголовок: плавно гасим его, чтобы они не налезали друг на друга
+      function fadeTexts() {
+        if (!titlebar) return;
+        const edge = titlebar.getBoundingClientRect().bottom + 4;
+        texts.forEach(el => {
+          const o = Math.max(0, Math.min(1, (el.getBoundingClientRect().top - edge) / 56));
+          el.style.opacity = o >= 1 ? '' : o.toFixed(2);
+        });
+      }
 
       function update() {
         ticking = false;
+        fadeTexts();
         const mid = window.innerHeight / 2;
         let idx = -1;
         for (let i = 0; i < slides.length; i++) {
