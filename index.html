@@ -134,7 +134,7 @@
     .aud-edge { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; transition: opacity .7s ease;
       background: linear-gradient(180deg, rgba(27,26,24,.7) 0%, rgba(27,26,24,0) 18%, rgba(27,26,24,0) 82%, rgba(27,26,24,.7) 100%); }
     .aud-slide.is-current .aud-edge { opacity: 1; }
-    .aud-title { margin: 0; padding: 0 1rem; text-align: center; font-size: 2.25rem; line-height: 1.1; color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,.45); }
+    .aud-title { margin: 0; padding: 0 1rem; text-align: center; font-size: 1.75rem; line-height: 1.1; color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,.45); }
 
     /* колонка текста тянется на всю высоту экрана-фото: внутри неё текст и «прилипает» (sticky) */
     .aud-col { position: relative; z-index: 5; height: 100%; width: 100%; max-width: var(--col); margin: 0 auto; padding: 0 1.25rem; box-sizing: border-box; pointer-events: none; }
@@ -145,7 +145,7 @@
 
     @media (min-width: 768px) {
       .aud-titlebar { top: 7.5rem; height: 5rem; margin-top: 7.5rem; margin-bottom: 5rem; }
-      .aud-title { font-size: 3.75rem; }
+      .aud-title { font-size: 2.25rem; }
       .aud-col { padding: 0 2rem; }
       .aud-text { max-width: 30rem; }
       .aud-text h3 { font-size: 1.5rem; margin-bottom: .75rem; }
@@ -225,14 +225,10 @@
     }
     @media (min-width: 768px) {
       .why-item { --r: 34px; }
-      .why-list { gap: 4.5rem; max-width: 34rem; margin: 0 auto; }
+      .why-list { gap: 4.5rem; max-width: 40rem; margin: 0 auto; }
       .why-notch { padding: 1.5rem 1.75rem 1.25rem 1.5rem; }
       .why-item.rev .why-notch { padding: 1.5rem 1.5rem 1.25rem 1.75rem; }
       .why-desc { padding: 0 1.5rem; }
-    }
-    @media (min-width: 1100px) {
-      .why-list { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem 3rem; max-width: none; align-items: start; }
-      .why-item:nth-child(even) .why-media { aspect-ratio: 4 / 5; }
     }
     @media (prefers-reduced-motion: reduce) {
       .why-img, .why-media, .why-notch, .why-notch h3 { transition: none; }
@@ -375,7 +371,7 @@
       </div>
 
       <!-- интро про студию -->
-      <div class="mt-8 desk:mt-12 max-w-2xl text-center px-4">
+      <div class="mt-8 desk:mt-12 max-w-[40rem] text-center px-4">
         <p class="text-text-secondary text-sm desk:text-base leading-relaxed">
           Делаем потрясающие прически с 2017 года.<br> Девять лет опыта, работа в четыре руки, уютная студия и по-настоящему индивидуальный подход
         </p>
@@ -402,8 +398,8 @@
     <div class="sticky top-0 h-screen w-full flex flex-col justify-center desk:pt-24 overflow-hidden">
       
       <div class="max-w-[1400px] mx-auto px-4 desk:px-8 w-full mb-8 shrink-0 text-center">
-        <h2 class="text-4xl desk:text-6xl font-display mb-4">Услуги</h2>
-        <p class="text-white/70 text-sm desk:text-base leading-relaxed max-w-xl mx-auto">
+        <h2 class="text-[1.75rem] leading-8 desk:text-4xl font-display mb-4">Услуги</h2>
+        <p class="text-white/70 text-sm desk:text-base leading-relaxed max-w-[40rem] mx-auto">
           Мы предлагаем широкий спектр услуг по плетению и уходу за заплетенными волосами
         </p>
       </div>
@@ -479,8 +475,8 @@
   <section class="w-full bg-btn-dark py-16 desk:py-24 relative group/section text-white">
     <div class="page-col relative">
       <div class="text-center mb-8 px-4">
-        <h2 class="text-4xl desk:text-6xl font-display mb-4 tracking-tight text-white">Готовые комплекты</h2>
-        <p class="text-white/70 text-sm desk:text-base leading-relaxed max-w-2xl mx-auto">
+        <h2 class="text-[1.75rem] leading-8 desk:text-4xl font-display mb-4 tracking-tight text-white">Готовые комплекты</h2>
+        <p class="text-white/70 text-sm desk:text-base leading-relaxed max-w-[40rem] mx-auto">
           Изготавливаем самые разнообразные комплекты. <br> В наличии более 30 готовых к заплетению вариантов на любой вкус и стиль
         </p>
       </div>
@@ -552,7 +548,7 @@
   <!-- блок с фичами студии -->
   <section class="w-full bg-bg-primary py-16 desk:py-24">
     <div class="page-col px-4">
-      <h2 class="text-4xl desk:text-6xl font-display mb-8 desk:mb-12 text-center tracking-tight">Почему нас выбирают</h2>
+      <h2 class="text-[1.75rem] leading-8 desk:text-4xl font-display mb-8 desk:mb-12 text-center tracking-tight">Почему нас выбирают</h2>
       
       <div id="features-grid" class="why-list">
         <!-- сюда js нарендерит фичи -->
@@ -562,12 +558,12 @@
 
 <!-- блок факап... ой, фака -->
   <section class="w-full bg-bg-primary relative">
-    <div class="max-w-[1400px] mx-auto px-4">
+    <div class="max-w-[40rem] mx-auto px-4">
       <div class="text-center mb-6 desk:mb-8">
-        <h2 class="text-4xl desk:text-6xl font-display mb-4 tracking-tight text-text-primary">Вопросы и ответы</h2>
+        <h2 class="text-[1.75rem] leading-8 desk:text-4xl font-display mb-4 tracking-tight text-text-primary">Вопросы и ответы</h2>
       </div>
       
-      <div class="grid grid-cols-1 desk:grid-cols-2 gap-2 desk:gap-3 items-start">
+      <div class="grid grid-cols-1 gap-2 desk:gap-3 items-start">
         <!-- Левая колонка -->
         <div class="flex flex-col gap-2 desk:gap-3">
           <details class="group bg-transparent rounded-[20px] border border-black/5 overflow-hidden open:bg-white transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden">
@@ -648,16 +644,16 @@
 
   <!-- Заплетаясь у нас, вы получаете -->
   <section id="why-us" class="w-full py-16 desk:py-24 bg-bg-primary overflow-hidden">
-    <div class="max-w-[1400px] mx-auto px-4">
-      <h2 class="text-4xl desk:text-6xl font-display mb-6 desk:mb-8 tracking-tight text-center text-text-primary">Заплетаясь у нас, вы получаете&nbsp;—</h2>
+    <div class="max-w-[40rem] mx-auto px-4">
+      <h2 class="text-[1.75rem] leading-8 desk:text-4xl font-display mb-6 desk:mb-8 tracking-tight text-center text-text-primary">Заплетаясь у нас, вы получаете&nbsp;—</h2>
 
       <div class="w-full">
         <!-- Мобильная версия (зигзаг) -->
-        <div class="flex desk:hidden flex-col gap-10 -mx-4">
+        <div class="flex flex-col gap-10 -mx-4 desk:mx-0">
           <!-- Ряд 1: Фото (лево) + 4 Баббла (право) -->
           <div class="flex gap-4 items-stretch overflow-hidden">
             <div class="w-[45%] shrink-0">
-              <img src="img/studio/1.jpg" alt="Студия брейдинга «Коскина» в Омске: уютный интерьер" class="w-full h-full object-cover rounded-r-[32px] shadow-sm" loading="lazy" decoding="async" />
+              <img src="img/studio/1.jpg" alt="Студия брейдинга «Коскина» в Омске: уютный интерьер" class="w-full h-full object-cover rounded-r-[32px] desk:rounded-[32px] shadow-sm" loading="lazy" decoding="async" />
             </div>
             <div class="flex flex-col gap-2 justify-center items-start flex-grow pr-4">
               <div class="bg-white border border-black/5 rounded-[12px] px-3 py-2 text-sm text-text-primary leading-snug w-fit max-w-full [text-wrap:balance]" data-fit>
@@ -692,13 +688,13 @@
               </div>
             </div>
             <div class="w-[45%] shrink-0">
-              <img src="img/studio/2.jpg" alt="Студия брейдинга «Коскина» в Омске: рабочее место" class="w-full h-full object-cover rounded-l-[32px] shadow-sm" loading="lazy" decoding="async" />
+              <img src="img/studio/2.jpg" alt="Студия брейдинга «Коскина» в Омске: рабочее место" class="w-full h-full object-cover rounded-l-[32px] desk:rounded-[32px] shadow-sm" loading="lazy" decoding="async" />
             </div>
           </div>
         </div>
 
         <!-- Десктопная версия (динамическая высота фото под высоту баблов, без пустот) -->
-        <div class="hidden desk:flex flex-col gap-6">
+        <div class="hidden">
           <!-- Ряд 1: Фото (лево) + Бабблы (право) -->
           <div class="flex gap-6 items-stretch">
             <div class="w-[46%] relative rounded-[32px] overflow-hidden shrink-0">
@@ -756,22 +752,22 @@
 
   <!-- футер с контактами (внутри колонки page-col) -->
   <section id="contacts" class="page-col bg-btn-dark pt-16 pb-10 desk:pt-24 desk:pb-12 relative text-white rounded-t-[32px] desk:rounded-t-[48px]">
-    <div class="max-w-[1400px] mx-auto px-4 desk:px-8">
-      <h2 class="text-4xl desk:text-6xl font-display mb-4 tracking-tight text-white text-center">Контакты</h2>
-      <p class="text-white/70 text-sm desk:text-base text-center max-w-2xl mx-auto mb-8 desk:mb-12 px-4">
+    <div class="max-w-[40rem] mx-auto px-4">
+      <h2 class="text-[1.75rem] leading-8 desk:text-4xl font-display mb-4 tracking-tight text-white text-center">Контакты</h2>
+      <p class="text-white/70 text-sm desk:text-base text-center max-w-[40rem] mx-auto mb-8 desk:mb-12 px-4">
         Консультация бесплатна. Задать все интересующие вопросы и записаться можно любым удобным способом
       </p>
       
-      <div class="flex flex-col desk:flex-row gap-8 desk:gap-16 items-start">
+      <div class="flex flex-col gap-8 items-start">
         <!-- лого и кнопки для мобилы -->
-        <div class="w-full desk:w-1/4 flex flex-row desk:flex-col gap-4 desk:gap-6 items-start">
+        <div class="w-full flex flex-row gap-4 items-start">
           <!-- лого студии -->
-          <div class="w-20 h-20 desk:w-full desk:h-auto shrink-0">
+          <div class="w-20 h-20 shrink-0">
             <img src="img/logo.png" alt="Логотип студии «Коскина»" class="w-full h-full desk:aspect-auto rounded-xl desk:rounded-[40px] object-contain" loading="lazy" decoding="async" />
           </div>
           
           <!-- кнопки связи для узких экранов -->
-          <div class="flex flex-wrap gap-2 desk:hidden flex-grow pt-1">
+          <div class="flex flex-wrap gap-2 flex-grow pt-1">
             <a href="https://t.me/koski_na" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-full bg-white/10 text-white text-sm font-medium no-underline whitespace-nowrap hover:bg-accent-orange active:bg-accent-orange transition-colors w-fit">
               Telegram
             </a>
@@ -788,9 +784,9 @@
         </div>
         
         <!-- основная инфа по контактам -->
-        <div class="flex-grow flex flex-col justify-center py-2 desk:py-4">
+        <div class="flex-grow flex flex-col justify-center py-2 w-full">
           <!-- баблы с контактами в две строки на десктопе, динамической ширины по тексту -->
-          <div class="hidden desk:flex flex-col gap-3 mb-10 items-start">
+          <div class="hidden">
             <div class="flex flex-wrap gap-3 items-center">
               <a href="tel:+79006725456" class="inline-flex w-fit items-center justify-center px-7 py-3.5 rounded-full bg-white/10 hover:bg-accent-orange active:bg-accent-orange transition-colors text-white text-base font-medium no-underline whitespace-nowrap">
                 +7 900 672 54 56
