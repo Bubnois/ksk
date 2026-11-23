@@ -170,6 +170,13 @@ a{color:inherit}
 .ct-d{display:flex;flex-direction:column;gap:.75rem;margin-bottom:2.5rem;align-items:flex-start}.ct-d div{display:flex;flex-wrap:wrap;gap:.75rem}
 .ct a.bub{padding:.875rem 1.75rem;font-size:1rem}.ct-r{padding:1rem 0}.ct-i{gap:1.25rem}.ct-i .material-icons{font-size:1.875rem}.ct-i a,.ct-i p{font-size:1.25rem}.fine{margin-top:6rem}
 }
+@media(min-width:1100px){
+.why-list.multi{display:grid;grid-template-columns:1fr 1fr;gap:4rem 3rem;max-width:none;align-items:start}
+.why-list.multi .why-item:nth-child(even) .why-media{aspect-ratio:4/5}
+.blk-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem 3rem;align-items:start;margin-top:5rem}
+.blk-grid>.blk{margin-top:0}
+.blk-grid .bh{font-size:2.25rem;line-height:2.5rem;min-height:5rem;display:flex;align-items:center;justify-content:center;margin-bottom:2rem}
+}
 @media(prefers-reduced-motion:reduce){.ttl path{animation:none;stroke-dashoffset:0}*{scroll-behavior:auto!important}}
 @keyframes dl{to{stroke-dashoffset:0}}
 @media(min-width:1024px){.hdr-c{display:block;font-size:.8125rem}.hr{gap:1.5rem}.ttl svg{width:850px}}
@@ -185,18 +192,22 @@ a{color:inherit}
 .pr .pl{font:700 .625rem/1 Inter,sans-serif;text-transform:uppercase;letter-spacing:.05em;color:var(--tx2)}
 .pr .pv{font:700 1.25rem/1.2 Inter,sans-serif;color:var(--tx);white-space:nowrap}
 @media(min-width:768px){.pr{padding:0 1.5rem}.pr .pv{font-size:1.5rem}}
-/* единая ширина: одна колонка, как на мобилке; карусель-чипы не шире колонки */
-.chips{max-width:36rem;margin:0 auto}
-/* отдельные страницы услуг: одна колонка 34rem на любой ширине, как на мобилке */
-.intro>p{max-width:34rem}
-.chips{max-width:36rem;margin:0 auto;padding:0 1rem .5rem}
+@media(min-width:1100px){.blk:has(.why-list.multi) .pr{max-width:none}}
+/* коса в заголовке: линия не толще ~4px на любой ширине, запас сверху, чтобы волна не обрезалась */
+.ttl svg{overflow:visible}
+.intro{padding-top:2.5rem;margin-top:.5rem}
+@media(min-width:768px){.intro{margin-top:2.5rem}.ttl path{stroke-width:4.5px}}
+@media(min-width:1024px){.ttl path{stroke-width:3px}}
+@media(min-width:1280px){.ttl path{stroke-width:2.6px}}
+/* отдельные страницы услуг: ширина блоков = ширине шапки и футера (колонка .col) */
 .chips a.cur{background:var(--dark);pointer-events:none}
-.facts{max-width:34rem;margin:0 auto;padding:0;display:grid;gap:.5rem}
+.facts{display:grid;gap:.5rem}
 .facts div{background:#fff;border:1px solid rgba(0,0,0,.05);border-radius:20px;padding:.875rem 1.25rem}
 .facts dt{font:700 .625rem/1 Inter,sans-serif;text-transform:uppercase;letter-spacing:.05em;color:var(--tx2);margin:0 0 .4rem}
 .facts dd{margin:0;font-size:.875rem;line-height:1.625;color:var(--tx)}
-/* FAQ как на главной */
-.faq{max-width:34rem;margin:0 auto;display:flex;flex-direction:column;gap:.5rem}
+/* FAQ как на главной: две колонки на широком экране, каждая раскрывается независимо */
+.faq{display:grid;grid-template-columns:1fr;gap:.5rem;align-items:start}
+.faq>div{display:flex;flex-direction:column;gap:.5rem}
 .faq details{border:1px solid rgba(0,0,0,.05);border-radius:20px;overflow:hidden;background:transparent;transition:background-color .3s}
 .faq details[open]{background:#fff}
 .faq summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.875rem 1.25rem;cursor:pointer;font:500 1rem/1.4 Inter,sans-serif;color:var(--tx);list-style:none;user-select:none;-webkit-user-select:none}
@@ -206,9 +217,20 @@ a{color:inherit}
 .faq .a{padding:0 1.25rem 1rem;color:var(--tx2);font-size:.875rem;line-height:1.625}
 .faq .a p{margin:0}
 .back.two{display:flex;flex-wrap:wrap;justify-content:center;gap:.75rem;padding:0 1rem}
+/* цена внутри текстового столбца одиночного блока */
+.why-desc .pr{max-width:none;margin:1.25rem 0 0;padding:0}
 @media(min-width:768px){
+.facts{grid-template-columns:1fr 1fr;gap:.75rem}
 .facts div{padding:1rem 1.5rem}.facts dd{font-size:1rem}
-.faq{gap:.75rem}.faq summary{padding:1rem 1.5rem;font-size:1.125rem}.faq .a{padding:0 1.5rem 1.25rem;font-size:1rem}}
+.facts div:last-child:nth-child(odd){grid-column:1/-1}
+.faq,.faq>div{gap:.75rem}
+.faq summary{padding:1rem 1.5rem;font-size:1.125rem}.faq .a{padding:0 1.5rem 1.25rem;font-size:1rem}
+/* одиночный блок: фото слева, текст справа, во всю ширину колонки */
+.why-list:not(.multi){max-width:none;gap:3rem}
+.why-list:not(.multi) .why-item{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:2.5rem;align-items:center}
+.why-list:not(.multi) .why-desc{padding:0}
+}
+@media(min-width:1100px){.faq{grid-template-columns:1fr 1fr}}
 </style>
   <!-- Яндекс Метрика: один счётчик на обе страницы; цель — клики по телефону -->
   <script>
@@ -247,7 +269,7 @@ a{color:inherit}
 
 <div class="intro">
   <h1 class="ttl">
-    <span class="ln">Сфинкс<span class="ar" aria-hidden="true"><svg viewBox="0 0 600 100" fill="none"><path d="M0 50 C 50 50, 100 80, 150 80 C 200 80, 250 20, 300 20 C 350 20, 400 80, 450 80 C 500 80, 550 20, 600 20" stroke="#1A1A1A" stroke-width="6" stroke-linecap="round"/></svg></span></span>
+    <span class="ln"><span class="al" aria-hidden="true"><svg viewBox="0 0 600 100" fill="none"><path d="M600 50 C 550 50, 500 20, 450 20 C 400 20, 350 80, 300 80 C 250 80, 200 20, 150 20 C 100 20, 50 80, 0 80" stroke="#1A1A1A" stroke-width="6" stroke-linecap="round"/></svg></span>Сфинкс<span class="ar" aria-hidden="true"><svg viewBox="0 0 600 100" fill="none"><path d="M0 50 C 50 50, 100 80, 150 80 C 200 80, 250 20, 300 20 C 350 20, 400 80, 450 80 C 500 80, 550 20, 600 20" stroke="#1A1A1A" stroke-width="6" stroke-linecap="round"/></svg></span></span>
   </h1>
   <p>Брейды на макушке и висках и точечное плетение на затылке: все волосы аккуратно убраны назад и не мешают у лица.</p>
 </div>
@@ -259,18 +281,17 @@ a{color:inherit}
 <div class="why-list">
 <article class="why-item nn rev" data-folder="img/sphinx" data-n="6" style="--nw:44%">
 <div class="why-media"><div class="why-img"><img src="img/sphinx/1.jpg" alt="Сфинкс — студия брейдинга «Коскина», Омск" loading="lazy"></div></div>
-<div class="why-desc"><p>Комбинированная прическа, состоящая из брейдов на макушке и висках и точечного плетения на затылке. Затылок можно заплести в косы или дреды разных фактур, в зависимости от того, какого эффекта хочется достичь и какой нужен объём.</p></div>
+<div class="why-desc"><p>Комбинированная прическа, состоящая из брейдов на макушке и висках и точечного плетения на затылке. Затылок можно заплести в косы или дреды разных фактур, в зависимости от того, какого эффекта хочется достичь и какой нужен объём.</p><div class="pr"><span class="pl">Стоимость</span><span class="pv">от&nbsp;7&nbsp;500&nbsp;.-</span></div></div>
 </article>
 </div>
-<div class="pr"><span class="pl">Стоимость</span><span class="pv">от&nbsp;7&nbsp;500&nbsp;.-</span></div>
 </section>
 <section class="blk" id="kratko">
 <h2 class="bh">Коротко</h2>
-<dl class="facts"><div><dt>Как ещё называют</dt><dd>Брейды на макушке и косы на затылке, брейды с дредами на затылке, комбинированная причёска.</dd></div><div><dt>Срок носки</dt><dd>Затылок, заплетённый точечно, можно носить до 6 недель, а брейды на макушке — от 2 до 4 недель, в зависимости от выбранного узора.</dd></div><div><dt>Один набор — два образа</dt><dd>В середине срока носки брейды можно переплести, сменив рисунок на новый, или просто расплести и походить с частичным заплетением на затылке.</dd></div><div><dt>Что можно выбрать</dt><dd>Цвет кос, их длина и узор из брейдов могут быть любыми. Затылок можно заплести в косы, дреды или локоны.</dd></div></dl>
+<dl class="facts"><div><dt>Срок носки</dt><dd>Затылок, заплетённый точечно, можно носить до 6 недель, а брейды на макушке — от 2 до 4 недель, в зависимости от выбранного узора.</dd></div><div><dt>Один набор — два образа</dt><dd>В середине срока носки брейды можно переплести, сменив рисунок на новый, или просто расплести и походить с частичным заплетением на затылке.</dd></div><div><dt>Что можно выбрать</dt><dd>Цвет кос, их длина и узор из брейдов могут быть любыми. Затылок можно заплести в косы, дреды или локоны.</dd></div><div><dt>Как ещё называют</dt><dd>Брейды на макушке и косы на затылке, брейды с дредами на затылке, комбинированная причёска.</dd></div></dl>
 </section>
 <section class="blk" id="faq">
 <h2 class="bh">Вопросы и ответы</h2>
-<div class="faq"><details><summary>Как мыть голову с такой прической?<span aria-hidden="true" class="material-icons">expand_more</span></summary><div class="a"><p>Так же, как обычно: шампунем, руками и водой. Подойдёт обычный очищающий шампунь без бальзамов и кондиционеров. Его обязательно разводят водой и поливают кожу головы мыльным раствором. Ещё удобнее специальная пенка для заплетённых волос: нанести на кожу головы, подождать 2–3 минуты и тщательно смыть. Массировать нужно подушечками пальцев, не ногтями, а смывать — очень тщательно. Мыть голову рекомендуем 1 раз в 7–10 дней. Концы кос можно завернуть в полотенце, а вот фен выбивает короткие волоски из плетения.</p></div></details><details><summary>Как долго сохнет прическа?<span aria-hidden="true" class="material-icons">expand_more</span></summary><div class="a"><p>В точечном плетении ориентировочно 2–8 часов. Быстрее высыхают воздушные фактуры (локоны, распущенные концы, руно дреды), дольше — плотные (гладкие и крючковые дреды). Ещё влияют длина и густота своих волос и климат в помещении. В первый раз мыть голову лучше утром в выходной день.</p></div></details><details><summary>Как сохранить причёску аккуратной до конца срока?<span aria-hidden="true" class="material-icons">expand_more</span></summary><div class="a"><p>Спустя 2–3 недели плетение у лица может потерять опрятность, хотя сам комплект выглядит хорошо. Это исправляет коррекция краевой линии: мы заново заплетаем первый ряд на лбу и висках, около 30 минут. Срок носки она не продлевает, но сохраняет аккуратный вид до самого снятия.</p></div></details><details><summary>Как записаться?<span aria-hidden="true" class="material-icons">expand_more</span></summary><div class="a"><p>Напишите нам любым удобным способом. Для быстрого и полного ответа укажите срок, к которому хочется быть с причёской, приложите примеры желаемого результата (можно несколько фото: где-то понравилась длина, где-то цвет, фактура, общий объём, детали) и фото ваших волос в распущенном виде. Расскажите и о других особенностях, например, о необходимости надевать шлем или часто мыть голову. Мы сориентируем по стоимости и ближайшим свободным окнам. Бронь даты и материала осуществляется по предоплате.</p></div></details></div>
+<div class="faq"><div><details><summary>Как мыть голову с такой прической?<span aria-hidden="true" class="material-icons">expand_more</span></summary><div class="a"><p>Так же, как обычно: шампунем, руками и водой. Подойдёт обычный очищающий шампунь без бальзамов и кондиционеров. Его обязательно разводят водой и поливают кожу головы мыльным раствором. Ещё удобнее специальная пенка для заплетённых волос: нанести на кожу головы, подождать 2–3 минуты и тщательно смыть. Массировать нужно подушечками пальцев, не ногтями, а смывать — очень тщательно. Мыть голову рекомендуем 1 раз в 7–10 дней. Концы кос можно завернуть в полотенце, а вот фен выбивает короткие волоски из плетения.</p></div></details><details><summary>Как долго сохнет прическа?<span aria-hidden="true" class="material-icons">expand_more</span></summary><div class="a"><p>В точечном плетении ориентировочно 2–8 часов. Быстрее высыхают воздушные фактуры (локоны, распущенные концы, руно дреды), дольше — плотные (гладкие и крючковые дреды). Ещё влияют длина и густота своих волос и климат в помещении. В первый раз мыть голову лучше утром в выходной день.</p></div></details></div><div><details><summary>Как сохранить причёску аккуратной до конца срока?<span aria-hidden="true" class="material-icons">expand_more</span></summary><div class="a"><p>Спустя 2–3 недели плетение у лица может потерять опрятность, хотя сам комплект выглядит хорошо. Это исправляет коррекция краевой линии: мы заново заплетаем первый ряд на лбу и висках, около 30 минут. Срок носки она не продлевает, но сохраняет аккуратный вид до самого снятия.</p></div></details><details><summary>Как записаться?<span aria-hidden="true" class="material-icons">expand_more</span></summary><div class="a"><p>Напишите нам любым удобным способом. Для быстрого и полного ответа укажите срок, к которому хочется быть с причёской, приложите примеры желаемого результата (можно несколько фото: где-то понравилась длина, где-то цвет, фактура, общий объём, детали) и фото ваших волос в распущенном виде. Расскажите и о других особенностях, например, о необходимости надевать шлем или часто мыть голову. Мы сориентируем по стоимости и ближайшим свободным окнам. Бронь даты и материала осуществляется по предоплате.</p></div></details></div></div>
 </section>
   <div class="back two"><a href="услуги.html" class="pill">Все виды плетения</a><a href="/" class="pill">На главную</a></div>
 </main>
